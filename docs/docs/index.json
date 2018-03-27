@@ -1,0 +1,211 @@
+[
+{
+	"uri": "/docs/basics/",
+	"title": "Basics",
+	"tags": [],
+	"description": "",
+	"content": " Chapter 1 Basics Discover what this Hugo theme is all about and the core-concepts behind it.\n"
+},
+{
+	"uri": "/docs/basics/requirements/",
+	"title": "Requirements",
+	"tags": [],
+	"description": "",
+	"content": "Thanks to the simplicity of Hugo, this page is as empty as this theme needs requirements.\nJust download latest version of Hugo binary (\u0026gt; 0.25) for your OS (Windows, Linux, Mac) : it\u0026rsquo;s that simple.\n"
+},
+{
+	"uri": "/docs/shortcodes/",
+	"title": "Shortcodes",
+	"tags": [],
+	"description": "",
+	"content": "Hugo uses Markdown for its simple content format. However, there are a lot of things that Markdown doesn’t support well. You could use pure HTML to expand possibilities.\nBut this happens to be a bad idea. Everyone uses Markdown because it\u0026rsquo;s pure and simple to read even non-rendered. You should avoid HTML to keep it as simple as possible.\nTo avoid this limitations, Hugo created shortcodes. A shortcode is a simple snippet inside a page.\nHugo-theme-learn provides multiple shortcodes on top of existing ones.\n Attachments  The Attachments shortcode displays a list of files attached to a page.\n Button  Nice buttons on your page.\n Children  List the child pages of a page\n Expand  Displays an expandable/collapsible section of text on your page\n Mermaid  Generation of diagram and flowchart from text in a similar manner as markdown\n Notice  Disclaimers to help you structure your page\n Site param  Get value of site params variables in your page.\n "
+},
+{
+	"uri": "/docs/basics/installation/",
+	"title": "Installation",
+	"tags": [],
+	"description": "",
+	"content": " The following steps are here to help you initialize your new website. If you don\u0026rsquo;t know Hugo at all, we strongly suggest you to train by following this great documentation for beginners.\nCreate your project Hugo provides a new command to create a new website.\nhugo new site \u0026lt;new_project\u0026gt;  Install the theme Install the Hugo-theme-learn theme by following this documentation\nThe theme\u0026rsquo;s repository is: https://github.com/matcornic/hugo-theme-learn.git\nAlternatively, you can download the theme as .zip file and extract it in the themes directory\nBasic configuration When building the website, you can set a theme by using --theme option. We suggest you to edit your configuration file and set the theme by default. By the way, add requirements for search functionnality to be enabled.\n# Change the default theme to be use when building the site with Hugo theme = \u0026quot;hugo-theme-learn\u0026quot; # For search functionnality [outputs] home = [ \u0026quot;HTML\u0026quot;, \u0026quot;RSS\u0026quot;, \u0026quot;JSON\u0026quot;]  Create your first chapter page Chapters are pages containg other child pages. It has a special layout style and usually just contains a chapter name, the title and a brief abstract of the section.\n### Chapter 1 # Basics Discover what this Hugo theme is all about and the core-concepts behind it.  renders as\nHugo-theme-learn provides archetypes to create skeletons for your website. Begin by creating your first chapter page with the following command\nhugo new --kind chapter basics/_index.md  By opening the given file, you should see the property chapter=true on top, meaning this page is a chapter.\nBy default all chapters and pages are created as draft. If you want to render these pages, remove the property draft: true from the metadata.\nCreate your first content pages Then, create content pages inside the previous chapter. Here are two ways to create content in the chapter :\nhugo new basics/first-content.md hugo new basics/second-content/_index.md  Feel free to edit thoses files by adding some sample content and replacing title value in the beginning of the files.\nLaunching the website locally Launch the following command:\nhugo serve  Go to http://localhost:1313\nYou should notice three things:\n You have a left Basics menu, containing two submenus with names equals to title properties in previously created files. The home page explains you to how to customize it. Follow the instructions. With hugo serve command, the page refresh as soon as you save a file. Neat !  Build the website When your site is ready to deploy, launch the following command:\nhugo  A public folder has been generated, containing all statics content and assets for your website. It can now be deployed on any web server !\nThis website can be automatically published and hosted with Netlify (Read more about Automated HUGO deployments with Netlify). Alternatively, you can use Github pages\n "
+},
+{
+	"uri": "/docs/basics/configuration/",
+	"title": "Configuration",
+	"tags": [],
+	"description": "",
+	"content": " Global site parameters On top of Hugo global configuration, Hugo-theme-learn lets you define the following parameters in your config.toml (here, values are default).\nNote that some of these parameters are explained in details in other sections of this documentation.\n[params] # Prefix URL to edit current page. Will display an \u0026quot;Edit this page\u0026quot; button on top right hand corner of every page. # Useful to give opportunity to people to create merge request for your doc. # See the config.toml file from this documentation site to have an example. editURL = \u0026quot;\u0026quot; # Author of the site, will be used in meta information author = \u0026quot;\u0026quot; # Description of the site, will be used in meta information description = \u0026quot;\u0026quot; # Shows a checkmark for visited pages on the menu showVisitedLinks = false # Disable search function. It will hide search bar disableSearch = false # Javascript and CSS cache are automatically busted when new version of site is generated. # Set this to true to disable this behavior (some proxies don't handle well this optimization) disableAssetsBusting = false # Set this to true to disable copy-to-clipboard button for inline code. disableInlineCopyToClipBoard = false # A title for shortcuts in menu is set by default. Set this to true to disable it. disableShortcutsTitle = false # When using mulitlingual website, disable the switch language button. disableLanguageSwitchingButton = false # Order sections in menu by \u0026quot;weight\u0026quot; or \u0026quot;title\u0026quot;. Default to \u0026quot;weight\u0026quot; ordersectionsby = \u0026quot;weight\u0026quot; # Change default color scheme with a variant one. Can be \u0026quot;red\u0026quot;, \u0026quot;blue\u0026quot;, \u0026quot;green\u0026quot;. themeVariant = \u0026quot;\u0026quot;  Activate search If not already present, add the follow lines in the same config.toml file.\n[outputs] home = [ \u0026quot;HTML\u0026quot;, \u0026quot;RSS\u0026quot;, \u0026quot;JSON\u0026quot;]  Learn theme uses the last improvement available in hugo version 20+ to generate a json index file ready to be consumed by lunr.js javascript search engine.\n Hugo generate lunrjs index.json at the root of public folder. When you build the site with hugo server, hugo generates it internally and of course it doesn’t show up in the filesystem\n "
+},
+{
+	"uri": "/docs/cloudstack/install/",
+	"title": "Configuration",
+	"tags": [],
+	"description": "",
+	"content": " Global site parameters On top of Hugo global configuration, Hugo-theme-learn lets you define the following parameters in your config.toml (here, values are default).\nNote that some of these parameters are explained in details in other sections of this documentation.\n[params] # Prefix URL to edit current page. Will display an \u0026quot;Edit this page\u0026quot; button on top right hand corner of every page. # Useful to give opportunity to people to create merge request for your doc. # See the config.toml file from this documentation site to have an example. editURL = \u0026quot;\u0026quot; # Author of the site, will be used in meta information author = \u0026quot;\u0026quot; # Description of the site, will be used in meta information description = \u0026quot;\u0026quot; # Shows a checkmark for visited pages on the menu showVisitedLinks = false # Disable search function. It will hide search bar disableSearch = false # Javascript and CSS cache are automatically busted when new version of site is generated. # Set this to true to disable this behavior (some proxies don't handle well this optimization) disableAssetsBusting = false # Set this to true to disable copy-to-clipboard button for inline code. disableInlineCopyToClipBoard = false # A title for shortcuts in menu is set by default. Set this to true to disable it. disableShortcutsTitle = false # When using mulitlingual website, disable the switch language button. disableLanguageSwitchingButton = false # Order sections in menu by \u0026quot;weight\u0026quot; or \u0026quot;title\u0026quot;. Default to \u0026quot;weight\u0026quot; ordersectionsby = \u0026quot;weight\u0026quot; # Change default color scheme with a variant one. Can be \u0026quot;red\u0026quot;, \u0026quot;blue\u0026quot;, \u0026quot;green\u0026quot;. themeVariant = \u0026quot;\u0026quot;  Activate search If not already present, add the follow lines in the same config.toml file.\n[outputs] home = [ \u0026quot;HTML\u0026quot;, \u0026quot;RSS\u0026quot;, \u0026quot;JSON\u0026quot;]  Learn theme uses the last improvement available in hugo version 20+ to generate a json index file ready to be consumed by lunr.js javascript search engine.\n Hugo generate lunrjs index.json at the root of public folder. When you build the site with hugo server, hugo generates it internally and of course it doesn’t show up in the filesystem\n "
+},
+{
+	"uri": "/docs/basics/style-customization/",
+	"title": "Style customization",
+	"tags": [],
+	"description": "",
+	"content": " Hugo-theme-learn has been built to be as configurable as possible by defining multiple partials\nIn themes/hugo-theme-learn/layouts/partials/, you will find all the partials defined for this theme. If you need to overwrite something, don\u0026rsquo;t change the code directly. Instead follow this page. You\u0026rsquo;d create a new partial in the layouts/partials folder of your local project. This partial will have the priority.\nThis theme defines the following partials :\n header: the header of the content page (contains the breadcrumbs). Not meant to be overwritten custom-header: custom headers in page. Meant to be overwritten when adding CSS imports. Don\u0026rsquo;t forget to include style HTML tag directive in your file footer: the footer of the content page (contains the arrows). Not meant to be overwritten custom-footer: custom footer in page. Meant to be overwritten when adding Javacript. Don\u0026rsquo;t forget to include javascript HTML tag directive in your file favicon: the favicon logo: the logo, on top left hand corner. meta: HTML meta tags, if you want to change default behavior menu: left menu. Not meant to be overwritten menu-footer: footer of the the left menu search: search box toc: table of contents  Change the logo Create a new file in layouts/partials/ named logo.html. Then write any HTML you want. You could use an img HTML tag and reference an image created under the static folder, or you could paste a SVG definition !\nThe size of the logo will adapt automatically\n Change the favicon If your favicon is a png, just drop off your image in your local static/images/ folder and names it favicon.png\nIf you need to change this default behavior, create a new file in layouts/partials/ named favicon.html. Then write something like this:\n\u0026lt;link rel=\u0026quot;shortcut icon\u0026quot; href=\u0026quot;/images/favicon.png\u0026quot; type=\u0026quot;image/x-icon\u0026quot; /\u0026gt;  Change default colors Hugo Learn theme let you choose between 3 native color scheme variants, but feel free to add one yourself ! Default color scheme is based on Grav Learn Theme.\nRed variant [params] # Change default color scheme with a variant one. Can be \u0026quot;red\u0026quot;, \u0026quot;blue\u0026quot;, \u0026quot;green\u0026quot;. themeVariant = \u0026quot;red\u0026quot;  Blue variant [params] # Change default color scheme with a variant one. Can be \u0026quot;red\u0026quot;, \u0026quot;blue\u0026quot;, \u0026quot;green\u0026quot;. themeVariant = \u0026quot;blue\u0026quot;  Green variant [params] # Change default color scheme with a variant one. Can be \u0026quot;red\u0026quot;, \u0026quot;blue\u0026quot;, \u0026quot;green\u0026quot;. themeVariant = \u0026quot;green\u0026quot;  \u0026lsquo;Yours‘ variant First, create a new CSS file in your local static/css folder prefixed by theme (e.g. with mine theme static/css/theme-mine.css). Copy the following content and modify colors in CSS variables.\n:root{ --MAIN-TEXT-color:#323232; /* Color of text by default */ --MAIN-TITLES-TEXT-color: #5e5e5e; /* Color of titles h2-h3-h4-h5 */ --MAIN-LINK-color:#1C90F3; /* Color of links */ --MAIN-LINK-HOVER-color:#167ad0; /* Color of hovered links */ --MAIN-ANCHOR-color: #1C90F3; /* color of anchors on titles */ --MENU-HEADER-BG-color:#1C90F3; /* Background color of menu header */ --MENU-HEADER-BORDER-color:#33a1ff; /*Color of menu header border */ --MENU-SEARCH-BG-color:#167ad0; /* Search field background color (by default borders + icons) */ --MENU-SEARCH-BOX-color: #33a1ff; /* Override search field border color */ --MENU-SEARCH-BOX-ICONS-color: #a1d2fd; /* Override search field icons color */ --MENU-SECTIONS-ACTIVE-BG-color:#20272b; /* Background color of the active section and its childs */ --MENU-SECTIONS-BG-color:#252c31; /* Background color of other sections */ --MENU-SECTIONS-LINK-color: #ccc; /* Color of links in menu */ --MENU-SECTIONS-LINK-HOVER-color: #e6e6e6; /* Color of links in menu, when hovered */ --MENU-SECTION-ACTIVE-CATEGORY-color: #777; /* Color of active category text */ --MENU-SECTION-ACTIVE-CATEGORY-BG-color: #fff; /* Color of background for the active category (only) */ --MENU-VISITED-color: #33a1ff; /* Color of 'page visited' icons in menu */ --MENU-SECTION-HR-color: #20272b; /* Color of \u0026lt;hr\u0026gt; separator in menu */ } body { color: var(--MAIN-TEXT-color) !important; } textarea:focus, input[type=\u0026quot;email\u0026quot;]:focus, input[type=\u0026quot;number\u0026quot;]:focus, input[type=\u0026quot;password\u0026quot;]:focus, input[type=\u0026quot;search\u0026quot;]:focus, input[type=\u0026quot;tel\u0026quot;]:focus, input[type=\u0026quot;text\u0026quot;]:focus, input[type=\u0026quot;url\u0026quot;]:focus, input[type=\u0026quot;color\u0026quot;]:focus, input[type=\u0026quot;date\u0026quot;]:focus, input[type=\u0026quot;datetime\u0026quot;]:focus, input[type=\u0026quot;datetime-local\u0026quot;]:focus, input[type=\u0026quot;month\u0026quot;]:focus, input[type=\u0026quot;time\u0026quot;]:focus, input[type=\u0026quot;week\u0026quot;]:focus, select[multiple=multiple]:focus { border-color: none; box-shadow: none; } h2, h3, h4, h5 { color: var(--MAIN-TITLES-TEXT-color) !important; } a { color: var(--MAIN-LINK-color); } .anchor { color: var(--MAIN-ANCHOR-color); } a:hover { color: var(--MAIN-LINK-HOVER-color); } #sidebar ul li.visited \u0026gt; a .read-icon { color: var(--MENU-VISITED-color); } #body a.highlight:after { display: block; content: \u0026quot;\u0026quot;; height: 1px; width: 0%; -webkit-transition: width 0.5s ease; -moz-transition: width 0.5s ease; -ms-transition: width 0.5s ease; transition: width 0.5s ease; background-color: var(--MAIN-LINK-HOVER-color); } #sidebar { background-color: var(--MENU-SECTIONS-BG-color); } #sidebar #header-wrapper { background: var(--MENU-HEADER-BG-color); color: var(--MENU-SEARCH-BOX-color); border-color: var(--MENU-HEADER-BORDER-color); } #sidebar .searchbox { border-color: var(--MENU-SEARCH-BOX-color); background: var(--MENU-SEARCH-BG-color); } #sidebar ul.topics \u0026gt; li.parent, #sidebar ul.topics \u0026gt; li.active { background: var(--MENU-SECTIONS-ACTIVE-BG-color); } #sidebar .searchbox * { color: var(--MENU-SEARCH-BOX-ICONS-color); } #sidebar a { color: var(--MENU-SECTIONS-LINK-color); } #sidebar a:hover { color: var(--MENU-SECTIONS-LINK-HOVER-color); } #sidebar ul li.active \u0026gt; a { background: var(--MENU-SECTION-ACTIVE-CATEGORY-BG-color); color: var(--MENU-SECTION-ACTIVE-CATEGORY-color) !important; } #sidebar hr { border-color: var(--MENU-SECTION-HR-color); }  Then, set the themeVariant value with the name of your custom theme file. That\u0026rsquo;s it !\n[params] # Change default color scheme with a variant one. Can be \u0026quot;red\u0026quot;, \u0026quot;blue\u0026quot;, \u0026quot;green\u0026quot;. themeVariant = \u0026quot;mine\u0026quot;  "
+},
+{
+	"uri": "/docs/cloudstack/",
+	"title": "cloudstack basic",
+	"tags": [],
+	"description": "",
+	"content": " Chapter 4 cloudstack 简单网络模式安装 cloudstack 简单网络模式\n"
+},
+{
+	"uri": "/docs/shortcodes/attachments/",
+	"title": "Attachments",
+	"tags": [],
+	"description": "The Attachments shortcode displays a list of files attached to a page.",
+	"content": " The Attachments shortcode displays a list of files attached to a page.\n  Attachments   BachGavotteShort.mp3  (357 ko)   Carroll_AliceAuPaysDesMerveilles.pdf  (175 ko)   adivorciarsetoca00cape.pdf  (361 ko)   hugo.png  (17 ko)   movieselectricsheep-flock-244-32500-2.mp4  (340 ko)    Usage The shortcurt lists files found in a specific folder. Currently, it support two implementations for pages\n If your page is a markdown file, attachements must be place in a folder named like your page and ending with .files.\n  content  _index.md page.files  attachment.pdf  page.md    If your page is a folder, attachements must be place in a nested \u0026lsquo;files\u0026rsquo; folder.\n  content  _index.md page  index.md files  attachment.pdf       Be aware that if you use a multilingual website, you will need to have as many folders as languages.\nThat\u0026rsquo;s all !\nParameters    Parameter Default Description     title \u0026ldquo;Attachments\u0026rdquo; List\u0026rsquo;s title   style \u0026rdquo;\u0026rdquo; Choose between \u0026ldquo;orange\u0026rdquo;, \u0026ldquo;grey\u0026rdquo;, \u0026ldquo;blue\u0026rdquo; and \u0026ldquo;green\u0026rdquo; for nice style   pattern \u0026rdquo;.*\u0026rdquo; A regular expressions, used to filter the attachments by file name. The pattern parameter value must be regular expressions.    For example:\n To match a file suffix of \u0026lsquo;jpg\u0026rsquo;, use .*jpg (not *.jpg). To match file names ending in \u0026lsquo;jpg\u0026rsquo; or \u0026lsquo;png\u0026rsquo;, use .*(jpg|png)  Examples List of attachments ending in pdf or mp4 {{%attachments title=\u0026quot;Related files\u0026quot; pattern=\u0026quot;.*(pdf|mp4)\u0026quot;/%}}  renders as\n  Related files   Carroll_AliceAuPaysDesMerveilles.pdf  (175 ko)   adivorciarsetoca00cape.pdf  (361 ko)   movieselectricsheep-flock-244-32500-2.mp4  (340 ko)    Colored styled box {{%attachments style=\u0026quot;orange\u0026quot; /%}}  renders as\n  Attachments   BachGavotteShort.mp3  (357 ko)   Carroll_AliceAuPaysDesMerveilles.pdf  (175 ko)   adivorciarsetoca00cape.pdf  (361 ko)   hugo.png  (17 ko)   movieselectricsheep-flock-244-32500-2.mp4  (340 ko)    {{%attachments style=\u0026quot;grey\u0026quot; /%}}  renders as\n  Attachments   BachGavotteShort.mp3  (357 ko)   Carroll_AliceAuPaysDesMerveilles.pdf  (175 ko)   adivorciarsetoca00cape.pdf  (361 ko)   hugo.png  (17 ko)   movieselectricsheep-flock-244-32500-2.mp4  (340 ko)    {{%attachments style=\u0026quot;blue\u0026quot; /%}}  renders as\n  Attachments   BachGavotteShort.mp3  (357 ko)   Carroll_AliceAuPaysDesMerveilles.pdf  (175 ko)   adivorciarsetoca00cape.pdf  (361 ko)   hugo.png  (17 ko)   movieselectricsheep-flock-244-32500-2.mp4  (340 ko)    {{%attachments style=\u0026quot;green\u0026quot; /%}}  renders as\n  Attachments   BachGavotteShort.mp3  (357 ko)   Carroll_AliceAuPaysDesMerveilles.pdf  (175 ko)   adivorciarsetoca00cape.pdf  (361 ko)   hugo.png  (17 ko)   movieselectricsheep-flock-244-32500-2.mp4  (340 ko)    "
+},
+{
+	"uri": "/docs/shortcodes/button/",
+	"title": "Button",
+	"tags": [],
+	"description": "Nice buttons on your page.",
+	"content": "A button is a just a clickable button with optional icon.\n{{% button href=\u0026quot;https://getgrav.org/\u0026quot; %}}Get Grav{{% /button %}} {{% button href=\u0026quot;https://getgrav.org/\u0026quot; icon=\u0026quot;fa fa-download\u0026quot; %}}Get Grav with icon{{% /button %}} {{% button href=\u0026quot;https://getgrav.org/\u0026quot; icon=\u0026quot;fa fa-download\u0026quot; icon-position=\u0026quot;right\u0026quot; %}}Get Grav with icon right{{% /button %}}  Get Grav   Get Grav with icon  Get Grav with icon right   "
+},
+{
+	"uri": "/docs/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/docs/shortcodes/children/",
+	"title": "Children",
+	"tags": [],
+	"description": "List the child pages of a page",
+	"content": " Use the children shortcode to list the child pages of a page and the further descendants (children\u0026rsquo;s children). By default, the shortcode displays links to the child pages.\nUsage    Parameter Default Description     page current Specify the page name (section name) to display children for   style \u0026ldquo;li\u0026rdquo; Choose the style used to display descendants. It could be any HTML tag name   showhidden \u0026ldquo;false\u0026rdquo; When true, child pages hidden from the menu will be displayed   description \u0026ldquo;false\u0026rdquo; Allows you to include a short text under each page in the list.when no description exists for the page, children shortcode takes the first 70 words of your content. read more info about summaries on gohugo.io   depth 1 Enter a number to specify the depth of descendants to display. For example, if the value is 2, the shortcode will display 2 levels of child pages.  Tips: set 999 to get all descendants   sort none Sort Children By\nWeight - to sort on menu orderName - to sort alphabetically on menu labelIdentifier - to sort alphabetically on identifier set in frontmatterURL - URL    Demo {{% children %}}   page 1   page 2   page 3   page test   {{% children description=\u0026quot;true\u0026quot; %}}   page 1  This is a demo child page\n page 2  \n page 3  This is a demo child page\n page test  This is a page test\n {{% children depth=\u0026quot;3\u0026quot; showhidden=\u0026quot;true\u0026quot; %}}   page 1     page 2 \n   page 3 \n   page 4 \n   page test \n  \n{{% children style=\u0026quot;h2\u0026quot; depth=\u0026quot;3\u0026quot; description=\u0026quot;true\u0026quot; %}}   page 1  This is a demo child page\n page 2  \n page 3  This is a demo child page\n page test  This is a page test\n {{% children style=\u0026quot;div\u0026quot; depth=\u0026quot;999\u0026quot; %}}   page 1   page 2   page 3   page test   "
+},
+{
+	"uri": "/docs/credits/",
+	"title": "Credits",
+	"tags": [],
+	"description": "",
+	"content": " Contributors Thanks to them  for making Open Source Software a better place !\n.ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }   @matcornic 133 commits   @lierdakil 16 commits   @gwleclerc 13 commits   @mdavids 9 commits   @Xipas 5 commits   @mreithub 3 commits   @Thiht 3 commits   @denisvm 2 commits   @gpospelov 2 commits   @lfalin 2 commits   @alexvargasbenamburg 1 commits   @MrMoio 1 commits   @giuliov 1 commits   @haitch 1 commits   @RealOrangeOne 1 commits   @tanzaho 1 commits   @JohnBlood 1 commits   @kamilchm 1 commits   @sykesm 1 commits   @ripienaar 1 commits   @EnigmaCurry 1 commits   @kamar535 1 commits   @proelbtn 1 commits   And a special thanks to @vjeantet for his work on docdock, a fork of hugo-theme-learn. v2.0.0 of this theme is inspired by his work.\nPackages and libraries  mermaid - generation of diagram and flowchart from text in a similar manner as markdown font awesome - the iconic font and CSS framework jQuery - The Write Less, Do More, JavaScript Library lunr - Lunr enables you to provide a great search experience without the need for external, server-side, search services\u0026hellip; horsey - Progressive and customizable autocomplete component clipboard.js - copy text to clipboard highlight.js - Javascript syntax highlighter modernizr - A JavaScript toolkit that allows web developers to use new CSS3 and HTML5 features while maintaining a fine level of control over browsers that don\u0026rsquo;t support  Tooling  Netlify - Continuous deployement and hosting of this documentation Hugo  "
+},
+{
+	"uri": "/docs/shortcodes/expand/",
+	"title": "Expand",
+	"tags": [],
+	"description": "Displays an expandable/collapsible section of text on your page",
+	"content": " The Expand shortcode displays an expandable/collapsible section of text on your page. Here is an example\n  Expand me...   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n  Usage this shortcode takes exactly one optional parameter to define the text that appears next to the expand/collapse icon. (default is \u0026ldquo;Expand me\u0026hellip;\u0026rdquo;)\n{{%expand \u0026quot;Is this learn theme rocks ?\u0026quot; %}}Yes !.{{% /expand%}}    Is this learn theme rocks ?   Yes !  \nDemo {{%expand%}} Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. {{% /expand%}}    Expand me...   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n \n"
+},
+{
+	"uri": "/docs/",
+	"title": "Learn Theme for Hugo",
+	"tags": [],
+	"description": "",
+	"content": " Hugo learn theme Hugo-theme-learn is a theme for Hugo, a fast and modern static website engine written in Go. Where Hugo is often used for blogs, this multilingual-ready theme is fully designed for documentation.\nThis theme is a partial porting of the Learn theme of Grav, a modern flat-file CMS written in PHP.\nLearn theme works with a page tree structure to organize content : All contents are pages, which belong to other pages. [read more about this]()\n Main features  Automatic Search Unlimited menu levels Automatic next/prev buttons to navigate through menu entries Attachments files List child pages Mermaid diagram (flowchart, sequence, gantt) Customizable look and feel and themes variants Buttons, Tip/Note/Info/Warning boxes, Expand  Contribute to this documentation Feel free to update this content, just click the Edit this page link displayed on top right of each page, and pullrequest it\nYour modification will be deployed automatically when merged.\n Documentation website This current documentation has been statically generated with Hugo with a simple command : hugo -t hugo-theme-learn \u0026ndash; source code is available here at GitHub\nAutomatically published and hosted thanks to Netlify. Read more about Automated HUGO deployments with Netlify\n "
+},
+{
+	"uri": "/docs/shortcodes/mermaid/",
+	"title": "Mermaid",
+	"tags": [],
+	"description": "Generation of diagram and flowchart from text in a similar manner as markdown",
+	"content": " Mermaid is a library helping you to generate diagram and flowcharts from text, in a similar manner as Markdown.\nJust insert your mermaid code in the mermaid shortcode and that\u0026rsquo;s it.\nFlowchart example {{\u0026lt;mermaid align=\u0026quot;left\u0026quot;\u0026gt;}} graph LR; A[Hard edge] --\u0026gt;|Link text| B(Round edge) B --\u0026gt; C{Decision} C --\u0026gt;|One| D[Result one] C --\u0026gt;|Two| E[Result two] {{\u0026lt; /mermaid \u0026gt;}}  renders as\ngraph LR; A[Hard edge] --|Link text| B(Round edge) B -- C{Decision} C --|One| D[Result one] C --|Two| E[Result two]  Sequence example {{\u0026lt;mermaid\u0026gt;}} sequenceDiagram participant Alice participant Bob Alice-\u0026gt;\u0026gt;John: Hello John, how are you? loop Healthcheck John-\u0026gt;John: Fight against hypochondria end Note right of John: Rational thoughts \u0026lt;br/\u0026gt;prevail... John--\u0026gt;Alice: Great! John-\u0026gt;Bob: How about you? Bob--\u0026gt;John: Jolly good! {{\u0026lt; /mermaid \u0026gt;}}  renders as\nsequenceDiagram participant Alice participant Bob Alice-John: Hello John, how are you? loop Healthcheck John-John: Fight against hypochondria end Note right of John: Rational thoughts prevail... John--Alice: Great! John-Bob: How about you? Bob--John: Jolly good!  GANTT Example {{\u0026lt;mermaid\u0026gt;}} gantt dateFormat YYYY-MM-DD title Adding GANTT diagram functionality to mermaid section A section Completed task :done, des1, 2014-01-06,2014-01-08 Active task :active, des2, 2014-01-09, 3d Future task : des3, after des2, 5d Future task2 : des4, after des3, 5d section Critical tasks Completed task in the critical line :crit, done, 2014-01-06,24h Implement parser and jison :crit, done, after des1, 2d Create tests for parser :crit, active, 3d Future task in critical line :crit, 5d Create tests for renderer :2d Add to mermaid :1d {{\u0026lt; /mermaid \u0026gt;}}  render as\ngantt dateFormat YYYY-MM-DD title Adding GANTT diagram functionality to mermaid section A section Completed task :done, des1, 2014-01-06,2014-01-08 Active task :active, des2, 2014-01-09, 3d Future task : des3, after des2, 5d Future task2 : des4, after des3, 5d section Critical tasks Completed task in the critical line :crit, done, 2014-01-06,24h Implement parser and jison :crit, done, after des1, 2d Create tests for parser :crit, active, 3d Future task in critical line :crit, 5d Create tests for renderer :2d Add to mermaid :1d  "
+},
+{
+	"uri": "/docs/shortcodes/notice/",
+	"title": "Notice",
+	"tags": [],
+	"description": "Disclaimers to help you structure your page",
+	"content": " The notice shortcode shows 4 types of disclaimers to help you structure your page.\nNote {{% notice note %}} A notice disclaimer {{% /notice %}}  renders as\nA notice disclaimer\n Info {{% notice info %}} An information disclaimer {{% /notice %}}  renders as\nAn information disclaimer\n Tip {{% notice tip %}} A tip disclaimer {{% /notice %}}  renders as\nA tip disclaimer\n Warning {{% notice warning %}} An warning disclaimer {{% /notice %}}  renders as\nA warning disclaimer\n "
+},
+{
+	"uri": "/docs/showcase/",
+	"title": "Showcase",
+	"tags": [],
+	"description": "",
+	"content": " TAT by OVH "
+},
+{
+	"uri": "/docs/shortcodes/siteparam/",
+	"title": "Site param",
+	"tags": [],
+	"description": "Get value of site params variables in your page.",
+	"content": "siteparam shortcode is used to help you print values of site params.\nFor instance, in this current site, the editURL variable is used in config.toml\n[params] editURL = \u0026quot;https://github.com/matcornic/hugo-theme-learn/edit/master/exampleSite/content/\u0026quot;  Use the siteparam shortcode to display its value.\n`editURL` Value : {{% siteparam \u0026quot;editURL\u0026quot; %}}  is displayed as\neditURL Value : "
+},
+{
+	"uri": "/docs/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/docs/shortcodes/children/children-1/",
+	"title": "page 1",
+	"tags": [],
+	"description": "This is a demo child page",
+	"content": "This is a demo child page\n"
+},
+{
+	"uri": "/docs/shortcodes/children/children-1/children-1-1/",
+	"title": "page 1-1",
+	"tags": [],
+	"description": "This is a demo child page",
+	"content": "This is a demo child page\n"
+},
+{
+	"uri": "/docs/shortcodes/children/children-1/children-1-1/children-1-1-1/",
+	"title": "page 1-1-1",
+	"tags": [],
+	"description": "This is a demo child page",
+	"content": "This is a demo child page\n"
+},
+{
+	"uri": "/docs/shortcodes/children/children-1/children-1-1/children-1-1-1/children-1-1-1-1/",
+	"title": "page 1-1-1-1",
+	"tags": [],
+	"description": "This is a demo child page",
+	"content": "This is a demo child page\n"
+},
+{
+	"uri": "/docs/shortcodes/children/children-1/children-1-1/children-1-1-1/children-1-1-1-1/children-1-1-1-1-1/",
+	"title": "page 1-1-1-1-1",
+	"tags": [],
+	"description": "This is a demo child page",
+	"content": "This is a demo child page\n"
+},
+{
+	"uri": "/docs/shortcodes/children/children-2/",
+	"title": "page 2",
+	"tags": [],
+	"description": "",
+	"content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n"
+},
+{
+	"uri": "/docs/shortcodes/children/children-3/",
+	"title": "page 3",
+	"tags": [],
+	"description": "This is a demo child page",
+	"content": "This is a demo child page, not displayed in the menu\n"
+},
+{
+	"uri": "/docs/shortcodes/children/children-4/",
+	"title": "page 4",
+	"tags": [],
+	"description": "This is a demo child page",
+	"content": "This is a demo child page, not displayed in the menu\n"
+},
+{
+	"uri": "/docs/shortcodes/children/test/",
+	"title": "page test",
+	"tags": [],
+	"description": "This is a page test",
+	"content": "This is a test demo child page\n"
+},
+{
+	"uri": "/docs/shortcodes/children/children-2/test3/",
+	"title": "page test 3",
+	"tags": [],
+	"description": "This is a page test",
+	"content": "This is a test 3 demo child page\n"
+}]
