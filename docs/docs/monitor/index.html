@@ -9,22 +9,22 @@
 
     <link rel="shortcut icon" href="/docs/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/docs/images/favicon.png" type="image/x-icon" />
-    <title>技术文档 :: OpsSoluiton 开源方案</title>
+    <title>监控系统 :: OpsSoluiton 开源方案</title>
     
     
-    <link href="/docs/css/nucleus.css?1522303259" rel="stylesheet">
-    <link href="/docs/css/font-awesome.min.css?1522303259" rel="stylesheet">
-    <link href="/docs/css/hybrid.css?1522303259" rel="stylesheet">
-    <link href="/docs/css/featherlight.min.css?1522303259" rel="stylesheet">
-    <link href="/docs/css/perfect-scrollbar.min.css?1522303259" rel="stylesheet">
-    <link href="/docs/css/auto-complete.css?1522303259" rel="stylesheet">
-    <link href="/docs/css/theme.css?1522303259" rel="stylesheet">
-    <link href="/docs/css/hugo-theme.css?1522303259" rel="stylesheet">
+    <link href="/docs/css/nucleus.css?1522303258" rel="stylesheet">
+    <link href="/docs/css/font-awesome.min.css?1522303258" rel="stylesheet">
+    <link href="/docs/css/hybrid.css?1522303258" rel="stylesheet">
+    <link href="/docs/css/featherlight.min.css?1522303258" rel="stylesheet">
+    <link href="/docs/css/perfect-scrollbar.min.css?1522303258" rel="stylesheet">
+    <link href="/docs/css/auto-complete.css?1522303258" rel="stylesheet">
+    <link href="/docs/css/theme.css?1522303258" rel="stylesheet">
+    <link href="/docs/css/hugo-theme.css?1522303258" rel="stylesheet">
     
-      <link href="/docs/css/theme-mine.css?1522303259" rel="stylesheet">
+      <link href="/docs/css/theme-mine.css?1522303258" rel="stylesheet">
     
 
-    <script src="/docs/js/jquery-2.x.min.js?1522303259"></script>
+    <script src="/docs/js/jquery-2.x.min.js?1522303258"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -34,7 +34,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/docs/">
+  <body class="" data-url="/docs/monitor/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -53,14 +53,14 @@
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/docs/js/lunr.min.js?1522303259"></script>
-<script type="text/javascript" src="/docs/js/auto-complete.js?1522303259"></script>
+<script type="text/javascript" src="/docs/js/lunr.min.js?1522303258"></script>
+<script type="text/javascript" src="/docs/js/auto-complete.js?1522303258"></script>
 <script type="text/javascript">
     
         var baseurl = '\/docs';
     
 </script>
-<script type="text/javascript" src="/docs/js/search.js?1522303259"></script>
+<script type="text/javascript" src="/docs/js/search.js?1522303258"></script>
 
     
   </div>
@@ -125,8 +125,8 @@
   
     
     <li data-nav-id="/docs/monitor/" title="监控系统" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/docs/monitor/">
@@ -253,52 +253,61 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            <a href='/docs/'>技术文档</a> > 监控系统
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+              </div>
+            </div>
+            
 
+        
+          <div id="chapter">
         
         <div id="body-inner">
           
 
         
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fa fa-bars"></i> navigation</a>
-</span>
-
- 
 
 
-<h1 id="关于技术文档">关于技术文档</h1>
 
-<p>这里文档都是日常运维中的点滴积累，有些已经是比较完善的文档，方便大家互相参考学</p>
+<h3 id="监控系统-zabbix">监控系统 Zabbix</h3>
 
-<h2 id="主要内容分类">主要内容分类</h2>
+<h1 id="zabbix">Zabbix</h1>
 
-<ul>
-<li>私有云的建设和应用,这里以CLOUDSTACK为基础IAAS平台</li>
-<li>容器云的建设和应用,这里以Openshift Origin平台为基础</li>
-<li>监控系统的建设和应用,主要以Zabbix为核心监控及二次开发相关</li>
-<li>大数据相关系统, 如Hadoop、Spark、Kafka、Storm等,涉及到一些BI(商业智能)等</li>
-<li>信息安全涉及到一些方法论和开源工具的使用等</li>
-<li>开发运维(DevOps) 相关的技术点滴和CI/CD相关实践</li>
-</ul>
-
-<h2 id="问题反馈">问题反馈</h2>
-
-<p>在看文档过程中，有任何问题，请到这里<a href="https://github.com/hunterfu/51know/issues/1">留言反馈</a>，谢谢。</p>
-
-<div class="notices info" ><p>我们会在第一时间响应回复</p>
-</div>
+<p>本分类主要讲述 Zabbix 监控系统相关配置等实践</p>
 
 
-<h2 id="开源方案应用">开源方案应用</h2>
-
-<p>如果在真实的生产工作中，您有应用比较好的方案，可以推荐给我们，包括解决的问题，使用的场景等等，我们会推广给更多的用户，让更多的用户受益于开源方案 请到这里<a href="https://github.com/hunterfu/51know/issues/1">推荐反馈</a></p>
-
-<div class="notices note" ><p>推荐的开源方案，最好是目前正在使用的，解决了那些问题，也希望给出优点和劣势</p>
-</div>
-
+<footer class=" footline" >
 	
-  
+</footer>
+
+        
+            </div> 
         
         </div> 
         
@@ -365,6 +374,26 @@
             
                 
                     
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
                 
                 
 
@@ -408,22 +437,6 @@
             
         
                     
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
             
         
         
@@ -431,8 +444,10 @@
 
 
         
+            <a class="nav nav-prev" href="/docs/openshift/" title="容器云"> <i class="fa fa-chevron-left"></i></a>
         
-            <a class="nav nav-next" href="/docs/cloudstack/" title="私有云" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+            <a class="nav nav-next" href="/docs/bigdata/" title="大数据" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -441,20 +456,20 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/docs/js/clipboard.min.js?1522303259"></script>
-    <script src="/docs/js/perfect-scrollbar.min.js?1522303259"></script>
-    <script src="/docs/js/perfect-scrollbar.jquery.min.js?1522303259"></script>
-    <script src="/docs/js/jquery.sticky.js?1522303259"></script>
-    <script src="/docs/js/featherlight.min.js?1522303259"></script>
-    <script src="/docs/js/html5shiv-printshiv.min.js?1522303259"></script>
-    <script src="/docs/js/highlight.pack.js?1522303259"></script>
+    <script src="/docs/js/clipboard.min.js?1522303258"></script>
+    <script src="/docs/js/perfect-scrollbar.min.js?1522303258"></script>
+    <script src="/docs/js/perfect-scrollbar.jquery.min.js?1522303258"></script>
+    <script src="/docs/js/jquery.sticky.js?1522303258"></script>
+    <script src="/docs/js/featherlight.min.js?1522303258"></script>
+    <script src="/docs/js/html5shiv-printshiv.min.js?1522303258"></script>
+    <script src="/docs/js/highlight.pack.js?1522303258"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/docs/js/modernizr.custom.71422.js?1522303259"></script>
-    <script src="/docs/js/learn.js?1522303259"></script>
-    <script src="/docs/js/hugo-learn.js?1522303259"></script>
+    <script src="/docs/js/modernizr.custom.71422.js?1522303258"></script>
+    <script src="/docs/js/learn.js?1522303258"></script>
+    <script src="/docs/js/hugo-learn.js?1522303258"></script>
 
-    <link href="/docs/mermaid/mermaid.css?1522303259" type="text/css" rel="stylesheet" />
-    <script src="/docs/mermaid/mermaid.js?1522303259"></script>
+    <link href="/docs/mermaid/mermaid.css?1522303258" type="text/css" rel="stylesheet" />
+    <script src="/docs/mermaid/mermaid.js?1522303258"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
@@ -470,4 +485,3 @@ var _hmt = _hmt || [];
 
   </body>
 </html>
-

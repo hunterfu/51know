@@ -3,48 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/docs/basics/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/basics/requirements/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/</loc>
-    <lastmod>2016-04-09T16:50:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/docs/basics/installation/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/basics/configuration/</loc>
-    <lastmod>2016-04-09T16:50:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/docs/cloudstack/install/</loc>
-    <lastmod>2016-04-09T16:50:16+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/docs/basics/style-customization/</loc>
-    <lastmod>2016-04-09T16:50:16+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/docs/cloudstack/</loc>
     <lastmod>2018-03-27T01:19:23-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/shortcodes/attachments/</loc>
+    <loc>/docs/openshift/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/docs/shortcodes/button/</loc>
+    <loc>/docs/monitor/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/bigdata/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/security/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/devops/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
   </url>
   
   <url>
@@ -53,80 +38,12 @@
   </url>
   
   <url>
-    <loc>/docs/shortcodes/children/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/credits/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/expand/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/mermaid/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/notice/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/showcase/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/siteparam/</loc>
-  </url>
-  
-  <url>
     <loc>/docs/tags/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/docs/shortcodes/children/children-1/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/children/children-1/children-1-1/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/children/children-1/children-1-1/children-1-1-1/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/children/children-1/children-1-1/children-1-1-1/children-1-1-1-1/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/children/children-1/children-1-1/children-1-1-1/children-1-1-1-1/children-1-1-1-1-1/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/children/children-2/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/children/children-3/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/children/children-4/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/children/test/</loc>
-  </url>
-  
-  <url>
-    <loc>/docs/shortcodes/children/children-2/test3/</loc>
+    <loc>/docs/</loc>
   </url>
   
 </urlset>
