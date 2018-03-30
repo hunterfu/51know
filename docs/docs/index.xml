@@ -5,9 +5,34 @@
     <link>/docs/</link>
     <description>Recent content in 技术文档 on OpsSoluiton 开源方案</description>
     <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 29 Mar 2018 06:08:26 -0400</lastBuildDate>
     
 	<atom:link href="/docs/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Mysql常用用法总结</title>
+      <link>/docs/devops/mysql/</link>
+      <pubDate>Thu, 29 Mar 2018 06:08:26 -0400</pubDate>
+      
+      <guid>/docs/devops/mysql/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 创建文档    在日常工作中，会简单的使用一下mysql,故对常见命令操作总结一下，常用方式如下
+mysqldump 命令的使用  备份和导出数据库
+mysqldump -h database_ip -u Username -p --opt databasename &amp;gt; backup-file.sql  只导出数据库表结构
+mysqldump -h database_ip -d -u Username -p databasename &amp;gt;database_structure.sql  只导出数据库中的某个表
+mysqldump --opt --add-drop-table -u Username -p databasename tablename &amp;gt; dump.sql  如果不想手工输入密码 请使用--password 参数
+mysqldump -h database_ip -u Username --password=123456 --opt databasename &amp;gt; backup-file.</description>
+    </item>
+    
+    <item>
+      <title>Python脚本知识总结</title>
+      <link>/docs/devops/python_tips/</link>
+      <pubDate>Thu, 29 Mar 2018 22:36:36 +0800</pubDate>
+      
+      <guid>/docs/devops/python_tips/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 创建文档   V1.1 2017-08-07 修订 HunterFu 增加 指定占位符宽度(左对齐)    数据对象持久化 在某些时候，需要将数据对象的内容保存下来，方便下次程序启动时读取，这个就需要将对象持久化，请看如下例子
+import pickle # create the test dictionary before_d = {} before_d[1]=&amp;quot;Name 1&amp;quot; before_d[2]=&amp;quot;Name 2&amp;quot; before_d[3]=&amp;quot;Name 3&amp;quot; # pickle dump the dictionary fout = open(&amp;quot;dict1.dat&amp;quot;, &amp;quot;w&amp;quot;) pickle.dump(before_d, fout, protocol=0) fout.close() # pickle load the dictionary fin = open(&amp;quot;dict1.dat&amp;quot;, &amp;quot;r&amp;quot;) after_d = pickle.</description>
+    </item>
     
   </channel>
 </rss>

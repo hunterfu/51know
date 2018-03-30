@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.37.1" />
+    <meta name="description" content="开源方案文档 Ops Solution">
+<meta name="author" content="Hunterfu2009@gmail.com">
+
+    <link rel="shortcut icon" href="/docs/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/docs/images/favicon.png" type="image/x-icon" />
+    <title>Python脚本知识总结 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/docs/css/nucleus.css?1522384389" rel="stylesheet">
+    <link href="/docs/css/font-awesome.min.css?1522384389" rel="stylesheet">
+    <link href="/docs/css/hybrid.css?1522384389" rel="stylesheet">
+    <link href="/docs/css/featherlight.min.css?1522384389" rel="stylesheet">
+    <link href="/docs/css/perfect-scrollbar.min.css?1522384389" rel="stylesheet">
+    <link href="/docs/css/auto-complete.css?1522384389" rel="stylesheet">
+    <link href="/docs/css/theme.css?1522384389" rel="stylesheet">
+    <link href="/docs/css/hugo-theme.css?1522384389" rel="stylesheet">
+    
+      <link href="/docs/css/theme-mine.css?1522384389" rel="stylesheet">
+    
+
+    <script src="/docs/js/jquery-2.x.min.js?1522384389"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/docs/devops/python_tips/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/docs">
+<img src="/docs/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/docs/js/lunr.min.js?1522384389"></script>
+<script type="text/javascript" src="/docs/js/auto-complete.js?1522384389"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/docs';
+    
+</script>
+<script type="text/javascript" src="/docs/js/search.js?1522384389"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/cloudstack/" title="私有云" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/cloudstack/">
+          <b>1. </b>私有云
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/openshift/" title="容器云" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/openshift/">
+          <b>2. </b>容器云
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/monitor/" title="监控系统" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/monitor/">
+          <b>3. </b>监控系统
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/bigdata/" title="大数据" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/bigdata/">
+          <b>4. </b>大数据
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/security/" title="信息安全" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/security/">
+          <b>5. </b>信息安全
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/devops/" title="开发运维" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/docs/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/devops/mysql/" title="Mysql常用用法总结" class="dd-item ">
+        <a href="/docs/devops/mysql/">
+        Mysql常用用法总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/devops/python_tips/" title="Python脚本知识总结" class="dd-item active">
+        <a href="/docs/devops/python_tips/">
+        Python脚本知识总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p>Document bY <a href="#">Ops Solution</a></p>
+      <p><a href="https://www.51know.info">
+      <img src="/docs/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/docs/'>技术文档</a> > <a href='/docs/devops/'>开发运维</a> > Python脚本知识总结
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#数据对象持久化">数据对象持久化</a></li>
+<li><a href="#正则表达式替换">正则表达式替换</a></li>
+<li><a href="#遍历目录方法">遍历目录方法</a></li>
+<li><a href="#列表按列排序-list-sort">列表按列排序(list sort)</a></li>
+<li><a href="#列表去重-list-uniq">列表去重(list uniq)</a></li>
+<li><a href="#字典排序-dict-sort">字典排序(dict sort)</a></li>
+<li><a href="#字典-列表-字符串互转">字典,列表,字符串互转</a></li>
+<li><a href="#时间对象操作">时间对象操作</a></li>
+<li><a href="#命令行参数解析-getopt">命令行参数解析(getopt)</a></li>
+<li><a href="#print-格式化输出">print 格式化输出</a>
+<ul>
+<li><a href="#格式化输出字符串">格式化输出字符串</a></li>
+<li><a href="#进制转换">进制转换</a></li>
+</ul></li>
+<li><a href="#python调用系统命令或者脚本">Python调用系统命令或者脚本</a></li>
+<li><a href="#python-捕获用户-ctrl-c-ctrl-d-事件">Python 捕获用户 Ctrl+C ,Ctrl+D 事件</a></li>
+<li><a href="#python-读写文件">Python 读写文件</a></li>
+<li><a href="#python-读取-yaml-配置文件">Python 读取 YAML 配置文件</a>
+<ul>
+<li><a href="#简单的配置文件范例">简单的配置文件范例</a></li>
+<li><a href="#pyyaml-模块来解析yaml配置文件">PyYAML 模块来解析YAML配置文件</a></li>
+</ul></li>
+<li><a href="#常见问题">常见问题</a>
+<ul>
+<li><a href="#unicodedecodeerror-ascii-codec-can-t-decode-byte-0xe8-in-position-0-ordinal-not-in-range-128">UnicodeDecodeError: &lsquo;ascii&rsquo; codec can&rsquo;t decode byte 0xe8 in position 0: ordinal not in range(128)</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>Python脚本知识总结</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2016-03-28</td>
+<td>创建</td>
+<td>HunterFu</td>
+<td>创建文档</td>
+</tr>
+
+<tr>
+<td>V1.1</td>
+<td>2017-08-07</td>
+<td>修订</td>
+<td>HunterFu</td>
+<td>增加 指定占位符宽度(左对齐)</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="数据对象持久化">数据对象持久化</h2>
+
+<hr />
+
+<p>在某些时候，需要将数据对象的内容保存下来，方便下次程序启动时读取，这个就需要将对象持久化，请看如下例子</p>
+
+<pre><code>import pickle
+
+# create the test dictionary
+before_d = {}
+before_d[1]=&quot;Name 1&quot;
+before_d[2]=&quot;Name 2&quot;
+before_d[3]=&quot;Name 3&quot;
+
+# pickle dump the dictionary
+fout = open(&quot;dict1.dat&quot;, &quot;w&quot;)
+pickle.dump(before_d, fout, protocol=0)
+fout.close()
+
+# pickle load the dictionary
+fin = open(&quot;dict1.dat&quot;, &quot;r&quot;)
+after_d = pickle.load(fin)
+fin.close()
+
+print( before_d )  # {1: 'Name 1', 2: 'Name 2', 3: 'Name 3'}
+print( after_d )   # {1: 'Name 1', 2: 'Name 2', 3: 'Name 3'}
+</code></pre>
+
+<p>可以看出，我们将数据对象内容以文件的方式保存，可以作一些简单的cache处理，尤其是在写一些比较小的程序时，非常有用</p>
+
+<h2 id="正则表达式替换">正则表达式替换</h2>
+
+<hr />
+
+<p>目标: 将字符串line中的 <strong>overview.gif</strong> 替换成其他字符串</p>
+
+<pre><code>&gt;&gt;&gt; line = '&lt;IMG ALIGN=&quot;middle&quot; SRC=&quot;overview.gif&quot; BORDER=&quot;0&quot; ALT=&quot;&quot;&gt;'
+&gt;&gt;&gt; mo=re.compile(r'(?&lt;=SRC=)&quot;([\w+\.]+)&quot;',re.I)
+
+&gt;&gt;&gt; mo.sub(r'&quot;\1****&quot;',line)
+'&lt;IMG ALIGN=&quot;middle&quot; SRC=&quot;cdn_overview.gif****&quot; BORDER=&quot;0&quot; ALT=&quot;&quot;&gt;'
+
+&gt;&gt;&gt; mo.sub(r'replace_str_\1',line)
+'&lt;IMG ALIGN=&quot;middle&quot; SRC=replace_str_overview.gif BORDER=&quot;0&quot; ALT=&quot;&quot;&gt;'
+
+&gt;&gt;&gt; mo.sub(r'&quot;testetstset&quot;',line)
+'&lt;IMG ALIGN=&quot;middle&quot; SRC=&quot;testetstset&quot; BORDER=&quot;0&quot; ALT=&quot;&quot;&gt;'
+</code></pre>
+
+<p>注意: 其中 <strong>\1</strong> 是匹配到的数据，可以通过这样的方式直接引用</p>
+
+<h2 id="遍历目录方法">遍历目录方法</h2>
+
+<hr />
+
+<p>在某些时候，我们需要遍历某个目录找出特定的文件列表，可以通过<strong>os.walk</strong>方法来遍历,非常方便</p>
+
+<pre><code>import os
+fileList = []
+rootdir = &quot;/tmp&quot;
+for root, subFolders, files in os.walk(rootdir):
+    if '.svn' in subFolders: subFolders.remove('.svn')  # 排除特定目录
+    for file in files:
+        if file.find(&quot;.t2t&quot;) != -1:			# 查找特定扩展名的文件
+            file_dir_path = os.path.join(root,file)
+            fileList.append(file_dir_path)
+
+print fileList
+</code></pre>
+
+<h2 id="列表按列排序-list-sort">列表按列排序(list sort)</h2>
+
+<hr />
+
+<p>如果列表的每个元素都是一个元组(tuple),我们要根据元组的某列来排序的化，可参考如下方法</p>
+
+<p>下面例子我们是根据元组的第2列和第3列数据来排序的,而且是倒序(reverse=True)</p>
+
+<pre><code>&gt;&gt;&gt; a = [('2011-03-17', '2.26', 6429600, '0.0'), ('2011-03-16', '2.26', 12036900, '-3.0'), ('2011-03-15', '2.33', 15615500,'-19.1')]
+&gt;&gt;&gt; print a[0][0]
+2011-03-17
+&gt;&gt;&gt; b = sorted(a, key=lambda result: result[1],reverse=True)
+&gt;&gt;&gt; print b
+[('2011-03-15', '2.33', 15615500, '-19.1'), ('2011-03-17', '2.26', 6429600, '0.0'), ('2011-03-16', '2.26', 12036900, '-3.0')]
+&gt;&gt;&gt; c = sorted(a, key=lambda result: result[2],reverse=True)
+&gt;&gt;&gt; print c
+[('2011-03-15', '2.33', 15615500, '-19.1'), ('2011-03-16', '2.26', 12036900, '-3.0'), ('2011-03-17', '2.26', 6429600, '0.0')]
+</code></pre>
+
+<h2 id="列表去重-list-uniq">列表去重(list uniq)</h2>
+
+<hr />
+
+<p>有时候需要将list中重复的元素删除，就要使用如下方法</p>
+
+<pre><code>&gt;&gt;&gt; lst= [(1,'sss'),(2,'fsdf'),(1,'sss'),(3,'fd')]
+&gt;&gt;&gt; set(lst)
+set([(2, 'fsdf'), (3, 'fd'), (1, 'sss')])
+&gt;&gt;&gt;
+&gt;&gt;&gt; lst = [1, 1, 3, 4, 4, 5, 6, 7, 6]
+&gt;&gt;&gt; set(lst)
+set([1, 3, 4, 5, 6, 7])
+</code></pre>
+
+<h2 id="字典排序-dict-sort">字典排序(dict sort)</h2>
+
+<hr />
+
+<p>一般来说，我们都是根据字典的key来进行排序，但是我们如果想根据字典的value值来排序，就使用如下方法</p>
+
+<pre><code>&gt;&gt;&gt; from operator import itemgetter
+&gt;&gt;&gt; aa = {&quot;a&quot;:&quot;1&quot;,&quot;sss&quot;:&quot;2&quot;,&quot;ffdf&quot;:'5',&quot;ffff2&quot;:'3'}
+&gt;&gt;&gt; sort_aa = sorted(aa.items(),key=itemgetter(1))
+&gt;&gt;&gt; sort_aa
+[('a', '1'), ('sss', '2'), ('ffff2', '3'), ('ffdf', '5')]
+</code></pre>
+
+<p>从上面的运行结果看到，按照字典的value值进行排序的</p>
+
+<h2 id="字典-列表-字符串互转">字典,列表,字符串互转</h2>
+
+<hr />
+
+<ol>
+<li><p>以下是生成数据库连接字符串,从字典转换到字符串</p>
+
+<pre><code>&gt;&gt;&gt; params = {&quot;server&quot;:&quot;mpilgrim&quot;, &quot;database&quot;:&quot;master&quot;, &quot;uid&quot;:&quot;sa&quot;, &quot;pwd&quot;:&quot;secret&quot;}
+&gt;&gt;&gt; [&quot;%s=%s&quot; % (k, v) for k, v in params.items()]
+['server=mpilgrim', 'uid=sa', 'database=master', 'pwd=secret']
+&gt;&gt;&gt; &quot;;&quot;.join([&quot;%s=%s&quot; % (k, v) for k, v in params.items()])
+'server=mpilgrim;uid=sa;database=master;pwd=secret'
+</code></pre></li>
+
+<li><p>下面的例子 是将字符串转化为字典</p>
+
+<pre><code>&gt;&gt;&gt; a = 'server=mpilgrim;uid=sa;database=master;pwd=secret'
+&gt;&gt;&gt; aa = {}
+&gt;&gt;&gt; for i in a.split(';'):aa[i.split('=',1)[0]] = i.split('=',1)[1]
+... 
+&gt;&gt;&gt; aa
+{'pwd': 'secret', 'database': 'master', 'uid': 'sa', 'server': 'mpilgrim'}
+</code></pre></li>
+</ol>
+
+<h2 id="时间对象操作">时间对象操作</h2>
+
+<hr />
+
+<ol>
+<li><p>将时间对象转换成字符串</p>
+
+<pre><code>&gt;&gt;&gt; import datetime
+&gt;&gt;&gt; datetime.datetime.now().strftime(&quot;%Y-%m-%d %H:%M&quot;)
+'2011-01-20 14:05'
+</code></pre></li>
+
+<li><p>时间大小比较</p>
+
+<pre><code>&gt;&gt;&gt; import time
+&gt;&gt;&gt; t1 = time.strptime('2011-01-20 14:05',&quot;%Y-%m-%d %H:%M&quot;)
+&gt;&gt;&gt; t2 = time.strptime('2011-01-20 16:05',&quot;%Y-%m-%d %H:%M&quot;)
+&gt;&gt;&gt; t1 &gt; t2
+False
+&gt;&gt;&gt; t1 &lt; t2
+True
+</code></pre></li>
+
+<li><p>时间差值计算,计算8小时前的时间</p>
+
+<pre><code>&gt;&gt;&gt; datetime.datetime.now().strftime(&quot;%Y-%m-%d %H:%M&quot;)
+'2011-01-20 15:02'
+&gt;&gt;&gt; (datetime.datetime.now() - datetime.timedelta(hours=8)).strftime(&quot;%Y-%m-%d %H:%M&quot;)
+'2011-01-20 07:03'
+</code></pre></li>
+
+<li><p>将字符串转换成时间对象</p>
+
+<pre><code>&gt;&gt;&gt; endtime=datetime.datetime.strptime('20100701',&quot;%Y%m%d&quot;)
+&gt;&gt;&gt; type(endtime)
+&lt;type 'datetime.datetime'&gt;
+&gt;&gt;&gt; print endtime
+2010-07-01 00:00:00
+&gt;&gt;&gt; 
+</code></pre></li>
+
+<li><p>将从 1970-01-01 00:00:00 UTC 到现在的秒数，格式化输出</p>
+
+<pre><code>&gt;&gt;&gt; import time
+&gt;&gt;&gt; a = 1302153828
+&gt;&gt;&gt; time.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;,time.localtime(a))
+'2011-04-07 13:23:48'
+</code></pre></li>
+
+<li><p>将日期转换成秒数</p>
+
+<pre><code>&gt;&gt;&gt; endtime=datetime.datetime.strptime('20100701',&quot;%Y%m%d&quot;)
+&gt;&gt;&gt; time.mktime(endtime.timetuple())
+1277913600.0
+</code></pre></li>
+
+<li><p><strong>strptime | strftime</strong> 支持的时间格式化列表</p></li>
+</ol>
+
+<table>
+<thead>
+<tr>
+<th>格式化字符</th>
+<th>意义</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>%a</td>
+<td>星期几的简写 Weekday name, abbr.</td>
+</tr>
+
+<tr>
+<td>%A</td>
+<td>星期几的全称 Weekday name, full</td>
+</tr>
+
+<tr>
+<td>%b</td>
+<td>月分的简写 Month name, abbr.</td>
+</tr>
+
+<tr>
+<td>%B</td>
+<td>月份的全称 Month name, full</td>
+</tr>
+
+<tr>
+<td>%c</td>
+<td>标准的日期的时间串 Complete date and time representation</td>
+</tr>
+
+<tr>
+<td>%d</td>
+<td>十进制表示的每月的第几天 Day of the month</td>
+</tr>
+
+<tr>
+<td>%H</td>
+<td>24小时制的小时 Hour (24-hour clock)</td>
+</tr>
+
+<tr>
+<td>%I</td>
+<td>12小时制的小时 Hour (12-hour clock)</td>
+</tr>
+
+<tr>
+<td>%j</td>
+<td>十进制表示的每年的第几天 Day of the year</td>
+</tr>
+
+<tr>
+<td>%m</td>
+<td>十进制表示的月份 Month number</td>
+</tr>
+
+<tr>
+<td>%M</td>
+<td>十时制表示的分钟数 Minute number</td>
+</tr>
+
+<tr>
+<td>%s</td>
+<td>seconds since 00:00:00 1970-01-01 UTC (a GNU extension)</td>
+</tr>
+
+<tr>
+<td>%S</td>
+<td>十进制的秒数 Second number</td>
+</tr>
+
+<tr>
+<td>%U</td>
+<td>第年的第几周，把星期日做为第一天（值从0到53）Week number (Sunday first weekday)</td>
+</tr>
+
+<tr>
+<td>%w</td>
+<td>十进制表示的星期几（值从0到6，星期天为0）weekday number</td>
+</tr>
+
+<tr>
+<td>%W</td>
+<td>每年的第几周，把星期一做为第一天（值从0到53） Week number (Monday first weekday)</td>
+</tr>
+
+<tr>
+<td>%x</td>
+<td>标准的日期串 Complete date representation (e.g. 13/01/08)</td>
+</tr>
+
+<tr>
+<td>%X</td>
+<td>标准的时间串 Complete time representation (e.g. 17:02:10)</td>
+</tr>
+
+<tr>
+<td>%y</td>
+<td>不带世纪的十进制年份（值从0到99）Year number within century</td>
+</tr>
+
+<tr>
+<td>%Y</td>
+<td>带世纪部分的十制年份 Year number</td>
+</tr>
+
+<tr>
+<td>%Z</td>
+<td>时区名称，如果不能得到时区名称则返回空字符。Name of time zone</td>
+</tr>
+
+<tr>
+<td>%%</td>
+<td>输出百分号</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="命令行参数解析-getopt">命令行参数解析(getopt)</h2>
+
+<hr />
+
+<p>通常在编写一些日运维脚本时，需要根据不同的条件，输入不同的命令行选项来实现不同的功能,
+在Python中提供了getopt模块很好的实现了命令行参数的解析,下面距离说明。
+请看如下程序:</p>
+
+<pre><code>#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import sys,os,getopt
+def usage():
+    print '''
+Usage: analyse_stock.py [options...]
+Options: 
+    -e : Exchange Name 
+    -c : User-Defined Category Name
+    -f : Read stock info from file and save to db
+    -d : delete from db by stock code
+    -n : stock name
+    -s : stock code
+    -h : this help info
+    test.py -s haha -n &quot;HA Ha&quot; 
+    '''
+
+try:
+    opts, args = getopt.getopt(sys.argv[1:],'he:c:f:d:n:s:')
+except getopt.GetoptError:
+    usage()
+    sys.exit()
+if len(opts) == 0:
+    usage()
+    sys.exit()
+
+for opt, arg in opts: 
+    if opt in ('-h', '--help'):
+        usage()
+        sys.exit()
+    elif opt == '-d':
+        print &quot;del stock %s&quot; % arg
+    elif opt == '-f':
+        print &quot;read file %s&quot; % arg
+    elif opt == '-c':
+        print &quot;user-defined %s &quot; % arg
+    elif opt == '-e':
+        print &quot;Exchange Name %s&quot; % arg
+    elif opt == '-s':
+        print &quot;Stock code %s&quot; % arg
+    elif opt == '-n':
+        print &quot;Stock name %s&quot; % arg
+
+sys.exit()
+</code></pre>
+
+<p>注意: 这里我们使用短格式分析串<strong>&lsquo;he:c:f:d:n:s:&rsquo;</strong>,
+当一个选项只是表示开关状态时,即后面不带附加参数时,在分析串中写入选项字符</p>
+
+<p>当选项后面是带一个附加参数时，在分析串中写入选项字符同时后面加一个 <strong>:</strong> 冒号</p>
+
+<p><strong>所以 &lsquo;he:c:f:d:n:s:&rsquo; 就表示 &lsquo;h&rsquo;是一个开关选项, &lsquo;e:c:f:d:n:s:&lsquo;则表示这些选项后面应该带一个参数.</strong></p>
+
+<h2 id="print-格式化输出">print 格式化输出</h2>
+
+<hr />
+
+<h3 id="格式化输出字符串">格式化输出字符串</h3>
+
+<ol>
+<li><p>截取字符串输出,下面例子将只输出字符串的前3个字母</p>
+
+<pre><code>&gt;&gt;&gt; str=&quot;abcdefg&quot;
+&gt;&gt;&gt; print &quot;%.3s&quot; % str
+abc
+</code></pre></li>
+
+<li><p>按固定宽度输出，不足使用空格补全,下面例子输出宽度为10</p>
+
+<pre><code>&gt;&gt;&gt; str=&quot;abcdefg&quot;
+&gt;&gt;&gt; print &quot;%10s&quot; % str
+   abcdefg
+</code></pre></li>
+
+<li><p>指定占位符宽度(左对齐)</p>
+
+<pre><code>&gt;&gt;&gt; print (&quot;Name:%-10s Age:%-8d Height:%-8.2f&quot;%(&quot;Aviad&quot;,25,1.83))
+Name:Aviad      Age:25       Height:1.83
+&gt;&gt;&gt;
+</code></pre></li>
+
+<li><p>截取字符串，按照固定宽度输出</p>
+
+<pre><code>&gt;&gt;&gt; str=&quot;abcdefg&quot;
+&gt;&gt;&gt; print &quot;%10.3s&quot; % str
+       abc
+</code></pre></li>
+
+<li><p>浮点类型数据位数保留</p>
+
+<pre><code>&gt;&gt;&gt; import fpformat
+&gt;&gt;&gt; a= 0.0030000000005
+&gt;&gt;&gt; b=fpformat.fix(a,6)
+&gt;&gt;&gt; print b
+0.003000
+</code></pre></li>
+
+<li><p>对浮点数四舍五入,主要使用到round函数</p>
+
+<pre><code>&gt;&gt;&gt; from decimal import *
+&gt;&gt;&gt; a =&quot;2.26&quot;
+&gt;&gt;&gt; b =&quot;2.29&quot;
+&gt;&gt;&gt; c = Decimal(a) - Decimal(b)
+&gt;&gt;&gt; print c
+-0.03
+&gt;&gt;&gt; c / Decimal(a) * 100
+Decimal('-1.327433628318584070796460177')
+&gt;&gt;&gt; Decimal(str(round(c / Decimal(a) * 100, 2)))
+Decimal('-1.33')
+&gt;&gt;&gt; 
+</code></pre></li>
+</ol>
+
+<h3 id="进制转换">进制转换</h3>
+
+<p>有些时候需要作不同进制转换，可以参考下面的例子(%x 十六进制,%d 十进制,%o十进制)</p>
+
+<pre><code>    &gt;&gt;&gt; num = 10
+    &gt;&gt;&gt; print &quot;Hex = %x,Dec = %d,Oct = %o&quot; %(num,num,num)
+    Hex = a,Dec = 10,Oct = 12
+</code></pre>
+
+<h2 id="python调用系统命令或者脚本">Python调用系统命令或者脚本</h2>
+
+<hr />
+
+<ol>
+<li><p>使用 <strong>os.system()</strong> 调用系统命令 , <strong>程序中无法获得到输出和返回值</strong></p>
+
+<pre><code>&gt;&gt;&gt; import os
+&gt;&gt;&gt; os.system('ls -l /proc/cpuinfo')
+&gt;&gt;&gt; os.system(&quot;ls -l /proc/cpuinfo&quot;)
+-r--r--r-- 1 root root 0  3月 29 16:53 /proc/cpuinfo
+0
+</code></pre></li>
+
+<li><p>使用 <strong>os.popen()</strong> 调用系统命令,
+<strong>程序中可以获得命令输出，但是不能得到执行的返回值</strong></p>
+
+<pre><code>&gt;&gt;&gt; out = os.popen(&quot;ls -l /proc/cpuinfo&quot;)
+&gt;&gt;&gt; print out.read()
+-r--r--r-- 1 root root 0  3月 29 16:59 /proc/cpuinfo
+
+&gt;&gt;&gt;
+</code></pre></li>
+
+<li><p>使用 <strong>commands.getstatusoutput()</strong> 调用系统命令,
+<strong>程序中可以获得命令输出和执行的返回值</strong></p>
+
+<pre><code>&gt;&gt;&gt; import commands
+&gt;&gt;&gt; commands.getstatusoutput('ls /bin/ls')
+(0, '/bin/ls')
+&gt;&gt;&gt; 
+</code></pre></li>
+</ol>
+
+<h2 id="python-捕获用户-ctrl-c-ctrl-d-事件">Python 捕获用户 Ctrl+C ,Ctrl+D 事件</h2>
+
+<hr />
+
+<p>有些时候，需要在程序中捕获用户键盘事件，比如ctrl+c退出，这样可以更好的安全退出程序</p>
+
+<pre><code>    try: 
+        do_some_func()
+    except KeyboardInterrupt:
+        print &quot;User Press Ctrl+C,Exit&quot;
+    except EOFError:
+        print &quot;User Press Ctrl+D,Exit&quot;
+</code></pre>
+
+<h2 id="python-读写文件">Python 读写文件</h2>
+
+<hr />
+
+<ol>
+<li><p>一次性读入文件到列表，速度较快，适用文件比较小的情况下</p>
+
+<pre><code>track_file = &quot;track_stock.conf&quot; 
+fd = open(track_file)
+content_list = fd.readlines()
+fd.close()
+
+for line in content_list:
+    print line
+</code></pre></li>
+
+<li><p>逐行读入，速度较慢,适用没有足够内存读取整个文件(文件太大)</p>
+
+<pre><code>fd = open(file_path)
+fd.seek(0)
+title = fd.readline()
+keyword = fd.readline()
+uuid = fd.readline()
+fd.close()
+</code></pre></li>
+</ol>
+
+<div class="notices note" ><p>写文件 write 与 writelines 的区别<br>
+<strong>Fd.write(str)</strong> : 把str写到文件中，write()并不会在str后加上一个换行符<br>
+<strong>Fd.writelines(content)</strong> : 把content的内容全部写到文件中,原样写入，不会在每行后面加上任何东西</p>
+</div>
+
+
+<h2 id="python-读取-yaml-配置文件">Python 读取 YAML 配置文件</h2>
+
+<hr />
+
+<h3 id="简单的配置文件范例">简单的配置文件范例</h3>
+
+<p>配置文件如下,一般YAML文件扩展名为.yaml:</p>
+
+<pre><code>    [root@localhost]# cat us-cdn.yaml
+    templateName: &quot;us-cdn&quot;
+    version: &quot;0.1&quot;
+
+    actionsequence:
+     - install
+     - sync
+
+    sync:
+     - cmd: &quot;svn export http://svn.test.com/&quot;
+       SuccessMsg: &quot;OK&quot;
+       FailedMsg: &quot;Run Cmd Error %s&quot;
+
+    install:
+     - cmd: &quot;yum install squid squid-script&quot;
+       SuccessMsg: &quot;OK&quot;
+       FailedMsg: &quot;Run Cmd Error %s&quot;
+</code></pre>
+
+<p>从上面的配置文件来看，非常容易读懂和理解，层次关系也非常明了。</p>
+
+<h3 id="pyyaml-模块来解析yaml配置文件">PyYAML 模块来解析YAML配置文件</h3>
+
+<p>参考测试程序:</p>
+
+<pre><code>    [root@localhost]# cat test_yaml.py
+    #!/usr/bin/env python
+    # -*- coding: utf-8 -*-
+    import os
+    import yaml
+    import sys
+    from pprint import pprint
+
+    base_dir = os.path.abspath(os.path.dirname(sys.argv[0]))
+    configFile = &quot;%s/%s&quot; % (base_dir,&quot;us-cdn.yaml&quot;)
+    stream = file(configFile, 'r')
+    data = yaml.load(stream)
+    pprint(data)
+</code></pre>
+
+<p>执行结果如下:</p>
+
+<pre><code>    [root@localhost]# python test_yaml.py
+    {'actionsequence': ['install', 'sync'],
+     'install': [{'FailedMsg': 'Run Cmd Error %s',
+                  'SuccessMsg': 'OK',
+                  'cmd': 'yum install squid squid-script'}],
+     'sync': [{'FailedMsg': 'Run Cmd Error %s',
+               'SuccessMsg': 'OK',
+               'cmd': 'svn export http://svn.test.com/'}],
+     'templateName': 'us-cdn',
+     'version': '0.1'}
+</code></pre>
+
+<p>从执行结果可以看出,最终返回的是字典结构，你可以方便的引用。在写一些系统运维管理脚本的化，可以参考使用yaml格式的配置文件.</p>
+
+<h2 id="常见问题">常见问题</h2>
+
+<hr />
+
+<h3 id="unicodedecodeerror-ascii-codec-can-t-decode-byte-0xe8-in-position-0-ordinal-not-in-range-128">UnicodeDecodeError: &lsquo;ascii&rsquo; codec can&rsquo;t decode byte 0xe8 in position 0: ordinal not in range(128)</h3>
+
+<p>程序加入如下3行，问题解决</p>
+
+<pre><code>import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+</code></pre>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/docs/devops/mysql/" title="Mysql常用用法总结"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/docs/devops/mysql/" title="Mysql常用用法总结" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/docs/js/clipboard.min.js?1522384389"></script>
+    <script src="/docs/js/perfect-scrollbar.min.js?1522384389"></script>
+    <script src="/docs/js/perfect-scrollbar.jquery.min.js?1522384389"></script>
+    <script src="/docs/js/jquery.sticky.js?1522384389"></script>
+    <script src="/docs/js/featherlight.min.js?1522384389"></script>
+    <script src="/docs/js/html5shiv-printshiv.min.js?1522384389"></script>
+    <script src="/docs/js/highlight.pack.js?1522384389"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/docs/js/modernizr.custom.71422.js?1522384389"></script>
+    <script src="/docs/js/learn.js?1522384389"></script>
+    <script src="/docs/js/hugo-learn.js?1522384389"></script>
+
+    <link href="/docs/mermaid/mermaid.css?1522384389" type="text/css" rel="stylesheet" />
+    <script src="/docs/mermaid/mermaid.js?1522384389"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>
+

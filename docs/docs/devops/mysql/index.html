@@ -9,7 +9,7 @@
 
     <link rel="shortcut icon" href="/docs/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/docs/images/favicon.png" type="image/x-icon" />
-    <title>Tags :: OpsSoluiton 开源方案</title>
+    <title>Mysql常用用法总结 :: OpsSoluiton 开源方案</title>
     
     
     <link href="/docs/css/nucleus.css?1522384389" rel="stylesheet">
@@ -34,7 +34,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/docs/tags/">
+  <body class="" data-url="/docs/devops/mysql/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -197,7 +197,7 @@
   
     
     <li data-nav-id="/docs/devops/" title="开发运维" class="dd-item 
-        
+        parent
         
         
         ">
@@ -223,7 +223,7 @@
  
   
     
-      <li data-nav-id="/docs/devops/mysql/" title="Mysql常用用法总结" class="dd-item ">
+      <li data-nav-id="/docs/devops/mysql/" title="Mysql常用用法总结" class="dd-item active">
         <a href="/docs/devops/mysql/">
         Mysql常用用法总结
         <i class="fa fa-check read-icon"></i>
@@ -318,7 +318,19 @@
                     
           
           
-            Tags
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/docs/'>技术文档</a> > <a href='/docs/devops/'>开发运维</a> > Mysql常用用法总结
+          
+         
+          
+         
           
            
                   </span>
@@ -326,7 +338,16 @@
                 
                     <div class="progress">
     <div class="wrapper">
-
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#mysqldump-命令的使用">mysqldump 命令的使用</a></li>
+<li><a href="#mysql-命令使用">mysql 命令使用</a></li>
+<li><a href="#shell-命令中-mysql-使用">shell 命令中 mysql 使用</a></li>
+</ul></li>
+</ul>
+</nav>
     </div>
 </div>
 
@@ -338,7 +359,7 @@
         
         <div id="body-inner">
           
-            <h1>Tags</h1>
+            <h1>Mysql常用用法总结</h1>
           
 
         
@@ -346,9 +367,162 @@
 
 
 
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2016-03-28</td>
+<td>创建</td>
+<td>HunterFu</td>
+<td>创建文档</td>
+</tr>
+</tbody>
+</table>
+
+<p>在日常工作中，会简单的使用一下mysql,故对常见命令操作总结一下，常用方式如下</p>
+
+<h2 id="mysqldump-命令的使用">mysqldump 命令的使用</h2>
+
+<ol>
+<li><p>备份和导出数据库</p>
+
+<pre><code>mysqldump -h database_ip -u Username -p --opt databasename &gt; backup-file.sql
+</code></pre></li>
+
+<li><p>只导出数据库表结构</p>
+
+<pre><code>mysqldump -h database_ip -d -u Username -p databasename &gt;database_structure.sql
+</code></pre></li>
+
+<li><p>只导出数据库中的某个表</p>
+
+<pre><code>mysqldump --opt --add-drop-table -u Username -p  databasename tablename &gt; dump.sql
+</code></pre></li>
+
+<li><p>如果不想手工输入密码 请使用--password 参数</p>
+
+<pre><code>mysqldump -h database_ip -u Username --password=123456 --opt databasename &gt; backup-file.sql
+mysqldump -h database_ip -d -u Username --password=123456 databasename &gt;database_structure.sql
+</code></pre></li>
+
+<li><p>修改root用户密码</p>
+
+<pre><code>mysqladmin -u root password &quot;123456&quot;
+</code></pre></li>
+</ol>
+
+<h2 id="mysql-命令使用">mysql 命令使用</h2>
+
+<ol>
+<li><p>将查询结果保存到文件</p>
+
+<pre><code>select title from book into outfile '/tmp/outfile.txt';
+</code></pre></li>
+
+<li><p>查找表中多余的重复记录，重复记录是根据某个字段（peopleId）来判断</p>
+
+<pre><code>select * from people where peopleId in (select  peopleId  from  people  group  by  
+peopleId  having  count(peopleId) &gt; 1);
+</code></pre></li>
+
+<li><p>查询表中不重复记录(排除重复记录)</p>
+
+<pre><code>select * from phome_ecms_wma where title in (select distinct title from phome_ecms_wma);
+</code></pre></li>
+
+<li><p>删除表中重复记录,重复记录是根据某个字段（title）来判断</p>
+
+<pre><code>select *,count(distinct title) INTO OUTFILE '/tmp/table.bak' from phome_ecms_wma group by title;
+delete from phome_ecms_wma;
+LOAD DATA INFILE '/tmp/table.bak' REPLACE INTO TABLE phome_ecms_wma  character set utf8;
+</code></pre></li>
+
+<li><p>随机选取记录</p>
+
+<pre><code>mysql&gt; SELECT *FROM url  ORDER BY RAND() LIMIT 5;
+</code></pre></li>
+
+<li><p>查询数据库当前编码</p>
+
+<pre><code>mysql&gt; show variables like &quot;character_set%&quot;;
+</code></pre></li>
+
+<li><p>修改表字段类型</p>
+
+<pre><code>mysql&gt; alter table  table_name change last_action last_action datetime NOT NULL default '0000-00-00 00:00:00';
+</code></pre></li>
+
+<li><p>给表添加一个新字段</p>
+
+<pre><code>mysql&gt; ALTER TABLE host ADD ks_mac VARCHAR(100);
+</code></pre></li>
+
+<li><p>从表中删除一个字段</p>
+
+<pre><code>mysql&gt; ALTER TABLE table_name DROP field_name; 
+</code></pre></li>
+
+<li><p>重命名表</p>
+
+<pre><code>mysql&gt;alter table t1 rename t2;
+</code></pre></li>
+
+<li><p>给字段加索引</p>
+
+<pre><code>mysql&gt; alter table tablename add index 索引名 (字段名1[，字段名2 …]);
+mysql&gt; alter table tablename add index emp_name (name);
+</code></pre></li>
+
+<li><p>加主关键字的索引</p>
+
+<pre><code>mysql&gt; alter table tablename add primary key(id);
+</code></pre></li>
+
+<li><p>加唯一限制条件的索引</p>
+
+<pre><code>mysql&gt; alter table tablename add unique emp_name2(cardnumber);
+</code></pre></li>
+
+<li><p>删除某个索引</p>
+
+<pre><code>mysql&gt;alter table tablename drop index emp_name;
+</code></pre></li>
+
+<li><p>远程访问mysql 设置(单独一个IP)</p>
+
+<pre><code>mysql&gt; CREATE DATABASE IF NOT EXISTS database_test;
+mysql&gt; GRANT ALL PRIVILEGES ON database_test.* to root@192.168.1.9  IDENTIFIED BY '123456';
+mysql&gt; FLUSH PRIVILEGES;
+</code></pre></li>
+
+<li><p>授权远程访问(一个网段)</p>
+
+<pre><code>mysql&gt; grant all privileges on *.* to root@'192.168.124.%' identified by '123456';
+mysql&gt; FLUSH PRIVILEGES;
+</code></pre></li>
+</ol>
+
+<h2 id="shell-命令中-mysql-使用">shell 命令中 mysql 使用</h2>
+
+<pre><code>mysql -u root -p -e 'CREATE DATABASE IF NOT EXISTS database_test;'
+mysql -u root -p -e &quot;GRANT ALL PRIVILEGES ON database_test.* to root@'%' IDENTIFIED BY '123456';&quot;
+</code></pre>
+
+
 <footer class=" footline" >
 	
 </footer>
+
 
         
         </div> 
@@ -464,6 +638,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -477,6 +652,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -493,6 +669,9 @@
             
                 
                     
+                        
+                        
+                    
                 
                 
 
@@ -514,8 +693,10 @@
 
 
         
+            <a class="nav nav-prev" href="/docs/devops/" title="开发运维"> <i class="fa fa-chevron-left"></i></a>
         
-            <a class="nav nav-next" href="/docs/cloudstack/" title="私有云" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+            <a class="nav nav-next" href="/docs/devops/python_tips/" title="Python脚本知识总结" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -553,3 +734,4 @@ var _hmt = _hmt || [];
 
   </body>
 </html>
+

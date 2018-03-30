@@ -3,8 +3,18 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/docs/devops/mysql/</loc>
+    <lastmod>2018-03-29T06:08:26-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/docs/cloudstack/</loc>
     <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/devops/python_tips/</loc>
+    <lastmod>2018-03-29T22:36:36+08:00</lastmod>
   </url>
   
   <url>
@@ -44,6 +54,7 @@
   
   <url>
     <loc>/docs/</loc>
+    <lastmod>2018-03-29T06:08:26-04:00</lastmod>
   </url>
   
 </urlset>
