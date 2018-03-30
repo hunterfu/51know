@@ -34,5 +34,19 @@ mysqldump -h database_ip -u Username --password=123456 --opt databasename &amp;g
 import pickle # create the test dictionary before_d = {} before_d[1]=&amp;quot;Name 1&amp;quot; before_d[2]=&amp;quot;Name 2&amp;quot; before_d[3]=&amp;quot;Name 3&amp;quot; # pickle dump the dictionary fout = open(&amp;quot;dict1.dat&amp;quot;, &amp;quot;w&amp;quot;) pickle.dump(before_d, fout, protocol=0) fout.close() # pickle load the dictionary fin = open(&amp;quot;dict1.dat&amp;quot;, &amp;quot;r&amp;quot;) after_d = pickle.</description>
     </item>
     
+    <item>
+      <title>Shell脚本知识总结</title>
+      <link>/docs/devops/shell/</link>
+      <pubDate>Fri, 30 Mar 2018 00:38:26 -0400</pubDate>
+      
+      <guid>/docs/devops/shell/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 创建文档    在日常系统管理工作中，需要编写脚本来完成特定的功能，编写shell脚本是一个基本功了！
+在编写的过程中，掌握一些常用的技巧和语法就可以完成大部分功能了，也就是2/8原则.
+单引号和双引号的区别 单引号与双引号的最大不同在于双引号仍然可以引用变量的内容，但单引号内仅是 普通字符 ，不会作变量的引用，直接输出字符窜。请看如下例子：
+ [root@linux ~]# name=HaHa [root@linux ~]# echo $name HaHa [root@linux ~]# myname=&amp;quot;$name is wow&amp;quot; [root@linux ~]# echo $myname HaHa is wow [root@linux ~]# myname=&#39;$name is wow&#39; [root@linux ~]# echo $myname $name is wow  从上面例子可以看出,使用了单引号的时候，那么$name只是普通字符,直接输出而已！
+逐行读取文件  使用for循环来读取文件
+for line in `cat file.txt` do echo $line done  注意:由于使用for来读入文件里的行时，会自动把空格和换行符作为一样分隔符，如果行里有空格的时候，输出的结果会很乱，所以只适用于行连续不能有空格或者换行符的文件</description>
+    </item>
+    
   </channel>
 </rss>
