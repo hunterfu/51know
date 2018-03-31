@@ -33,6 +33,11 @@
   </url>
   
   <url>
+    <loc>/docs/security/inotify/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/docs/monitor/</loc>
     <lastmod>2018-03-27T01:19:23-04:00</lastmod>
   </url>

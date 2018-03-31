@@ -48,5 +48,16 @@ import pickle # create the test dictionary before_d = {} before_d[1]=&amp;quot;N
 for line in `cat file.txt` do echo $line done  注意:由于使用for来读入文件里的行时，会自动把空格和换行符作为一样分隔符，如果行里有空格的时候，输出的结果会很乱，所以只适用于行连续不能有空格或者换行符的文件</description>
     </item>
     
+    <item>
+      <title>Inotify监控文件系统事件</title>
+      <link>/docs/security/inotify/</link>
+      <pubDate>Fri, 30 Mar 2018 01:46:28 -0400</pubDate>
+      
+      <guid>/docs/security/inotify/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.1 2016-03-28 创建 HunterFu 初始版本    Inotify 机制概述 Inotify 介绍 在日常的运维过程中，经常需要备份某些文件，或者对系统的某些文件进行监控，比如重要的配置文件等。如果需要作到实时同步或者监控，就需要使用内核的inotify机制
+Inotify 是基于inode级别的文件系统监控技术,是一种强大的、细粒度的、异步的机制，它满足各种各样的文件监控需要，不仅限于安全和性能
+ Inotify 不需要对被监视的目标打开文件描述符，而且如果被监视目标在可移动介质上，那么在 umount 该介质上的文件系统后，被监视目标对应的 watch 将被自动删除，并且会产生一个 umount 事件。 Inotify 既可以监视文件，也可以监视目录。 Inotify 使用系统调用而非 SIGIO 来通知文件系统事件。 Inotify 使用文件描述符作为接口，因而可以使用通常的文件 I/O 操作select 和 poll 来监视文件系统的变化。  Inotify 可监视的文件系统事件  IN_ACCESS : 即文件被访问 IN_MODIFY : 文件被 write IN_ATTRIB : 文件属性被修改，如 chmod、chown、touch 等 IN_CLOSE_WRITE : 可写文件被 close IN_CLOSE_NOWRITE : 不可写文件被 close IN_OPEN : 文件被open IN_MOVED_FROM : 文件被移走,如 mv IN_MOVED_TO : 文件被移来，如 mv、cp IN_CREATE : 创建新文件 IN_DELETE : 文件被删除，如 rm IN_DELETE_SELF : 自删除，即一个可执行文件在执行时删除自己 IN_MOVE_SELF : 自移动，即一个可执行文件在执行时移动自己 IN_UNMOUNT : 宿主文件系统被 umount IN_CLOSE : 文件被关闭，等同于(IN_CLOSE_WRITE | IN_CLOSE_NOWRITE) IN_MOVE : 文件被移动，等同于(IN_MOVED_FROM | IN_MOVED_TO)  注：上面所说的文件也包括目录</description>
+    </item>
+    
   </channel>
 </rss>
