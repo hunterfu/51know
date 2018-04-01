@@ -77,11 +77,25 @@
 	"content": " 大数据Spark BigData 本分类主要讲述大数据相关配置等实践\n"
 },
 {
+	"uri": "/docs/security/tcp_wrapper/",
+	"title": "Tcp Wrapper 应用安全指南",
+	"tags": [],
+	"description": "",
+	"content": "    版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 初始版本    TCP Wrapper 简介 一般在操作系统层面上安装防火墙来处理网络连接,然而虽然防火墙有非常广泛的用途，但他却不是万能的,例如它无法处理类似的向连接发起者发送一些文本这样的任务。\nTCP Wrappers扩展了inetd为受其控制的服务程序实施控制的能力,通过使用这种方法，它能够提供日志支持、返回消息给联入的连接、使得服务程序只接受内部连接，等等。\n然而，由TCP Wrappers提供的一些额外的安全功能，不应被视为好的防火墙的替代品,TCP Wrappers 应结合防火墙或其他安全加强设施一并使用，为系统多提供一层安全防护。\nTCP Wrapper 系统概述 从上图可以看出tcp wrapper 在系统中的层级结构和应用程序的关系.\n注意 : Netfilter(iptable) 是工作在网络层的 而 tcp wrapper 是工作在应用层\n从上图可以清楚的看出 /etc/hosts.allow 和 /etc/hosts.deny 配置文件规则关系\nTCP Wrapper 规则使用 规则语法说明 hosts.allow 和 hosts.deny 语法格式如下:\ndaemon : client [:option1:option2:\u0026hellip;]\ndaemon 可以是各种服务程序，比如 sshd. 服务程序在编译的时候将libwrap.so.0动态库进来就可以使用TCP Wrappers.\n可以使用ldd命令查看程序是否支持libwrap,例如:\n[root@localhost]# ldd /usr/sbin/sshd | grep libwrap libwrap.so.0 =\u0026gt; /lib/libwrap.so.0 (0x0034f000)  client 是来源用户列表以逗号分隔，可以是主机名，或者ip地址等.\noptions 附加选项 是在规则匹配后，可以选择发邮件给管理员或者记录日志等，每个动作之间使用冒号分隔\n规则使用举例 本地网络是 192.168.54.0/24, 可以访问本机服务的列表如下:\n[root@localhost]# cat /etc/hosts.allow: popd : 192.168.54.137 imapd : 192.168.54.0/255.255.255.0 sendmail : 192.168.54.0/255.255.255.0 sshd : 192.168.54.2 172.16.234.4 [root@localhost]# cat /etc/hosts.deny: ALL : ALL  进阶参考 总体来说,以下是使用TCP Wrapper的小技巧:\n 默认策略是拒绝访问(ALL : ALL in the hosts.deny file). 尽可能是用ip地址 而不是主机名 可以参考 man 5 hosts_access 了解更多  "
+},
+{
 	"uri": "/docs/security/",
 	"title": "信息安全",
 	"tags": [],
 	"description": "",
 	"content": " 信息安全 Security 本分类主要讲述信息安全配置等实践\n"
+},
+{
+	"uri": "/docs/security/openssl/",
+	"title": "openssl加密DSA,RSA介绍",
+	"tags": [],
+	"description": "",
+	"content": "    版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 初始版本    在日常系统管理工作中，需要作一些加解密的工作，通过openssl工具包就能完成我们很多需求！\nopenssl RSA 加解密 RSA是基于数论中大素数的乘积难分解理论上的非对称加密法,使用公私钥的方法进行加解密\n公钥 用于加密，它是向所有人公开的 ; 私钥用于解密，只有密文的接收者持有\n如图所示，甲乙之间使用非对称加密的方式完成了重要信息的安全传输。\n 乙方生成一对密钥（公钥和私钥）并将公钥向其它方公开。 得到公钥的甲方使用该密钥对机密信息进行加密后再发送给乙方。 乙方再用自己保存的另一把专用密钥（私钥）对加密后的信息进行解密。乙方只能用其专用密钥（私钥）解密由对应的公钥加密后的信息。 在传输过程中，即使攻击者截获了传输的密文，并得到了乙的公钥，也无法破解密文，因为只有乙的私钥才能解密密文 同样，如果乙要回复加密信息给甲，那么需要甲先公布甲的公钥给乙用于加密，甲自己保存甲的私钥用于解密。   生成一个私钥\n[root@hunterfu ~]# openssl genrsa -out private.key 1024  注意: 需要注意的是这个文件包含了公钥和密钥两部分，也就是说这个文件即可用来加密也可以用来解密,后面的1024是生成密钥的长度.\n 通过密钥文件private.key 提取公钥\n[root@hunterfu ~]# openssl rsa -in private.key -pubout -out pub.key  使用公钥加密信息\n[root@hunterfu ~]# echo -n \u0026quot;123456\u0026quot; | openssl rsautl -encrypt -inkey pub.key -pubin \u0026gt;encode.result  使用私钥解密信息\n[root@hunterfu ~]#cat encode.result | openssl rsautl -decrypt -inkey private.key 123456   至此，一次RSA加密解密的过程已经完成！\nopenssl DSA签名与验证 和RSA加密解密过程相反，在DSA数字签名和认证中，发送者使用自己的私钥对文件或消息进行签名，接受者收到消息后使用发送者的公钥来验证签名的真实性\nDSA只是一种算法，和RSA不同之处在于它不能用作加密和解密，也不能进行密钥交换，只用于签名,它比RSA要快很多.\n 生成一个密钥(私钥)\n[root@hunterfu ~]# openssl dsaparam -out dsaparam.pem 1024 [root@hunterfu ~]# openssl gendsa -out privkey.pem dsaparam.pem  生成公钥\n[root@hunterfu ~]# openssl dsa -in privkey.pem -out pubkey.pem -pubout [root@hunterfu ~]# rm -fr dsaparam.pem  使用私钥签名\n[root@hunterfu ~]# echo -n \u0026quot;123456\u0026quot; | openssl dgst -dss1 -sign privkey.pem \u0026gt; sign.result  使用公钥验证\n[root@hunterfu ~]# echo -n \u0026quot;123456\u0026quot; | openssl dgst -dss1 -verify pubkey.pem -signature sign.result Verified OK   至此，一次DSA签名与验证过程完成！\n总结及注意事项  注意: 由于信息经过加密或者签名后，都变成不可读模式,为了方便终端查看和传输使用(url提交数据,需要作urlencode操作)，可以使用base64进行编码\n openssl enc -base64 -A ：将加密后的信息使用base64编码  openssl enc -d -base64 -A ： 将信息使用base64反编码  java中此私钥需要转换下格式才能使用:\n[root@hunterfu ~]# openssl pkcs8 -topk8 -nocrypt -in private.key -outform PEM -out java_private.key   当然openssl 是一个很实用的加密工具包，还有很多东西值得学习和总结，以后有空再说！\n"
 },
 {
 	"uri": "/docs/devops/",

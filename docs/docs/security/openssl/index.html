@@ -6,11 +6,11 @@
     <meta name="generator" content="Hugo 0.37.1" />
     <meta name="description" content="开源方案文档 Ops Solution">
 <meta name="author" content="Hunterfu2009@gmail.com">
-
+<meta name="keywords" content="[openssl,dsa,rsa,公钥,私钥,签名,加密]">
 
     <link rel="shortcut icon" href="/docs/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/docs/images/favicon.png" type="image/x-icon" />
-    <title>私有云 :: OpsSoluiton 开源方案</title>
+    <title>openssl加密DSA,RSA介绍 :: OpsSoluiton 开源方案</title>
     
     
     <link href="/docs/css/nucleus.css?1522550493" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/docs/cloudstack/">
+  <body class="" data-url="/docs/security/openssl/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -78,8 +78,8 @@
   
     
     <li data-nav-id="/docs/cloudstack/" title="私有云" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/docs/cloudstack/">
@@ -174,7 +174,7 @@
   
     
     <li data-nav-id="/docs/security/" title="信息安全" class="dd-item 
-        
+        parent
         
         
         ">
@@ -274,8 +274,8 @@
   
     
     <li data-nav-id="/docs/security/openssl/" title="openssl加密DSA,RSA介绍" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/docs/security/openssl/">
@@ -495,6 +495,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
                   <span class="links">
                     
           
@@ -503,7 +505,13 @@
             
           
           
-            <a href='/docs/'>技术文档</a> > 私有云
+            
+            
+          
+          
+            <a href='/docs/'>技术文档</a> > <a href='/docs/security/'>信息安全</a> > openssl加密DSA,RSA介绍
+          
+         
           
          
           
@@ -511,14 +519,30 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#openssl-rsa-加解密">openssl RSA 加解密</a></li>
+<li><a href="#openssl-dsa签名与验证">openssl DSA签名与验证</a></li>
+<li><a href="#总结及注意事项">总结及注意事项</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
 
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>openssl加密DSA,RSA介绍</h1>
           
 
         
@@ -526,19 +550,128 @@
 
 
 
-<h3 id="私有云-cloudstack">私有云 CloudStack</h3>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
 
-<h1 id="cloudstack">CloudStack</h1>
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2016-03-28</td>
+<td>创建</td>
+<td>HunterFu</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
 
-<p>本分类主要讲述 cloudstack 相关配置等实践</p>
+<p>在日常系统管理工作中，需要作一些加解密的工作，通过openssl工具包就能完成我们很多需求！</p>
+
+<h2 id="openssl-rsa-加解密">openssl RSA 加解密</h2>
+
+<p>RSA是基于数论中大素数的乘积难分解理论上的非对称加密法,使用公私钥的方法进行加解密<br>
+公钥 用于加密，它是向所有人公开的 ; 私钥用于解密，只有密文的接收者持有</p>
+
+<p><img src="rsa.jpg" alt="rsa.jpg" />
+如图所示，甲乙之间使用非对称加密的方式完成了重要信息的安全传输。</p>
+
+<ol>
+<li>乙方生成一对密钥（公钥和私钥）并将公钥向其它方公开。</li>
+<li>得到公钥的甲方使用该密钥对机密信息进行加密后再发送给乙方。</li>
+<li>乙方再用自己保存的另一把专用密钥（私钥）对加密后的信息进行解密。乙方只能用其专用密钥（私钥）解密由对应的公钥加密后的信息。</li>
+<li>在传输过程中，即使攻击者截获了传输的密文，并得到了乙的公钥，也无法破解密文，因为只有乙的私钥才能解密密文</li>
+<li>同样，如果乙要回复加密信息给甲，那么需要甲先公布甲的公钥给乙用于加密，甲自己保存甲的私钥用于解密。</li>
+</ol>
+
+<ul>
+<li><p>生成一个私钥</p>
+
+<pre><code>[root@hunterfu ~]# openssl genrsa -out private.key 1024
+</code></pre>
+
+<p>注意: 需要注意的是这个文件包含了公钥和密钥两部分，也就是说这个文件即可用来加密也可以用来解密,后面的1024是生成密钥的长度.</p></li>
+
+<li><p>通过密钥文件private.key 提取公钥</p>
+
+<pre><code>[root@hunterfu ~]# openssl rsa -in private.key -pubout -out pub.key
+</code></pre></li>
+
+<li><p>使用公钥加密信息</p>
+
+<pre><code>[root@hunterfu ~]# echo -n &quot;123456&quot; | openssl rsautl -encrypt -inkey pub.key -pubin &gt;encode.result
+</code></pre></li>
+
+<li><p>使用私钥解密信息</p>
+
+<pre><code>[root@hunterfu ~]#cat encode.result | openssl rsautl -decrypt  -inkey private.key
+123456
+</code></pre></li>
+</ul>
+
+<p>至此，一次RSA加密解密的过程已经完成！</p>
+
+<h2 id="openssl-dsa签名与验证">openssl DSA签名与验证</h2>
+
+<p>和RSA加密解密过程相反，在DSA数字签名和认证中，发送者使用自己的私钥对文件或消息进行签名，接受者收到消息后使用发送者的公钥来验证签名的真实性<br>
+DSA只是一种算法，和RSA不同之处在于它不能用作加密和解密，也不能进行密钥交换，只用于签名,它比RSA要快很多.</p>
+
+<ul>
+<li><p>生成一个密钥(私钥)</p>
+
+<pre><code>[root@hunterfu ~]# openssl dsaparam -out dsaparam.pem 1024
+[root@hunterfu ~]# openssl gendsa -out privkey.pem dsaparam.pem
+</code></pre></li>
+
+<li><p>生成公钥</p>
+
+<pre><code>[root@hunterfu ~]# openssl dsa -in privkey.pem -out pubkey.pem -pubout
+[root@hunterfu ~]# rm -fr dsaparam.pem
+</code></pre></li>
+
+<li><p>使用私钥签名</p>
+
+<pre><code>[root@hunterfu ~]# echo -n &quot;123456&quot; | openssl dgst -dss1 -sign privkey.pem &gt; sign.result
+</code></pre></li>
+
+<li><p>使用公钥验证</p>
+
+<pre><code>[root@hunterfu ~]# echo -n &quot;123456&quot;  | openssl dgst -dss1 -verify pubkey.pem -signature sign.result
+Verified OK
+</code></pre></li>
+</ul>
+
+<p>至此，一次DSA签名与验证过程完成！</p>
+
+<h2 id="总结及注意事项">总结及注意事项</h2>
+
+<ul>
+<li><p><strong>注意</strong>: 由于信息经过加密或者签名后，都变成不可读模式,为了方便终端查看和传输使用(url提交数据,需要作urlencode操作)，可以使用base64进行编码<br></p>
+
+<ul>
+<li><strong>openssl enc -base64 -A</strong> ：将加密后的信息使用base64编码 <br></li>
+<li><strong>openssl enc -d -base64 -A</strong> ： 将信息使用base64反编码</li>
+</ul></li>
+
+<li><p><strong>java中此私钥需要转换下格式才能使用</strong>:</p>
+
+<pre><code>[root@hunterfu ~]# openssl pkcs8 -topk8 -nocrypt -in private.key -outform PEM -out java_private.key
+</code></pre></li>
+</ul>
+
+<p>当然openssl 是一个很实用的加密工具包，还有很多东西值得学习和总结，以后有空再说！</p>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
         
         </div> 
         
@@ -570,170 +703,8 @@
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
                         
                         
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -799,6 +770,175 @@
             
                 
                     
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                 
                 
 
@@ -820,10 +960,10 @@
 
 
         
-            <a class="nav nav-prev" href="/docs/" title="技术文档"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/docs/security/tcp_wrapper/" title="Tcp Wrapper 应用安全指南"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/docs/openshift/" title="容器云" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/docs/devops/" title="开发运维" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
