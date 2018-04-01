@@ -6,26 +6,26 @@
     <meta name="generator" content="Hugo 0.37.1" />
     <meta name="description" content="开源方案文档 Ops Solution">
 <meta name="author" content="Hunterfu2009@gmail.com">
-<meta name="keywords" content="[perl,open file,hash sort,常用方法,特殊变量]">
+<meta name="keywords" content="[信息安全,security]">
 
     <link rel="shortcut icon" href="/docs/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/docs/images/favicon.png" type="image/x-icon" />
-    <title>Perl脚本常用方法总结 :: OpsSoluiton 开源方案</title>
+    <title>信息安全介绍 :: OpsSoluiton 开源方案</title>
     
     
-    <link href="/docs/css/nucleus.css?1522593625" rel="stylesheet">
-    <link href="/docs/css/font-awesome.min.css?1522593625" rel="stylesheet">
-    <link href="/docs/css/hybrid.css?1522593625" rel="stylesheet">
-    <link href="/docs/css/featherlight.min.css?1522593625" rel="stylesheet">
-    <link href="/docs/css/perfect-scrollbar.min.css?1522593625" rel="stylesheet">
-    <link href="/docs/css/auto-complete.css?1522593625" rel="stylesheet">
-    <link href="/docs/css/theme.css?1522593625" rel="stylesheet">
-    <link href="/docs/css/hugo-theme.css?1522593625" rel="stylesheet">
+    <link href="/docs/css/nucleus.css?1522593624" rel="stylesheet">
+    <link href="/docs/css/font-awesome.min.css?1522593624" rel="stylesheet">
+    <link href="/docs/css/hybrid.css?1522593624" rel="stylesheet">
+    <link href="/docs/css/featherlight.min.css?1522593624" rel="stylesheet">
+    <link href="/docs/css/perfect-scrollbar.min.css?1522593624" rel="stylesheet">
+    <link href="/docs/css/auto-complete.css?1522593624" rel="stylesheet">
+    <link href="/docs/css/theme.css?1522593624" rel="stylesheet">
+    <link href="/docs/css/hugo-theme.css?1522593624" rel="stylesheet">
     
-      <link href="/docs/css/theme-mine.css?1522593625" rel="stylesheet">
+      <link href="/docs/css/theme-mine.css?1522593624" rel="stylesheet">
     
 
-    <script src="/docs/js/jquery-2.x.min.js?1522593625"></script>
+    <script src="/docs/js/jquery-2.x.min.js?1522593624"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/docs/devops/perl/">
+  <body class="" data-url="/docs/security/intro/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/docs/js/lunr.min.js?1522593625"></script>
-<script type="text/javascript" src="/docs/js/auto-complete.js?1522593625"></script>
+<script type="text/javascript" src="/docs/js/lunr.min.js?1522593624"></script>
+<script type="text/javascript" src="/docs/js/auto-complete.js?1522593624"></script>
 <script type="text/javascript">
     
         var baseurl = '\/docs';
     
 </script>
-<script type="text/javascript" src="/docs/js/search.js?1522593625"></script>
+<script type="text/javascript" src="/docs/js/search.js?1522593624"></script>
 
     
   </div>
@@ -174,7 +174,7 @@
   
     
     <li data-nav-id="/docs/security/" title="信息安全" class="dd-item 
-        
+        parent
         
         
         ">
@@ -203,8 +203,8 @@
   
     
     <li data-nav-id="/docs/security/intro/" title="信息安全介绍" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/docs/security/intro/">
@@ -333,7 +333,7 @@
   
     
     <li data-nav-id="/docs/devops/" title="开发运维" class="dd-item 
-        parent
+        
         
         
         ">
@@ -470,7 +470,7 @@
  
   
     
-      <li data-nav-id="/docs/devops/perl/" title="Perl脚本常用方法总结" class="dd-item active">
+      <li data-nav-id="/docs/devops/perl/" title="Perl脚本常用方法总结" class="dd-item ">
         <a href="/docs/devops/perl/">
         Perl脚本常用方法总结
         <i class="fa fa-check read-icon"></i>
@@ -573,7 +573,7 @@
             
           
           
-            <a href='/docs/'>技术文档</a> > <a href='/docs/devops/'>开发运维</a> > Perl脚本常用方法总结
+            <a href='/docs/'>技术文档</a> > <a href='/docs/security/'>信息安全</a> > 信息安全介绍
           
          
           
@@ -589,10 +589,10 @@
 <ul>
 <li>
 <ul>
-<li><a href="#perl-读写文件">perl 读写文件</a></li>
-<li><a href="#perl-正则">perl 正则</a></li>
-<li><a href="#perl-排序">perl 排序</a></li>
-<li><a href="#perl-内部特殊变量">Perl 内部特殊变量</a></li>
+<li><a href="#信息安全的4个安全特征">信息安全的4个安全特征</a></li>
+<li><a href="#信息安全技术机制">信息安全技术机制</a></li>
+<li><a href="#信息安全机制分层说明">信息安全机制分层说明</a></li>
+<li><a href="#信息安全技术体系建设方法">信息安全技术体系建设方法</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -607,7 +607,7 @@
         
         <div id="body-inner">
           
-            <h1>Perl脚本常用方法总结</h1>
+            <h1>信息安全介绍</h1>
           
 
         
@@ -632,436 +632,48 @@
 <td>2016-03-28</td>
 <td>创建</td>
 <td>HunterFu</td>
-<td>创建文档</td>
+<td>初始版本</td>
 </tr>
 </tbody>
 </table>
 
-<p>在日常系统管理工作中，需要编写脚本来完成特定的功能，如果要实现复杂一些的功能，就需要使用perl脚本了！<br>
-在编写的过程中，掌握一些常用的技巧和语法就可以完成大部分功能了，也就是2/8原则.</p>
+<h2 id="信息安全的4个安全特征">信息安全的4个安全特征</h2>
 
-<h2 id="perl-读写文件">perl 读写文件</h2>
+<p>信息入侵者不管怀有什么用意，采用什么手段，他们都要通过攻击信息的5 个安全特征来达到目的。</p>
+
+<p>这5个安全特征是：
+信息系统的保密性、完整性、可用性、可控性和不可否认性（可审查性）是信息安全5大特征。</p>
 
 <ul>
-<li><p>将文件读取到数组中,进行处理</p>
+<li><p><strong>保密性(Confidentiality)</strong>:也称机密性，是不将有用信息泄漏给非授权用户的特性。可以通过信息加密、身份认证、访问控制、安全通信协议等技术实现，信息加密是防止信息非法泄露的最基本手段，主要强调有用信息只被授权对象使用的特征。</p></li>
 
-<pre><code>open (IN,&quot;file.txt&quot;) ||(die &quot;can not open the file input.txt\n$!&quot;);
-my @all = &lt;IN&gt;;
-foreach $line(@all)
-{
-	process $line;
-}
-</code></pre>
+<li><p><strong>完整性(Integrity)</strong>:是指信息在传输、交换、存储和处理过程中，保持信息不被破坏或修改、不丢失和信息未经授权不能改变的特性，也是最基本的安全特征。</p></li>
 
-<p>注意:将文件load到数组中，在对数组进行遍历操作,这样子做得缺点是文件很大时,会占据很大内存，当然速度上占优势</p></li>
+<li><p><strong>可用性(Availability)</strong>:也称有效性,指信息资源可被授权实体按要求访问、正常使用或在非正常情况下能恢复使用的特性（系统面向用户服务的安全特性）。在系统运行时正确存取所需信息，当系统遭受意外攻击或破坏时，可以迅速恢复并能投入使用。是衡量网络信息系统面向用户的一种安全性能，以保障为用户提供服务。</p></li>
 
-<li><p>为节省内存，一般建议如下操作来进行文件读取</p>
+<li><p><strong>可控性(Controllability)</strong>:指网络系统和信息在传输范围和存放空间内的可控程度。是对网络系统和信息传输的控制能力特性。</p></li>
 
-<pre><code>open (IN,&quot;file.txt&quot;) ||(die &quot;can not open the file input.txt\n$!&quot;);
-while ($line = &lt;IN&gt;)
-{
-	process $line;
-}
-</code></pre>
-
-<p>注意:每次 <strong>$line = &lt;IN&gt;</strong>,文件指针后移,节省内存</p></li>
-
-<li><p>将一个文件内容读取成一个字符窜</p>
-
-<pre><code>open FH,&quot;data.xml&quot; or die $!;
-local $/=undef;
-my $scalar = &lt;FH&gt;;
-close FH;
-print $scalar;
-</code></pre>
-
-<p>注意: 程序中把分隔符<strong>$/</strong> 设置为未定义，分隔符 <strong>$/</strong> 默认情况下是等于回车的，在win32中就是\n.</p></li>
+<li><p><strong>不可否认性(可审查性)</strong>:又称拒绝否认性（No-repudiation）、抗抵赖性，指网络通信双方在信息交互过程中，确信参与者本身和所提供的信息真实同一性，即所有参与者不可否认或抵赖本人的真实身份，以及提供信息的原样性和完成的操作与承诺。</p></li>
 </ul>
 
-<h2 id="perl-正则">perl 正则</h2>
+<p>在技术上，信息安全就是保证在客观上杜绝对信息的5 种特征的安全威胁，使信息的所有者在主观上对其信息的本源性放心。</p>
 
-<ul>
-<li>匹配读取文件中的空行</li>
-</ul>
+<h2 id="信息安全技术机制">信息安全技术机制</h2>
 
-<pre><code>if ( $ine =~ /^$/ ) { print &quot;this line is null&quot;; }
-</code></pre>
+<p><img src="security_flow.png" alt="安全机制方法" /></p>
 
-<h2 id="perl-排序">perl 排序</h2>
+<h2 id="信息安全机制分层说明">信息安全机制分层说明</h2>
 
-<pre><code>@sorted = sort { $a &lt;=&gt; $b } @not_sorted #  数值排序  
-@sorted = sort { $a cmp $b } @not_sorted # 字符ASCII码值排序 
-@sorted = sort { lc($a) cmp lc($b) } @not_sorted # 按字母顺序排序 
-</code></pre>
+<p><img src="security_level.png" alt="分层说明" /></p>
 
-<table>
-<thead>
-<tr>
-<th>数值比较</th>
-<th>字符窜比较</th>
-</tr>
-</thead>
+<h2 id="信息安全技术体系建设方法">信息安全技术体系建设方法</h2>
 
-<tbody>
-<tr>
-<td>&lt;</td>
-<td>lt</td>
-</tr>
-
-<tr>
-<td>&gt;</td>
-<td>gt</td>
-</tr>
-
-<tr>
-<td>&lt;=</td>
-<td>le</td>
-</tr>
-
-<tr>
-<td>&gt;=</td>
-<td>gr</td>
-</tr>
-
-<tr>
-<td>==</td>
-<td>eq</td>
-</tr>
-
-<tr>
-<td>&lt;=&gt;</td>
-<td>cmp</td>
-</tr>
-</tbody>
-</table>
-
-<p>前面5个运算符号是没有问题的，他们就像数学运算符一样。但是 <strong>&lt;=&gt; 和 cmp</strong>操作符和前面的几个不太一样<br>
-基本上来说 表达式 <strong>$a &lt;=&gt; $b</strong> 或者 <strong>$a cmp $b</strong> 返回值为 1, 0, -1 三个值，请看下表<br></p>
-
-<table>
-<thead>
-<tr>
-<th>$a 和 $b的关系</th>
-<th>$a &lt;=&gt; $b 的返回值</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>$a 大于 $b</td>
-<td>1</td>
-</tr>
-
-<tr>
-<td>$a 等于 $b</td>
-<td>0</td>
-</tr>
-
-<tr>
-<td>$a 小于 $b</td>
-<td>-1</td>
-</tr>
-</tbody>
-</table>
-
-<h2 id="perl-内部特殊变量">Perl 内部特殊变量</h2>
-
-<table>
-<thead>
-<tr>
-<th>内部变量</th>
-<th>变量说明</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>$-</td>
-<td>当前页可打印的行数,属于Perl格式系统的一部分</td>
-</tr>
-
-<tr>
-<td>$!</td>
-<td>根据上下文内容返回错误号或者错误串</td>
-</tr>
-
-<tr>
-<td>$&rdquo;</td>
-<td>列表分隔符</td>
-</tr>
-
-<tr>
-<td>$#</td>
-<td>打印数字时默认的数字输出格式</td>
-</tr>
-
-<tr>
-<td>$$</td>
-<td>Perl解释器的进程ID</td>
-</tr>
-
-<tr>
-<td>$%</td>
-<td>当前输出通道的当前页号</td>
-</tr>
-
-<tr>
-<td>$&amp;</td>
-<td>与上个格式匹配的字符串</td>
-</tr>
-
-<tr>
-<td>$(</td>
-<td>当前进程的组ID</td>
-</tr>
-
-<tr>
-<td>$)</td>
-<td>当前进程的有效组ID</td>
-</tr>
-
-<tr>
-<td>$*</td>
-<td>设置1表示处理多行格式.现在多以/s和/m修饰符取代之</td>
-</tr>
-
-<tr>
-<td>$,</td>
-<td>当前输出字段分隔符</td>
-</tr>
-
-<tr>
-<td>$.</td>
-<td>上次阅读的文件的当前输入行号</td>
-</tr>
-
-<tr>
-<td>$/</td>
-<td>当前输入记录分隔符,默认情况是新行</td>
-</tr>
-
-<tr>
-<td>$:</td>
-<td>字符设置,此后的字符串将被分开,以填充连续的字段</td>
-</tr>
-
-<tr>
-<td>$;</td>
-<td>在仿真多维数组时使用的分隔符</td>
-</tr>
-
-<tr>
-<td>$?</td>
-<td>返回上一个外部命令的状态</td>
-</tr>
-
-<tr>
-<td>$@</td>
-<td>Perl解释器从eval语句返回的错误消息</td>
-</tr>
-
-<tr>
-<td>$[</td>
-<td>数组中第一个元素的索引号</td>
-</tr>
-
-<tr>
-<td>$</td>
-<td>当前输出记录的分隔符</td>
-</tr>
-
-<tr>
-<td>$]</td>
-<td>Perl解释器的子版本号</td>
-</tr>
-
-<tr>
-<td>$^</td>
-<td>当前通道最上面的页面输出格式名字</td>
-</tr>
-
-<tr>
-<td>$^A</td>
-<td>打印前用于保存格式化数据的变量</td>
-</tr>
-
-<tr>
-<td>$^D</td>
-<td>调试标志的值</td>
-</tr>
-
-<tr>
-<td>$^E</td>
-<td>在非UNIX环境中的操作系统扩展错误信息</td>
-</tr>
-
-<tr>
-<td>$^F</td>
-<td>最大的文件捆述符数值</td>
-</tr>
-
-<tr>
-<td>$^H</td>
-<td>由编译器激活的语法检查状态</td>
-</tr>
-
-<tr>
-<td>$^I</td>
-<td>内置控制编辑器的值</td>
-</tr>
-
-<tr>
-<td>$^L</td>
-<td>发送到输出通道的走纸换页符</td>
-</tr>
-
-<tr>
-<td>$^M</td>
-<td>备用内存池的大小</td>
-</tr>
-
-<tr>
-<td>$^O</td>
-<td>操作系统名</td>
-</tr>
-
-<tr>
-<td>$^P</td>
-<td>指定当前调试值的内部变量</td>
-</tr>
-
-<tr>
-<td>$^R</td>
-<td>正则表达式块的上次求值结果</td>
-</tr>
-
-<tr>
-<td>$^S</td>
-<td>当前解释器状态</td>
-</tr>
-
-<tr>
-<td>$^T</td>
-<td>从新世纪开始算起,脚步本以秒计算的开始运行的时间</td>
-</tr>
-
-<tr>
-<td>$^W</td>
-<td>警告开关的当前值</td>
-</tr>
-
-<tr>
-<td>$^X</td>
-<td>Perl二进制可执行代码的名字</td>
-</tr>
-
-<tr>
-<td>$_</td>
-<td>默认的输入/输出和格式匹配空间</td>
-</tr>
-
-<tr>
-<td>$</td>
-<td></td>
-</tr>
-
-<tr>
-<td>$~</td>
-<td>当前报告格式的名字</td>
-</tr>
-
-<tr>
-<td>$`</td>
-<td>在上个格式匹配信息前的字符串</td>
-</tr>
-
-<tr>
-<td>$’</td>
-<td>在上个格式匹配信息后的字符串</td>
-</tr>
-
-<tr>
-<td>$+</td>
-<td>与上个正则表达式搜索格式匹配的最后一个括号</td>
-</tr>
-
-<tr>
-<td>$&lt;</td>
-<td>当前执行解释器的用户的真实ID</td>
-</tr>
-
-<tr>
-<td>$</td>
-<td>含有与上个匹配正则表达式对应括号结果</td>
-</tr>
-
-<tr>
-<td>$=</td>
-<td>当前页面可打印行的数目</td>
-</tr>
-
-<tr>
-<td>$&gt;</td>
-<td>当前进程的有效用户ID</td>
-</tr>
-
-<tr>
-<td>$0</td>
-<td>包含正在执行的脚本的文件名</td>
-</tr>
-
-<tr>
-<td>$ARGV</td>
-<td>从默认的文件句柄中读取时的当前文件名</td>
-</tr>
-
-<tr>
-<td>%ENV</td>
-<td>环境变量列表</td>
-</tr>
-
-<tr>
-<td>%INC</td>
-<td>通过do或require包含的文件列表</td>
-</tr>
-
-<tr>
-<td>%SIG</td>
-<td>信号列表及其处理方式</td>
-</tr>
-
-<tr>
-<td>@_</td>
-<td>传给子程序的参数列表</td>
-</tr>
-
-<tr>
-<td>@ARGV</td>
-<td>传给脚本的命令行参数列表</td>
-</tr>
-
-<tr>
-<td>@INC</td>
-<td>在导入模块时需要搜索的目录列表</td>
-</tr>
-
-<tr>
-<td>$-[0]</td>
-<td>代表当前匹配的正则表达式在被匹配的字符串中的起始位置</td>
-</tr>
-
-<tr>
-<td>$+[0]</td>
-<td>代表当前匹配的正则表达式在被匹配的字符串中的终止的位置</td>
-</tr>
-</tbody>
-</table>
+<p>后续，我们会按照此安全理论和依据，按照如下路径  <strong>安全预警 &ndash;&gt; 安全防护 &ndash;&gt; 安全监控 &ndash;&gt; 应急恢复</strong> 逐步建立起信息安全技术体系</p>
 
 
 <footer class=" footline" >
 	
 </footer>
-
 
         
         </div> 
@@ -1161,6 +773,109 @@ print $scalar;
             
                 
                     
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                 
                 
 
@@ -1251,44 +966,6 @@ print $scalar;
             
         
                     
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
             
             
@@ -1321,74 +998,6 @@ print $scalar;
             
         
                     
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
             
         
                     
@@ -1399,10 +1008,10 @@ print $scalar;
 
 
         
-            <a class="nav nav-prev" href="/docs/devops/cdn/" title="网站加速之CDN技术原理"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/docs/security/" title="信息安全"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/docs/devops/tun_tap/" title="linux下TUN/TAP虚拟网卡的使用" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/docs/security/inotify/" title="Inotify监控文件系统事件" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -1411,20 +1020,20 @@ print $scalar;
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/docs/js/clipboard.min.js?1522593625"></script>
-    <script src="/docs/js/perfect-scrollbar.min.js?1522593625"></script>
-    <script src="/docs/js/perfect-scrollbar.jquery.min.js?1522593625"></script>
-    <script src="/docs/js/jquery.sticky.js?1522593625"></script>
-    <script src="/docs/js/featherlight.min.js?1522593625"></script>
-    <script src="/docs/js/html5shiv-printshiv.min.js?1522593625"></script>
-    <script src="/docs/js/highlight.pack.js?1522593625"></script>
+    <script src="/docs/js/clipboard.min.js?1522593624"></script>
+    <script src="/docs/js/perfect-scrollbar.min.js?1522593624"></script>
+    <script src="/docs/js/perfect-scrollbar.jquery.min.js?1522593624"></script>
+    <script src="/docs/js/jquery.sticky.js?1522593624"></script>
+    <script src="/docs/js/featherlight.min.js?1522593624"></script>
+    <script src="/docs/js/html5shiv-printshiv.min.js?1522593624"></script>
+    <script src="/docs/js/highlight.pack.js?1522593624"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/docs/js/modernizr.custom.71422.js?1522593625"></script>
-    <script src="/docs/js/learn.js?1522593625"></script>
-    <script src="/docs/js/hugo-learn.js?1522593625"></script>
+    <script src="/docs/js/modernizr.custom.71422.js?1522593624"></script>
+    <script src="/docs/js/learn.js?1522593624"></script>
+    <script src="/docs/js/hugo-learn.js?1522593624"></script>
 
-    <link href="/docs/mermaid/mermaid.css?1522593625" type="text/css" rel="stylesheet" />
-    <script src="/docs/mermaid/mermaid.js?1522593625"></script>
+    <link href="/docs/mermaid/mermaid.css?1522593624" type="text/css" rel="stylesheet" />
+    <script src="/docs/mermaid/mermaid.js?1522593624"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
@@ -1440,4 +1049,3 @@ var _hmt = _hmt || [];
 
   </body>
 </html>
-
