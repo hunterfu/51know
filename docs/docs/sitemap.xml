@@ -78,6 +78,16 @@
   </url>
   
   <url>
+    <loc>/docs/devops/perl/</loc>
+    <lastmod>2018-03-29T06:08:26-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/devops/tun_tap/</loc>
+    <lastmod>2018-03-29T06:08:26-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/docs/categories/</loc>
     <priority>0</priority>
   </url>

@@ -6,11 +6,11 @@
     <meta name="generator" content="Hugo 0.37.1" />
     <meta name="description" content="开源方案文档 Ops Solution">
 <meta name="author" content="Hunterfu2009@gmail.com">
-
+<meta name="keywords" content="[perl,open file,hash sort,常用方法,特殊变量]">
 
     <link rel="shortcut icon" href="/docs/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/docs/images/favicon.png" type="image/x-icon" />
-    <title>私有云 :: OpsSoluiton 开源方案</title>
+    <title>Perl脚本常用方法总结 :: OpsSoluiton 开源方案</title>
     
     
     <link href="/docs/css/nucleus.css?1522575906" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/docs/cloudstack/">
+  <body class="" data-url="/docs/devops/perl/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -78,8 +78,8 @@
   
     
     <li data-nav-id="/docs/cloudstack/" title="私有云" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/docs/cloudstack/">
@@ -307,7 +307,7 @@
   
     
     <li data-nav-id="/docs/devops/" title="开发运维" class="dd-item 
-        
+        parent
         
         
         ">
@@ -444,7 +444,7 @@
  
   
     
-      <li data-nav-id="/docs/devops/perl/" title="Perl脚本常用方法总结" class="dd-item ">
+      <li data-nav-id="/docs/devops/perl/" title="Perl脚本常用方法总结" class="dd-item active">
         <a href="/docs/devops/perl/">
         Perl脚本常用方法总结
         <i class="fa fa-check read-icon"></i>
@@ -533,6 +533,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
                   <span class="links">
                     
           
@@ -541,7 +543,13 @@
             
           
           
-            <a href='/docs/'>技术文档</a> > 私有云
+            
+            
+          
+          
+            <a href='/docs/'>技术文档</a> > <a href='/docs/devops/'>开发运维</a> > Perl脚本常用方法总结
+          
+         
           
          
           
@@ -549,14 +557,31 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#perl-读写文件">perl 读写文件</a></li>
+<li><a href="#perl-正则">perl 正则</a></li>
+<li><a href="#perl-排序">perl 排序</a></li>
+<li><a href="#perl-内部特殊变量">Perl 内部特殊变量</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
 
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>Perl脚本常用方法总结</h1>
           
 
         
@@ -564,19 +589,454 @@
 
 
 
-<h3 id="私有云-cloudstack">私有云 CloudStack</h3>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
 
-<h1 id="cloudstack">CloudStack</h1>
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2016-03-28</td>
+<td>创建</td>
+<td>HunterFu</td>
+<td>创建文档</td>
+</tr>
+</tbody>
+</table>
 
-<p>本分类主要讲述 cloudstack 相关配置等实践</p>
+<p>在日常系统管理工作中，需要编写脚本来完成特定的功能，如果要实现复杂一些的功能，就需要使用perl脚本了！<br>
+在编写的过程中，掌握一些常用的技巧和语法就可以完成大部分功能了，也就是2/8原则.</p>
+
+<h2 id="perl-读写文件">perl 读写文件</h2>
+
+<ul>
+<li><p>将文件读取到数组中,进行处理</p>
+
+<pre><code>open (IN,&quot;file.txt&quot;) ||(die &quot;can not open the file input.txt\n$!&quot;);
+my @all = &lt;IN&gt;;
+foreach $line(@all)
+{
+	process $line;
+}
+</code></pre>
+
+<p>注意:将文件load到数组中，在对数组进行遍历操作,这样子做得缺点是文件很大时,会占据很大内存，当然速度上占优势</p></li>
+
+<li><p>为节省内存，一般建议如下操作来进行文件读取</p>
+
+<pre><code>open (IN,&quot;file.txt&quot;) ||(die &quot;can not open the file input.txt\n$!&quot;);
+while ($line = &lt;IN&gt;)
+{
+	process $line;
+}
+</code></pre>
+
+<p>注意:每次 <strong>$line = &lt;IN&gt;</strong>,文件指针后移,节省内存</p></li>
+
+<li><p>将一个文件内容读取成一个字符窜</p>
+
+<pre><code>open FH,&quot;data.xml&quot; or die $!;
+local $/=undef;
+my $scalar = &lt;FH&gt;;
+close FH;
+print $scalar;
+</code></pre>
+
+<p>注意: 程序中把分隔符<strong>$/</strong> 设置为未定义，分隔符 <strong>$/</strong> 默认情况下是等于回车的，在win32中就是\n.</p></li>
+</ul>
+
+<h2 id="perl-正则">perl 正则</h2>
+
+<ul>
+<li>匹配读取文件中的空行</li>
+</ul>
+
+<pre><code>if ( $ine =~ /^$/ ) { print &quot;this line is null&quot;; }
+</code></pre>
+
+<h2 id="perl-排序">perl 排序</h2>
+
+<pre><code>@sorted = sort { $a &lt;=&gt; $b } @not_sorted #  数值排序  
+@sorted = sort { $a cmp $b } @not_sorted # 字符ASCII码值排序 
+@sorted = sort { lc($a) cmp lc($b) } @not_sorted # 按字母顺序排序 
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>数值比较</th>
+<th>字符窜比较</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>&lt;</td>
+<td>lt</td>
+</tr>
+
+<tr>
+<td>&gt;</td>
+<td>gt</td>
+</tr>
+
+<tr>
+<td>&lt;=</td>
+<td>le</td>
+</tr>
+
+<tr>
+<td>&gt;=</td>
+<td>gr</td>
+</tr>
+
+<tr>
+<td>==</td>
+<td>eq</td>
+</tr>
+
+<tr>
+<td>&lt;=&gt;</td>
+<td>cmp</td>
+</tr>
+</tbody>
+</table>
+
+<p>前面5个运算符号是没有问题的，他们就像数学运算符一样。但是 <strong>&lt;=&gt; 和 cmp</strong>操作符和前面的几个不太一样<br>
+基本上来说 表达式 <strong>$a &lt;=&gt; $b</strong> 或者 <strong>$a cmp $b</strong> 返回值为 1, 0, -1 三个值，请看下表<br></p>
+
+<table>
+<thead>
+<tr>
+<th>$a 和 $b的关系</th>
+<th>$a &lt;=&gt; $b 的返回值</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>$a 大于 $b</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>$a 等于 $b</td>
+<td>0</td>
+</tr>
+
+<tr>
+<td>$a 小于 $b</td>
+<td>-1</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="perl-内部特殊变量">Perl 内部特殊变量</h2>
+
+<table>
+<thead>
+<tr>
+<th>内部变量</th>
+<th>变量说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>$-</td>
+<td>当前页可打印的行数,属于Perl格式系统的一部分</td>
+</tr>
+
+<tr>
+<td>$!</td>
+<td>根据上下文内容返回错误号或者错误串</td>
+</tr>
+
+<tr>
+<td>$&rdquo;</td>
+<td>列表分隔符</td>
+</tr>
+
+<tr>
+<td>$#</td>
+<td>打印数字时默认的数字输出格式</td>
+</tr>
+
+<tr>
+<td>$$</td>
+<td>Perl解释器的进程ID</td>
+</tr>
+
+<tr>
+<td>$%</td>
+<td>当前输出通道的当前页号</td>
+</tr>
+
+<tr>
+<td>$&amp;</td>
+<td>与上个格式匹配的字符串</td>
+</tr>
+
+<tr>
+<td>$(</td>
+<td>当前进程的组ID</td>
+</tr>
+
+<tr>
+<td>$)</td>
+<td>当前进程的有效组ID</td>
+</tr>
+
+<tr>
+<td>$*</td>
+<td>设置1表示处理多行格式.现在多以/s和/m修饰符取代之</td>
+</tr>
+
+<tr>
+<td>$,</td>
+<td>当前输出字段分隔符</td>
+</tr>
+
+<tr>
+<td>$.</td>
+<td>上次阅读的文件的当前输入行号</td>
+</tr>
+
+<tr>
+<td>$/</td>
+<td>当前输入记录分隔符,默认情况是新行</td>
+</tr>
+
+<tr>
+<td>$:</td>
+<td>字符设置,此后的字符串将被分开,以填充连续的字段</td>
+</tr>
+
+<tr>
+<td>$;</td>
+<td>在仿真多维数组时使用的分隔符</td>
+</tr>
+
+<tr>
+<td>$?</td>
+<td>返回上一个外部命令的状态</td>
+</tr>
+
+<tr>
+<td>$@</td>
+<td>Perl解释器从eval语句返回的错误消息</td>
+</tr>
+
+<tr>
+<td>$[</td>
+<td>数组中第一个元素的索引号</td>
+</tr>
+
+<tr>
+<td>$</td>
+<td>当前输出记录的分隔符</td>
+</tr>
+
+<tr>
+<td>$]</td>
+<td>Perl解释器的子版本号</td>
+</tr>
+
+<tr>
+<td>$^</td>
+<td>当前通道最上面的页面输出格式名字</td>
+</tr>
+
+<tr>
+<td>$^A</td>
+<td>打印前用于保存格式化数据的变量</td>
+</tr>
+
+<tr>
+<td>$^D</td>
+<td>调试标志的值</td>
+</tr>
+
+<tr>
+<td>$^E</td>
+<td>在非UNIX环境中的操作系统扩展错误信息</td>
+</tr>
+
+<tr>
+<td>$^F</td>
+<td>最大的文件捆述符数值</td>
+</tr>
+
+<tr>
+<td>$^H</td>
+<td>由编译器激活的语法检查状态</td>
+</tr>
+
+<tr>
+<td>$^I</td>
+<td>内置控制编辑器的值</td>
+</tr>
+
+<tr>
+<td>$^L</td>
+<td>发送到输出通道的走纸换页符</td>
+</tr>
+
+<tr>
+<td>$^M</td>
+<td>备用内存池的大小</td>
+</tr>
+
+<tr>
+<td>$^O</td>
+<td>操作系统名</td>
+</tr>
+
+<tr>
+<td>$^P</td>
+<td>指定当前调试值的内部变量</td>
+</tr>
+
+<tr>
+<td>$^R</td>
+<td>正则表达式块的上次求值结果</td>
+</tr>
+
+<tr>
+<td>$^S</td>
+<td>当前解释器状态</td>
+</tr>
+
+<tr>
+<td>$^T</td>
+<td>从新世纪开始算起,脚步本以秒计算的开始运行的时间</td>
+</tr>
+
+<tr>
+<td>$^W</td>
+<td>警告开关的当前值</td>
+</tr>
+
+<tr>
+<td>$^X</td>
+<td>Perl二进制可执行代码的名字</td>
+</tr>
+
+<tr>
+<td>$_</td>
+<td>默认的输入/输出和格式匹配空间</td>
+</tr>
+
+<tr>
+<td>$</td>
+<td></td>
+</tr>
+
+<tr>
+<td>$~</td>
+<td>当前报告格式的名字</td>
+</tr>
+
+<tr>
+<td>$`</td>
+<td>在上个格式匹配信息前的字符串</td>
+</tr>
+
+<tr>
+<td>$’</td>
+<td>在上个格式匹配信息后的字符串</td>
+</tr>
+
+<tr>
+<td>$+</td>
+<td>与上个正则表达式搜索格式匹配的最后一个括号</td>
+</tr>
+
+<tr>
+<td>$&lt;</td>
+<td>当前执行解释器的用户的真实ID</td>
+</tr>
+
+<tr>
+<td>$</td>
+<td>含有与上个匹配正则表达式对应括号结果</td>
+</tr>
+
+<tr>
+<td>$=</td>
+<td>当前页面可打印行的数目</td>
+</tr>
+
+<tr>
+<td>$&gt;</td>
+<td>当前进程的有效用户ID</td>
+</tr>
+
+<tr>
+<td>$0</td>
+<td>包含正在执行的脚本的文件名</td>
+</tr>
+
+<tr>
+<td>$ARGV</td>
+<td>从默认的文件句柄中读取时的当前文件名</td>
+</tr>
+
+<tr>
+<td>%ENV</td>
+<td>环境变量列表</td>
+</tr>
+
+<tr>
+<td>%INC</td>
+<td>通过do或require包含的文件列表</td>
+</tr>
+
+<tr>
+<td>%SIG</td>
+<td>信号列表及其处理方式</td>
+</tr>
+
+<tr>
+<td>@_</td>
+<td>传给子程序的参数列表</td>
+</tr>
+
+<tr>
+<td>@ARGV</td>
+<td>传给脚本的命令行参数列表</td>
+</tr>
+
+<tr>
+<td>@INC</td>
+<td>在导入模块时需要搜索的目录列表</td>
+</tr>
+
+<tr>
+<td>$-[0]</td>
+<td>代表当前匹配的正则表达式在被匹配的字符串中的起始位置</td>
+</tr>
+
+<tr>
+<td>$+[0]</td>
+<td>代表当前匹配的正则表达式在被匹配的字符串中的终止的位置</td>
+</tr>
+</tbody>
+</table>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
         
@@ -608,23 +1068,6 @@
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
                         
                         
                     
@@ -681,74 +1124,8 @@
 
                     
                     
-                        
-                    
                     
 
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
                     
             
         
@@ -832,6 +1209,44 @@
             
         
                     
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
             
             
@@ -880,6 +1295,58 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -890,10 +1357,10 @@
 
 
         
-            <a class="nav nav-prev" href="/docs/" title="技术文档"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/docs/devops/cdn/" title="网站加速之CDN技术原理"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/docs/openshift/" title="容器云" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/docs/devops/tun_tap/" title="linux下TUN/TAP虚拟网卡的使用" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -931,3 +1398,4 @@ var _hmt = _hmt || [];
 
   </body>
 </html>
+

@@ -6,11 +6,11 @@
     <meta name="generator" content="Hugo 0.37.1" />
     <meta name="description" content="开源方案文档 Ops Solution">
 <meta name="author" content="Hunterfu2009@gmail.com">
-
+<meta name="keywords" content="[tun,tun/tap,tunctl,虚拟网卡,linux]">
 
     <link rel="shortcut icon" href="/docs/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/docs/images/favicon.png" type="image/x-icon" />
-    <title>私有云 :: OpsSoluiton 开源方案</title>
+    <title>linux下TUN/TAP虚拟网卡的使用 :: OpsSoluiton 开源方案</title>
     
     
     <link href="/docs/css/nucleus.css?1522575906" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/docs/cloudstack/">
+  <body class="" data-url="/docs/devops/tun_tap/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -78,8 +78,8 @@
   
     
     <li data-nav-id="/docs/cloudstack/" title="私有云" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/docs/cloudstack/">
@@ -307,7 +307,7 @@
   
     
     <li data-nav-id="/docs/devops/" title="开发运维" class="dd-item 
-        
+        parent
         
         
         ">
@@ -463,7 +463,7 @@
  
   
     
-      <li data-nav-id="/docs/devops/tun_tap/" title="linux下TUN/TAP虚拟网卡的使用" class="dd-item ">
+      <li data-nav-id="/docs/devops/tun_tap/" title="linux下TUN/TAP虚拟网卡的使用" class="dd-item active">
         <a href="/docs/devops/tun_tap/">
         linux下TUN/TAP虚拟网卡的使用
         <i class="fa fa-check read-icon"></i>
@@ -533,6 +533,8 @@
                         </a>
                     </span>
                   
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
                   <span class="links">
                     
           
@@ -541,7 +543,13 @@
             
           
           
-            <a href='/docs/'>技术文档</a> > 私有云
+            
+            
+          
+          
+            <a href='/docs/'>技术文档</a> > <a href='/docs/devops/'>开发运维</a> > linux下TUN/TAP虚拟网卡的使用
+          
+         
           
          
           
@@ -549,14 +557,30 @@
                   </span>
                 </div>
                 
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#确认内核是否支持tun-tap">确认内核是否支持tun/tap</a></li>
+<li><a href="#创建和配置虚拟网卡">创建和配置虚拟网卡</a></li>
+<li><a href="#作为系统服务随系统自动启动创建虚拟网卡">作为系统服务随系统自动启动创建虚拟网卡</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
               </div>
             </div>
             
 
         
-          <div id="chapter">
-        
         <div id="body-inner">
+          
+            <h1>linux下TUN/TAP虚拟网卡的使用</h1>
           
 
         
@@ -564,19 +588,151 @@
 
 
 
-<h3 id="私有云-cloudstack">私有云 CloudStack</h3>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
 
-<h1 id="cloudstack">CloudStack</h1>
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2016-03-28</td>
+<td>创建</td>
+<td>HunterFu</td>
+<td>创建文档</td>
+</tr>
+</tbody>
+</table>
 
-<p>本分类主要讲述 cloudstack 相关配置等实践</p>
+<p>tun/tap 驱动程序实现了虚拟网卡的功能，tun表示虚拟的是点对点设备，tap表示虚拟的是以太网设备，这两种设备针对网络包实施不同的封装。<br>
+利用tun/tap 驱动，可以将tcp/ip协议栈处理好的网络分包传给任何一个使用tun/tap驱动的进程，由进程重新处理后再发到物理链路中。<br>
+开源项目<a href="http://openvpn.sourceforge.net">openvpn</a> 和 <a href="http://vtun.sourceforge.net">Vtun</a> 都是利用tun/tap驱动实现的隧道封装。</p>
+
+<h2 id="确认内核是否支持tun-tap">确认内核是否支持tun/tap</h2>
+
+<ul>
+<li><p>确认内核是否有tun模块</p>
+
+<pre><code>[root@hunterfu]# modinfo tun
+filename:       /lib/modules/2.6.34.7-56.fc13.i686.PAE/kernel/drivers/net/tun.ko
+alias:          char-major-10-200
+license:        GPL
+author:         (C) 1999-2004 Max Krasnyansky &lt;maxk@qualcomm.com&gt;
+description:    Universal TUN/TAP device driver
+srcversion:     880DE258930FE60D765B735
+depends:        
+vermagic:       2.6.34.7-56.fc13.i686.PAE SMP mod_unload 686 
+</code></pre></li>
+
+<li><p>加载内核模块 -</p>
+
+<pre><code>[root@hunterfu ~]#  modprobe tun
+[root@hunterfu ~]# lsmod | grep tun
+tun                    10548  1 
+</code></pre>
+
+<p>执行以上命令后，出现如上输出，说明模块加载成功</p></li>
+</ul>
+
+<h2 id="创建和配置虚拟网卡">创建和配置虚拟网卡</h2>
+
+<ul>
+<li>确认是否有tunctl命令,如果没有通过yum安装即可
+<code>
+[root@hunterfu ~]# yum install tunctl
+</code></li>
+
+<li><p>创建虚拟网卡设备</p>
+
+<pre><code>[root@hunterfu ~]# tunctl -t tap0 -u root
+</code></pre></li>
+
+<li><p>设置虚拟网卡</p>
+
+<pre><code>[root@hunterfu ~]# ifconfig tap0 192.168.0.1  netmask 255.255.255.0 promisc
+</code></pre></li>
+</ul>
+
+<p>经过如上操作后，虚拟网卡已经建立和配置好了。</p>
+
+<h2 id="作为系统服务随系统自动启动创建虚拟网卡">作为系统服务随系统自动启动创建虚拟网卡</h2>
+
+<ul>
+<li>编写配置脚本(符合chkconfig规范)</li>
+</ul>
+
+<pre><code>[root@hunterfu ~]# cat /etc/init.d/config_tap 
+#!/bin/bash
+#
+# config_tap          Start up the tun/tap virtual nic
+#
+# chkconfig: 2345 55 25
+
+USER=&quot;root&quot;
+TAP_NETWORK=&quot;192.168.0.1&quot;
+TAP_DEV_NUM=0
+DESC=&quot;TAP config&quot;
+
+do_start() {
+  if [ ! -x /usr/sbin/tunctl ]; then
+    echo &quot;/usr/sbin/tunctl was NOT found!&quot;
+    exit 1
+  fi
+  tunctl -t tap$TAP_DEV_NUM -u root
+  ifconfig tap$TAP_DEV_NUM ${TAP_NETWORK}  netmask 255.255.255.0 promisc
+  ifconfig tap$TAP_DEV_NUM
+}
+
+do_stop() {
+  ifconfig tap$TAP_DEV_NUM down 
+}
+do_restart() {
+  do_stop
+  do_start
+}
+check_status() {
+  ifconfig tap$TAP_DEV_NUM 
+}
+
+case $1 in 
+  start)    do_start;;
+  stop)     do_stop;;
+  restart)  do_restart;;
+  status)
+            echo &quot;Status of $DESC: &quot;
+            check_status
+            exit &quot;$?&quot;
+            ;;
+  *)
+	echo &quot;Usage: $0 {start|stop|restart|status}&quot;
+	exit 1 
+esac
+</code></pre>
+
+<p>可以根据具体需求修改此脚本</p>
+
+<ul>
+<li>加入到系统服务中</li>
+</ul>
+
+<pre><code>[root@hunterfu ~]# chkconfig --add config_tap 
+[root@hunterfu ~]# chkconfig --level 345 config_tap on
+</code></pre>
+
+<p>操作完成后，就可以像其他标准服务一样，通过 <strong>service config_tap start</strong> 来进行创建和启动操作</p>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-        
-            </div> 
+
         
         </div> 
         
@@ -608,88 +764,8 @@
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
                         
                         
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -750,9 +826,6 @@
             
         
                     
-            
-        
-                    
                         
             
             
@@ -788,6 +861,76 @@
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -880,6 +1023,23 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -890,10 +1050,10 @@
 
 
         
-            <a class="nav nav-prev" href="/docs/" title="技术文档"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/docs/devops/perl/" title="Perl脚本常用方法总结"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/docs/openshift/" title="容器云" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/docs/devops/mysql/" title="Mysql常用用法总结" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -931,3 +1091,4 @@ var _hmt = _hmt || [];
 
   </body>
 </html>
+

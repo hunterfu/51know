@@ -59,5 +59,33 @@ Inotify 是基于inode级别的文件系统监控技术,是一种强大的、细
  Inotify 不需要对被监视的目标打开文件描述符，而且如果被监视目标在可移动介质上，那么在 umount 该介质上的文件系统后，被监视目标对应的 watch 将被自动删除，并且会产生一个 umount 事件。 Inotify 既可以监视文件，也可以监视目录。 Inotify 使用系统调用而非 SIGIO 来通知文件系统事件。 Inotify 使用文件描述符作为接口，因而可以使用通常的文件 I/O 操作select 和 poll 来监视文件系统的变化。  Inotify 可监视的文件系统事件  IN_ACCESS : 即文件被访问 IN_MODIFY : 文件被 write IN_ATTRIB : 文件属性被修改，如 chmod、chown、touch 等 IN_CLOSE_WRITE : 可写文件被 close IN_CLOSE_NOWRITE : 不可写文件被 close IN_OPEN : 文件被open IN_MOVED_FROM : 文件被移走,如 mv IN_MOVED_TO : 文件被移来，如 mv、cp IN_CREATE : 创建新文件 IN_DELETE : 文件被删除，如 rm IN_DELETE_SELF : 自删除，即一个可执行文件在执行时删除自己 IN_MOVE_SELF : 自移动，即一个可执行文件在执行时移动自己 IN_UNMOUNT : 宿主文件系统被 umount IN_CLOSE : 文件被关闭，等同于(IN_CLOSE_WRITE | IN_CLOSE_NOWRITE) IN_MOVE : 文件被移动，等同于(IN_MOVED_FROM | IN_MOVED_TO)  注：上面所说的文件也包括目录</description>
     </item>
     
+    <item>
+      <title>Perl脚本常用方法总结</title>
+      <link>/docs/devops/perl/</link>
+      <pubDate>Thu, 29 Mar 2018 06:08:26 -0400</pubDate>
+      
+      <guid>/docs/devops/perl/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 创建文档    在日常系统管理工作中，需要编写脚本来完成特定的功能，如果要实现复杂一些的功能，就需要使用perl脚本了！
+在编写的过程中，掌握一些常用的技巧和语法就可以完成大部分功能了，也就是2/8原则.
+perl 读写文件  将文件读取到数组中,进行处理
+open (IN,&amp;quot;file.txt&amp;quot;) ||(die &amp;quot;can not open the file input.txt\n$!&amp;quot;); my @all = &amp;lt;IN&amp;gt;; foreach $line(@all) { process $line; }  注意:将文件load到数组中，在对数组进行遍历操作,这样子做得缺点是文件很大时,会占据很大内存，当然速度上占优势
+ 为节省内存，一般建议如下操作来进行文件读取
+open (IN,&amp;quot;file.txt&amp;quot;) ||(die &amp;quot;can not open the file input.txt\n$!&amp;quot;); while ($line = &amp;lt;IN&amp;gt;) { process $line; }  注意:每次 $line = &amp;lt;IN&amp;gt;,文件指针后移,节省内存</description>
+    </item>
+    
+    <item>
+      <title>linux下TUN/TAP虚拟网卡的使用</title>
+      <link>/docs/devops/tun_tap/</link>
+      <pubDate>Thu, 29 Mar 2018 06:08:26 -0400</pubDate>
+      
+      <guid>/docs/devops/tun_tap/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 创建文档    tun/tap 驱动程序实现了虚拟网卡的功能，tun表示虚拟的是点对点设备，tap表示虚拟的是以太网设备，这两种设备针对网络包实施不同的封装。
+利用tun/tap 驱动，可以将tcp/ip协议栈处理好的网络分包传给任何一个使用tun/tap驱动的进程，由进程重新处理后再发到物理链路中。
+开源项目openvpn 和 Vtun 都是利用tun/tap驱动实现的隧道封装。
+确认内核是否支持tun/tap  确认内核是否有tun模块
+[root@hunterfu]# modinfo tun filename: /lib/modules/2.6.34.7-56.fc13.i686.PAE/kernel/drivers/net/tun.ko alias: char-major-10-200 license: GPL author: (C) 1999-2004 Max Krasnyansky &amp;lt;maxk@qualcomm.com&amp;gt; description: Universal TUN/TAP device driver srcversion: 880DE258930FE60D765B735 depends: vermagic: 2.6.34.7-56.fc13.i686.PAE SMP mod_unload 686  加载内核模块 -
+[root@hunterfu ~]# modprobe tun [root@hunterfu ~]# lsmod | grep tun tun 10548 1  执行以上命令后，出现如上输出，说明模块加载成功</description>
+    </item>
+    
   </channel>
 </rss>
