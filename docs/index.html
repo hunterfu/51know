@@ -57,10 +57,6 @@
     
     <link rel="stylesheet" href="css/custom2.css">
     
-    <link rel="stylesheet" href="css/comment.css">
-    
-    <link rel="stylesheet" href="css/highlight.min.css">
-    
 
     
     <script src="js/modernizr-2.6.2.min.js"></script>
@@ -90,7 +86,7 @@
                     
 
                     
-                    <li><a href="#" data-nav-section="services"><span>提供服务</span></a></li> 
+                    <li><a href="#" data-nav-section="services"><span>解决方案</span></a></li> 
                     
 
                     
@@ -98,8 +94,6 @@
                     
                     <li><a href="#" data-nav-section="contact"><span>联系我们</span></a></li> 
                     
-
-                    <li><a href="#" data-nav-section="guestbook"><span>技术支持</span></a></li> 
 
                     
                 </ul>
@@ -178,7 +172,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 section-heading text-left">
-					<h2 class=" left-border to-animate">服务内容</h2>
+					<h2 class=" left-border to-animate">解决方案</h2>
 					<div class="row">
 						<div class="col-md-8 subtext to-animate">
 							<h3>聚焦运维领域,推动实现运维自动化,普及运维知识,提供开源解决方案</h3>
@@ -263,7 +257,7 @@
 					
 						<li class="fh5co-contact-address "><i class="icon-envelope"></i>hunterfu2009@gmail.com</li>
 					
-						<li class="fh5co-contact-address "><i class="icon-globe"></i><a href="https://www.51know.info/" target="_blank">www.51know.info</a></li>
+						<li class="fh5co-contact-address "><i class="icon-question"></i><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field" target="_blank">有问题?</a></li>
 					
 					</ul>
 				</div>
@@ -305,31 +299,13 @@
 
         
 
-        	<section id="fh5co-about" data-section="guestbook">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12 section-heading text-center">
-					<h2 class="to-animate">技术支持</h2>
-					<div class="row">
-						<div class="col-md-8 col-md-offset-2 subtext to-animate">
-							<h3>关于本站相关的任何问题，敬请留下您宝贵的意见和建议</h3>
-						</div>
-                                                <div id="loading-spin"></div>
-                                                <div class="to-animate" id="comment-thread"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
         
         		<footer id="footer" role="contentinfo">
 		<a href="#" class="gotop js-gotop"><i class="icon-arrow-up2"></i></a>
 		<div class="container">
 			<div class="">
 				<div class="col-md-12 text-center">
-					<p>&copy;2015-2018  OpsSolution 开源方案 All Rights Reserved. <br>Theme by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a></p>
+					<p><br>&copy;2015-2018  Ops Solution 开源方案 All Rights Reserved. <br>Theme by <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a></p>
 				</div>
 			</div>
 			<div class="row">
@@ -370,56 +346,6 @@
         
         <script src="js/main.js"></script>
        
-        
-
-
-
-
-<script src="js/marked.min.js"></script>
-<script src="js/timeago.min.js"></script>
-
-<script src="js/spin.min.js"></script>
-
-<script src="js/highlight.min.js"></script>
-
-<script type="text/javascript">
-  marked.setOptions({
-  highlight: function (code, lang) {
-     return hljs.highlightAuto(code).value;
-  }
-  });
-  function Highlighting(){
-    var markdowns = document.getElementsByClassName('markdown');
-    for(var i=0;i<markdowns.length;i++){
-       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
-    }
-  }
-  window.addEventListener('DOMContentLoaded', Highlighting, false);
-  window.addEventListener('load', Highlighting, false);
-</script>
-
-
-<script src="js/comment.js"></script>
-
-
-	
-
-<script type="text/javascript">
-   var opt = {
-       type: "github",
-       user: "hunterfu",
-       repo: "51know",
-       no_comment: "没有留言或者GITHUB 超时. 请点击提交留言 按钮进行留言吧",
-       go_to_comment: "提交留言",
-       issue_id: "1",
-       btn_class: "btn",
-       comments_target: "#comment-thread",
-       loading_target: "#loading-spin"
-   };
-   getComments(opt);
-</script>
-
- 
 
 <script>
 var _hmt = _hmt || [];
