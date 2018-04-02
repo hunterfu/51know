@@ -271,7 +271,8 @@
 				</div>
 				
 				<div class="col-md-6 to-animate">
-					<form name="contact" method="POST" netlify>
+					<form name="contact" netlify-honeypot="bot-field" method="POST" netlify>
+                                        <input name="bot-field" type="hidden">
 					<div class="form-group ">
 						
 						<label for="name" class="sr-only">Name</label>
@@ -293,9 +294,6 @@
 						<textarea id="message" cols="30" rows="5" class="form-control" name="message" placeholder="Message"></textarea>
 						
 					</div>
-                                        
-                                        <div netlify-recaptcha></div>
-                                        
 					<div class="form-group ">
 						<input class="btn btn-primary btn-lg" value="Send message" type="submit">
 					</div>
