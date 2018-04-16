@@ -4,28 +4,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.37.1" />
-    <meta name="description" content="开源方案文档 Ops Solution">
+    <meta name="description" content="在日常系统管理工作中，需要作一些加解密的工作，通过openssl工具包就能完成我们很多需求">
 <meta name="author" content="Hunterfu2009@gmail.com">
-<meta name="keywords" content="[linux inotify shell]">
+<meta name="keywords" content="[openssl,dsa,rsa,公钥,私钥,签名,加密]">
 
     <link rel="shortcut icon" href="/docs/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/docs/images/favicon.png" type="image/x-icon" />
-    <title>Inotify监控文件系统事件 :: OpsSoluiton 开源方案</title>
+    <title>openssl加密DSA,RSA介绍 :: OpsSoluiton 开源方案</title>
     
     
-    <link href="/docs/css/nucleus.css?1522658580" rel="stylesheet">
-    <link href="/docs/css/font-awesome.min.css?1522658580" rel="stylesheet">
-    <link href="/docs/css/hybrid.css?1522658580" rel="stylesheet">
-    <link href="/docs/css/featherlight.min.css?1522658580" rel="stylesheet">
-    <link href="/docs/css/perfect-scrollbar.min.css?1522658580" rel="stylesheet">
-    <link href="/docs/css/auto-complete.css?1522658580" rel="stylesheet">
-    <link href="/docs/css/theme.css?1522658580" rel="stylesheet">
-    <link href="/docs/css/hugo-theme.css?1522658580" rel="stylesheet">
+    <link href="/docs/css/nucleus.css?1523858446" rel="stylesheet">
+    <link href="/docs/css/font-awesome.min.css?1523858446" rel="stylesheet">
+    <link href="/docs/css/hybrid.css?1523858446" rel="stylesheet">
+    <link href="/docs/css/featherlight.min.css?1523858446" rel="stylesheet">
+    <link href="/docs/css/perfect-scrollbar.min.css?1523858446" rel="stylesheet">
+    <link href="/docs/css/auto-complete.css?1523858446" rel="stylesheet">
+    <link href="/docs/css/theme.css?1523858446" rel="stylesheet">
+    <link href="/docs/css/hugo-theme.css?1523858446" rel="stylesheet">
     
-      <link href="/docs/css/theme-mine.css?1522658580" rel="stylesheet">
+      <link href="/docs/css/theme-mine.css?1523858446" rel="stylesheet">
     
 
-    <script src="/docs/js/jquery-2.x.min.js?1522658580"></script>
+    <script src="/docs/js/jquery-2.x.min.js?1523858446"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/docs/security/inotify/">
+  <body class="" data-url="/docs/security/other/openssl/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -54,14 +54,14 @@
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/docs/js/lunr.min.js?1522658580"></script>
-<script type="text/javascript" src="/docs/js/auto-complete.js?1522658580"></script>
+<script type="text/javascript" src="/docs/js/lunr.min.js?1523858446"></script>
+<script type="text/javascript" src="/docs/js/auto-complete.js?1523858446"></script>
 <script type="text/javascript">
     
         var baseurl = '\/docs';
     
 </script>
-<script type="text/javascript" src="/docs/js/search.js?1522658580"></script>
+<script type="text/javascript" src="/docs/js/search.js?1523858446"></script>
 
     
   </div>
@@ -228,8 +228,63 @@
  
   
     
-      <li data-nav-id="/docs/security/inotify/" title="Inotify监控文件系统事件" class="dd-item active">
-        <a href="/docs/security/inotify/">
+    <li data-nav-id="/docs/security/scan/" title="安全预警" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/docs/security/scan/">
+          安全预警
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/docs/security/other/" title="安全知识点滴" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/docs/security/other/">
+          安全知识点滴
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/docs/security/other/inotify/" title="Inotify监控文件系统事件" class="dd-item ">
+        <a href="/docs/security/other/inotify/">
         Inotify监控文件系统事件
         <i class="fa fa-check read-icon"></i>
         </a>
@@ -247,12 +302,12 @@
  
   
     
-    <li data-nav-id="/docs/security/iptable/" title="linux iptable 使用指南" class="dd-item 
+    <li data-nav-id="/docs/security/other/iptable/" title="linux iptable 使用指南" class="dd-item 
         
         
         
         ">
-      <a href="/docs/security/iptable/">
+      <a href="/docs/security/other/iptable/">
           linux iptable 使用指南
           
             <i class="fa fa-check read-icon"></i>
@@ -273,12 +328,12 @@
  
   
     
-    <li data-nav-id="/docs/security/tcp_wrapper/" title="Tcp Wrapper 应用安全指南" class="dd-item 
+    <li data-nav-id="/docs/security/other/tcp_wrapper/" title="Tcp Wrapper 应用安全指南" class="dd-item 
         
         
         
         ">
-      <a href="/docs/security/tcp_wrapper/">
+      <a href="/docs/security/other/tcp_wrapper/">
           Tcp Wrapper 应用安全指南
           
             <i class="fa fa-check read-icon"></i>
@@ -299,18 +354,27 @@
  
   
     
-    <li data-nav-id="/docs/security/openssl/" title="openssl加密DSA,RSA介绍" class="dd-item 
-        
-        
+    <li data-nav-id="/docs/security/other/openssl/" title="openssl加密DSA,RSA介绍" class="dd-item 
+        parent
+        active
         
         ">
-      <a href="/docs/security/openssl/">
+      <a href="/docs/security/other/openssl/">
           openssl加密DSA,RSA介绍
           
             <i class="fa fa-check read-icon"></i>
           
       </a>
       
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
               
     </li>
   
@@ -573,7 +637,13 @@
             
           
           
-            <a href='/docs/'>技术文档</a> > <a href='/docs/security/'>信息安全</a> > Inotify监控文件系统事件
+            
+            
+          
+          
+            <a href='/docs/'>技术文档</a> > <a href='/docs/security/'>信息安全</a> > <a href='/docs/security/other/'>安全知识点滴</a> > openssl加密DSA,RSA介绍
+          
+         
           
          
           
@@ -589,18 +659,16 @@
 <ul>
 <li>
 <ul>
-<li><a href="#inotify-机制概述">Inotify 机制概述</a>
+<li><a href="#openssl-rsa-加解密">openssl RSA 加解密</a></li>
+<li><a href="#openssl-dsa签名与验证">openssl DSA签名与验证</a></li>
+<li><a href="#数字证书ca">数字证书CA</a></li>
+<li><a href="#证书签发过程">证书签发过程</a>
 <ul>
-<li><a href="#inotify-介绍">Inotify 介绍</a></li>
-<li><a href="#inotify-可监视的文件系统事件">Inotify 可监视的文件系统事件</a></li>
-<li><a href="#inotify内核版本支持">Inotify内核版本支持</a></li>
-<li><a href="#inotify-的默认内核参数">inotify 的默认内核参数</a></li>
+<li><a href="#pki架构使用证书保护web访问的安全实现ssl的基本原理">PKI架构使用证书保护Web访问的安全实现SSL的基本原理</a></li>
+<li><a href="#生成自己的ca-certificate-authority">生成自己的CA (Certificate Authority)</a></li>
+<li><a href="#查看证书">查看证书</a></li>
 </ul></li>
-<li><a href="#inotify-在系统中使用">Inotify 在系统中使用</a>
-<ul>
-<li><a href="#linux-shell-下使用inotify">linux shell 下使用inotify</a></li>
-<li><a href="#使用incron实现重要配置文件监控">使用incron实现重要配置文件监控</a></li>
-</ul></li>
+<li><a href="#openssl使用注意事项">openssl使用注意事项</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -615,7 +683,7 @@
         
         <div id="body-inner">
           
-            <h1>Inotify监控文件系统事件</h1>
+            <h1>openssl加密DSA,RSA介绍</h1>
           
 
         
@@ -636,230 +704,230 @@
 
 <tbody>
 <tr>
-<td>V1.1</td>
+<td>V1.0</td>
 <td>2016-03-28</td>
 <td>创建</td>
-<td>HunterFu</td>
+<td>开源方案</td>
 <td>初始版本</td>
+</tr>
+
+<tr>
+<td>V1.1</td>
+<td>2017-04-28</td>
+<td>修订</td>
+<td>开源方案</td>
+<td>增加数字证书签发过程说明</td>
+</tr>
+
+<tr>
+<td>V1.2</td>
+<td>2018-03-08</td>
+<td>修订</td>
+<td>开源方案</td>
+<td>增加ssl证书访问过程说明</td>
 </tr>
 </tbody>
 </table>
 
-<h2 id="inotify-机制概述">Inotify 机制概述</h2>
+<p>在日常系统管理工作中，需要作一些加解密的工作，通过openssl工具包就能完成我们很多需求！</p>
 
-<h3 id="inotify-介绍">Inotify 介绍</h3>
+<h2 id="openssl-rsa-加解密">openssl RSA 加解密</h2>
 
-<p>在日常的运维过程中，经常需要备份某些文件，或者对系统的某些文件进行监控，比如重要的配置文件等。如果需要作到实时同步或者监控，就需要使用内核的inotify机制<br>
-Inotify 是基于<strong>inode</strong>级别的文件系统监控技术,是一种强大的、细粒度的、异步的机制，它满足各种各样的文件监控需要，不仅限于安全和性能<br></p>
+<p>RSA是基于数论中大素数的乘积难分解理论上的非对称加密法,使用公私钥的方法进行加解密<br>
+公钥 用于加密，它是向所有人公开的 ; 私钥用于解密，只有密文的接收者持有</p>
 
-<ul>
-<li>Inotify 不需要对被监视的目标打开文件描述符，而且如果被监视目标在可移动介质上，那么在 umount 该介质上的文件系统后，被监视目标对应的 watch 将被自动删除，并且会产生一个 umount 事件。</li>
-<li>Inotify 既可以监视文件，也可以监视目录。</li>
-<li>Inotify 使用系统调用而非 SIGIO 来通知文件系统事件。</li>
-<li>Inotify 使用文件描述符作为接口，因而可以使用通常的文件 I/O 操作select 和 poll 来监视文件系统的变化。</li>
-</ul>
+<p><img src="rsa.jpg" alt="rsa.jpg" />
+如图所示，甲乙之间使用非对称加密的方式完成了重要信息的安全传输。</p>
 
-<h3 id="inotify-可监视的文件系统事件">Inotify 可监视的文件系统事件</h3>
-
-<ul>
-<li>IN_ACCESS : 即文件被访问</li>
-<li>IN_MODIFY : 文件被 write</li>
-<li>IN_ATTRIB : 文件属性被修改，如 chmod、chown、touch 等</li>
-<li>IN_CLOSE_WRITE : 可写文件被 close</li>
-<li>IN_CLOSE_NOWRITE : 不可写文件被 close</li>
-<li>IN_OPEN : 文件被open</li>
-<li>IN_MOVED_FROM : 文件被移走,如 mv</li>
-<li>IN_MOVED_TO : 文件被移来，如 mv、cp</li>
-<li>IN_CREATE : 创建新文件</li>
-<li>IN_DELETE : 文件被删除，如 rm</li>
-<li>IN_DELETE_SELF : 自删除，即一个可执行文件在执行时删除自己</li>
-<li>IN_MOVE_SELF : 自移动，即一个可执行文件在执行时移动自己</li>
-<li>IN_UNMOUNT : 宿主文件系统被 umount</li>
-<li>IN_CLOSE : 文件被关闭，等同于(IN_CLOSE_WRITE | IN_CLOSE_NOWRITE)</li>
-<li>IN_MOVE : 文件被移动，等同于(IN_MOVED_FROM | IN_MOVED_TO)</li>
-</ul>
-
-<p>注：上面所说的文件也包括目录</p>
-
-<h3 id="inotify内核版本支持">Inotify内核版本支持</h3>
+<ol>
+<li>乙方生成一对密钥（公钥和私钥）并将公钥向其它方公开。</li>
+<li>得到公钥的甲方使用该密钥对机密信息进行加密后再发送给乙方。</li>
+<li>乙方再用自己保存的另一把专用密钥（私钥）对加密后的信息进行解密。乙方只能用其专用密钥（私钥）解密由对应的公钥加密后的信息。</li>
+<li>在传输过程中，即使攻击者截获了传输的密文，并得到了乙的公钥，也无法破解密文，因为只有乙的私钥才能解密密文</li>
+<li>同样，如果乙要回复加密信息给甲，那么需要甲先公布甲的公钥给乙用于加密，甲自己保存甲的私钥用于解密。</li>
+</ol>
 
 <ul>
-<li>从<strong>kernel 2.6.13</strong>开始,Inotify正式并入内核，RHEL5已经支持.</li>
-<li>看看是否有 <strong>/proc/sys/fs/inotify/</strong>目录，以确定内核是否支持inotify</li>
-</ul>
+<li><p>生成一个私钥</p>
 
-<pre><code>[root@RHEL5 Rsync]# ls -l /proc/sys/fs/inotify/
-total 0
--rw-r--r-- 1 root root 0 Oct  9 09:36 max_queued_events
--rw-r--r-- 1 root root 0 Oct  9 09:36 max_user_instances
--rw-r--r-- 1 root root 0 Oct  9 09:36 max_user_watches
+<pre><code>[root@hunterfu ~]# openssl genrsa -out private.key 1024
 </code></pre>
 
-<h3 id="inotify-的默认内核参数">inotify 的默认内核参数</h3>
+<p>注意: 需要注意的是这个文件包含了公钥和密钥两部分，也就是说这个文件即可用来加密也可以用来解密,后面的1024是生成密钥的长度.</p></li>
 
-<ul>
-<li><p><strong>/proc/sys/fs/inotify/max_queued_events</strong><br>
-默认值: 16384 该文件中的值为调用inotify_init时分配给inotify instance中可排队的event的数目的最大值，超出这个值得事件被丢弃，但会触发IN_Q_OVERFLOW事件</p></li>
+<li><p>通过密钥文件private.key 提取公钥</p>
 
-<li><p><strong>/proc/sys/fs/inotify/max_user_instances</strong><br>
-默认值: 128 指定了每一个real user ID可创建的inotify instatnces的数量上限</p></li>
+<pre><code>[root@hunterfu ~]# openssl rsa -in private.key -pubout -out pub.key
+</code></pre></li>
 
-<li><p><strong>/proc/sys/fs/inotify/max_user_watches</strong><br>
-默认值: 8192 指定了每个inotify instance相关联的watches的上限</p></li>
+<li><p>使用公钥加密信息</p>
+
+<pre><code>[root@hunterfu ~]# echo -n &quot;123456&quot; | openssl rsautl -encrypt -inkey pub.key -pubin &gt;encode.result
+</code></pre></li>
+
+<li><p>使用私钥解密信息</p>
+
+<pre><code>[root@hunterfu ~]#cat encode.result | openssl rsautl -decrypt  -inkey private.key
+123456
+</code></pre></li>
 </ul>
 
-<p>注意: max_queued_events 是 Inotify 管理的队列的最大长度，文件系统变化越频繁，这个值就应该越大 <br>
-如果你在日志中看到<strong>Event Queue Overflow</strong>，说明<strong>max_queued_events</strong>太小需要调整参数后再次使用.</p>
+<p>至此，一次RSA加密解密的过程已经完成！</p>
 
-<h2 id="inotify-在系统中使用">Inotify 在系统中使用</h2>
+<h2 id="openssl-dsa签名与验证">openssl DSA签名与验证</h2>
 
-<h3 id="linux-shell-下使用inotify">linux shell 下使用inotify</h3>
-
-<ul>
-<li><p>下载安装 [inotify-tools源码 <a href="http://inotify-tools.sourceforge.net/">http://inotify-tools.sourceforge.net/</a>]</p>
+<p>和RSA加密解密过程相反，在DSA数字签名和认证中，发送者使用自己的私钥对文件或消息进行签名，接受者收到消息后使用发送者的公钥来验证签名的真实性<br>
+DSA只是一种算法，和RSA不同之处在于它不能用作加密和解密，也不能进行密钥交换，只用于签名,它比RSA要快很多.</p>
 
 <ul>
-<li><strong>inotifywait</strong> 仅执行阻塞，等待 inotify 事件。您可以监控任何一组文件和目录，或监控整个目录树（目录、子目录、子目录的子目录等等）<br>
-在 shell 脚本中使用 inotifywait。</li>
-<li><strong>inotifywatch</strong> 收集关于被监视的文件系统的统计数据，包括每个 inotify 事件发生多少次。</li>
+<li><p>生成一个密钥(私钥)</p>
+
+<pre><code>[root@hunterfu ~]# openssl dsaparam -out dsaparam.pem 1024
+[root@hunterfu ~]# openssl gendsa -out privkey.pem dsaparam.pem
+</code></pre></li>
+
+<li><p>生成公钥</p>
+
+<pre><code>[root@hunterfu ~]# openssl dsa -in privkey.pem -out pubkey.pem -pubout
+[root@hunterfu ~]# rm -fr dsaparam.pem
+</code></pre></li>
+
+<li><p>使用私钥签名</p>
+
+<pre><code>[root@hunterfu ~]# echo -n &quot;123456&quot; | openssl dgst -dss1 -sign privkey.pem &gt; sign.result
+</code></pre></li>
+
+<li><p>使用公钥验证</p>
+
+<pre><code>[root@hunterfu ~]# echo -n &quot;123456&quot;  | openssl dgst -dss1 -verify pubkey.pem -signature sign.result
+Verified OK
+</code></pre></li>
+</ul>
+
+<p>至此，一次DSA签名与验证过程完成！</p>
+
+<h2 id="数字证书ca">数字证书CA</h2>
+
+<p>公钥在网络传输过程中，无法保证可信度，容易被窃取或者伪装，所以我们就需要一个受信任的第三方机构CA来保证公钥信息的安全分发。
+<img src="ca.jpg" alt="ca.jpg" />
+有了根CA之后，证书颁发机构信任根CA，不同证书颁发机构只要信任根CA那么颁发的证书都是受信任的。</p>
+
+<p><img src="ca_client.jpg" alt="ca_client.jpg" />
+浏览器默认已经内置第三方的受信任的根证书的颁发机构</p>
+
+<h2 id="证书签发过程">证书签发过程</h2>
+
+<p><img src="ca-sign.png" alt="ca-sign.png" /></p>
+
+<ol>
+<li><p>服务方S向第三方机构CA提交公钥、组织信息、个人信息(域名)等信息并申请认证;</p></li>
+
+<li><p>CA通过线上、线下等多种手段验证申请者提供信息的真实性，如组织是否存在、企业是否合法，是否拥有域名的所有权等;</p></li>
+
+<li><p>如信息审核通过，CA会向申请者签发认证文件-证书。
+证书包含以下信息：申请者公钥、申请者的组织信息和个人信息、签发机构 CA的信息、有效时间、证书序列号等信息的明文，同时包含一个签名;
+签名的产生算法：首先，使用散列函数计算公开的明文信息的信息摘要，然后，采用 CA的私钥对信息摘要进行加密，密文即签名;</p></li>
+
+<li><p>客户端 C 向服务器 S 发出请求时，S 返回证书文件;</p></li>
+
+<li><p>客户端 C读取证书中的相关的明文信息，采用相同的散列函数计算得到信息摘要，然后，利用对应 CA的公钥解密签名数据，对比证书的信息摘要，如果一致，则可以确认证书的合法性，即公钥合法;</p></li>
+
+<li><p>客户端然后验证证书相关的域名信息、有效时间等信息;</p></li>
+
+<li><p>客户端会内置信任CA的证书信息(包含公钥)，如果CA不被信任，则找不到对应 CA的证书，证书也会被判定非法。</p></li>
+</ol>
+
+<h3 id="pki架构使用证书保护web访问的安全实现ssl的基本原理">PKI架构使用证书保护Web访问的安全实现SSL的基本原理</h3>
+
+<p><img src="ca-ssl.png" alt="ca-ssl.png" /></p>
+
+<ol>
+<li><p>web服务器生成一个证书申请文件，该申请文件中存放有Web站点相关身份的一些唯一性标识，如果Web服务器上已经存在了公钥，那么Web服务器会将自己的公钥存放到证书申请文件中，以备证书服务器认证Web公钥的合法性。</p></li>
+
+<li><p>Web服务器将生成的证书申请文件提交给证书服务器，待证书服务器审查。</p></li>
+
+<li><p>当证书服务器验证Web服务器申请文件后，证书服务器会为Web服务器颁发证书，证书中包括了Web服务器将要使用的公钥副本，并将公钥副本与Web服务器的身份相绑定。如果在第一步的申请文件中已经存在Web服务器的公钥，那么证书服务器就对Web的公钥进行合法性签字，注意Web服务器自己本地产生公钥，只由证书服务器来授权它公钥的合法性，这是完全有可能的。</p></li>
+
+<li><p>Web将自己的公钥传送给客户端，以便客户端可以使用Web的公钥来加密相关消息，公钥潜在是可以公开的，所以Web服务器这样做，并没有造成任何安全隐患。</p></li>
+
+<li><p>客户端将使用会话密钥（就是对称式密钥）来加密页面的内容，然后使用Web的公钥来加密会话密钥，因为会话密钥加密数据的速度快，并非对称式加密更安全。</p></li>
+
+<li><p>客户端把使用Web服务公钥加密的消息通过网络传送给Web服务器，如果传送的数据被网络中的恶棍截取，也无法读取数据，因为他没有Web服务器的私钥。私钥存储在Web服务器上，它是不可公开的，其它人无法获取。</p></li>
+
+<li><p>当Web服务器收到客户端使用自己公钥加密的消息后，它使用这把公钥对应的私钥解密消息，然后再解密会话密钥加密的内容，得到原始明文消息。</p></li>
+</ol>
+
+<h3 id="生成自己的ca-certificate-authority">生成自己的CA (Certificate Authority)</h3>
+
+<ol>
+<li><p>生成CA的key</p>
+
+<pre><code>openssl genrsa -des3 -out ca.key 4096
+</code></pre></li>
+
+<li><p>生成CA的证书</p>
+
+<pre><code>openssl req -new -x509 -days 365 -key ca.key -out ca.crt
+</code></pre></li>
+
+<li><p>生成我们的key和CSR</p>
+
+<pre><code>openssl genrsa -des3 -out myserver.key 4096
+openssl req -new -key myserver.key -out myserver.csr
+</code></pre></li>
+
+<li><p>使用ca的证书和key，生成我们的证书</p>
+
+<pre><code>openssl x509 -req -days 365 -in myserver.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out myserver.crt
+</code></pre>
+
+<p>注意: 这里的set_serial指明了证书的序号，如果证书过期了(365天后)， 或者证书key泄漏了，需要重新发证的时候，就要加1</p></li>
+</ol>
+
+<h3 id="查看证书">查看证书</h3>
+
+<ol>
+<li><p>查看KEY信息</p>
+
+<pre><code>openssl rsa -noout -text -in myserver.key
+</code></pre></li>
+
+<li><p>查看CSR信息</p>
+
+<pre><code>openssl req -noout -text -in myserver.csr
+</code></pre></li>
+
+<li><p>查看证书信息</p>
+
+<pre><code>openssl x509 -noout -text -in ca.crt
+</code></pre></li>
+
+<li><p>验证签发的证书</p>
+
+<pre><code>openssl verify -CAfile ca.crt myserver.crt
+</code></pre></li>
+</ol>
+
+<h2 id="openssl使用注意事项">openssl使用注意事项</h2>
+
+<ul>
+<li><p><strong>注意</strong>: 由于信息经过加密或者签名后，都变成不可读模式,为了方便终端查看和传输使用(url提交数据,需要作urlencode操作)，可以使用base64进&gt;行编码<br></p>
+
+<ul>
+<li><strong>openssl enc -base64 -A</strong> ：将加密后的信息使用base64编码 <br></li>
+<li><strong>openssl enc -d -base64 -A</strong> ： 将信息使用base64反编码</li>
 </ul></li>
 
-<li><p>shell脚本示例</p>
+<li><p><strong>java中此私钥需要转换下格式才能使用</strong>:</p>
 
-<pre><code>[root@localhost ]# cat /tmp/test.sh
-#!/bin/bash
-inotifywait -mrq --timefmt '%d/%m/%y %H:%M' --format  '%T %w%f %e' --event modify,delete,create,attrib  /home/admin | while read  date time file event
-do
-case $event in
-    MODIFY|CREATE|MOVE|MODIFY,ISDIR|CREATE,ISDIR|MODIFY,ISDIR)
-            echo $event'-'$file
-        ;;
-
-    MOVED_FROM|MOVED_FROM,ISDIR|DELETE|DELETE,ISDIR)
-            echo $event'-'$file
-        ;;
-esac
-done
-</code></pre></li>
-
-<li><p>执行脚本，结果输出(这里测试删除了一个目录 rm -fr cronolog-1.6.2.bak)</p>
-
-<pre><code>[root@localhost]# /tmp/test.sh 
-DELETE-/home/admin/cronolog-1.6.2.bak/COPYING
-DELETE-/home/admin/cronolog-1.6.2.bak/doc/cronolog.info
-DELETE-/home/admin/cronolog-1.6.2.bak/doc/cronolog.texi
-DELETE-/home/admin/cronolog-1.6.2.bak/doc/Makefile.am
-DELETE-/home/admin/cronolog-1.6.2.bak/doc/Makefile.in
-DELETE-/home/admin/cronolog-1.6.2.bak/doc/texinfo.tex
-DELETE-/home/admin/cronolog-1.6.2.bak/doc/cronosplit.1m
-DELETE-/home/admin/cronolog-1.6.2.bak/doc/Makefile
-DELETE-/home/admin/cronolog-1.6.2.bak/doc/cronolog.1m
-DELETE,ISDIR-/home/admin/cronolog-1.6.2.bak/doc
-DELETE-/home/admin/cronolog-1.6.2.bak/TODO
-DELETE-/home/admin/cronolog-1.6.2.bak/src/cronotest.c
-DELETE-/home/admin/cronolog-1.6.2.bak/src/cronolog.c
-DELETE-/home/admin/cronolog-1.6.2.bak/src/cronoutils.h
-DELETE-/home/admin/cronolog-1.6.2.bak/src/cronoutils.c
-DELETE-/home/admin/cronolog-1.6.2.bak/src/Makefile.am
-DELETE-/home/admin/cronolog-1.6.2.bak/src/Makefile.in
-DELETE-/home/admin/cronolog-1.6.2.bak/src/cronosplit.in
-DELETE-/home/admin/cronolog-1.6.2.bak/src/Makefile
-DELETE-/home/admin/cronolog-1.6.2.bak/src/cronosplit
-DELETE-/home/admin/cronolog-1.6.2.bak/src/config.h
-DELETE,ISDIR-/home/admin/cronolog-1.6.2.bak/src
-DELETE-/home/admin/cronolog-1.6.2.bak/lib/getopt1.c
-DELETE-/home/admin/cronolog-1.6.2.bak/lib/getopt.h
-DELETE-/home/admin/cronolog-1.6.2.bak/lib/Makefile.am
-DELETE-/home/admin/cronolog-1.6.2.bak/lib/Makefile.in
-DELETE-/home/admin/cronolog-1.6.2.bak/lib/localtime_r.c
-DELETE-/home/admin/cronolog-1.6.2.bak/lib/getopt.c
-DELETE-/home/admin/cronolog-1.6.2.bak/lib/Makefile
-DELETE-/home/admin/cronolog-1.6.2.bak/lib/strptime.c
-DELETE,ISDIR-/home/admin/cronolog-1.6.2.bak/lib
-DELETE-/home/admin/cronolog-1.6.2.bak/config.cache
-DELETE-/home/admin/cronolog-1.6.2.bak/install-sh
-DELETE-/home/admin/cronolog-1.6.2.bak/Makefile.am
-DELETE-/home/admin/cronolog-1.6.2.bak/README
-DELETE-/home/admin/cronolog-1.6.2.bak/AUTHORS
-DELETE-/home/admin/cronolog-1.6.2.bak/Makefile.in
-DELETE-/home/admin/cronolog-1.6.2.bak/testsuite/Makefile.am
-DELETE-/home/admin/cronolog-1.6.2.bak/testsuite/README
-DELETE-/home/admin/cronolog-1.6.2.bak/testsuite/Makefile.in
-DELETE-/home/admin/cronolog-1.6.2.bak/testsuite/Makefile
-DELETE,ISDIR-/home/admin/cronolog-1.6.2.bak/testsuite
-DELETE-/home/admin/cronolog-1.6.2.bak/cronolog.spec
-DELETE-/home/admin/cronolog-1.6.2.bak/NEWS
-DELETE-/home/admin/cronolog-1.6.2.bak/configure
-DELETE-/home/admin/cronolog-1.6.2.bak/ChangeLog
-DELETE-/home/admin/cronolog-1.6.2.bak/missing
-DELETE-/home/admin/cronolog-1.6.2.bak/config.log
-DELETE-/home/admin/cronolog-1.6.2.bak/aclocal.m4
-DELETE-/home/admin/cronolog-1.6.2.bak/Makefile
-DELETE-/home/admin/cronolog-1.6.2.bak/INSTALL
-DELETE-/home/admin/cronolog-1.6.2.bak/config.status
-DELETE-/home/admin/cronolog-1.6.2.bak/configure.in
-DELETE-/home/admin/cronolog-1.6.2.bak/mkinstalldirs
-DELETE,ISDIR-/home/admin/cronolog-1.6.2.bak
+<pre><code>[root@hunterfu ~]# openssl pkcs8 -topk8 -nocrypt -in private.key -outform PEM -out java_private.key
 </code></pre></li>
 </ul>
-
-<p>详细请参考 man inotify , man inotifywait</p>
-
-<h3 id="使用incron实现重要配置文件监控">使用incron实现重要配置文件监控</h3>
-
-<p>Incron是inotify的cron系统，与os本身的cron一样，包含一个后台守护进程（incrond）和一个事件编辑器（incrontab<br>
-与os本身的cron不同的仅仅是触发时间的是os对某个文件（夹）的操作而不是时间,由系统事件触发的机制，对于应用系统来说，几乎可以做到实时性。</p>
-
-<ul>
-<li><p>安装Incron [Centos/RHEL都以pm包方式安装]</p>
-
-<pre><code>[root@localhost]# yum install Incron
-</code></pre></li>
-
-<li><p>查看 incron 支持的事件类型 <strong>incrontab  -t</strong> ,编辑配置文件使用 <strong>incrontab  -e</strong></p></li>
-
-<li><p>配置文件格式说明(默认配置在/var/spool/incron/ 目录下)</p>
-
-<pre><code>&lt;path&gt; &lt;mask&gt; &lt;command&gt;
-</code></pre>
-
-<p>选项说明:<br>
-&lt;path&gt;：欲监控的文件或者目录<br>
-&lt;mask&gt;：os对监控对象发生的事件<br>
-&lt;command&gt;：command可以是系统命令，也可以是脚本，不能是用系统的重定向，除非重定向写在脚本中。</p></li>
-
-<li><p>&lt;Command&gt;中还可以使用下面的这些变量：<br>
-$@：代表<path>，即监控对象<br>
-$#：发生系统事件的对象（例如监控了某个文件夹，其下的某个文件发生了变化，那么$#就代表了该文件名）<br>
-$%：代表<mask>，即发生的事件</p></li>
-
-<li><p>配置举例：</p>
-
-<ul>
-<li><p>/home/admin/a.txt IN_MODIFY echo &ldquo;$@ $#&rdquo; <br>
-表示文件a.txt一旦被修改，就执行 <strong>echo &ldquo;$@ $#&rdquo;</strong></p></li>
-
-<li><p>/home/admin/ IN_ALL_EVENTS echo &ldquo;$@ $# $%&rdquo; <br>
-表示目录下的文件任何事件触发,就执行 <strong>echo &ldquo;$@ $#&rdquo;</strong></p></li>
-</ul></li>
-
-<li><p>启动incrond (/etc/init.d/incrond start),然后在 /home/admin目录删除 ssss 文件，查看日志 tail /var/log/cron ,有如下输出</p></li>
-</ul>
-
-<pre><code>Mar 23 14:05:19 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin =  = IN_OPEN,IN_ISDIR&quot;)
-Mar 23 14:05:19 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin =  = IN_CLOSE_NOWRITE,IN_ISDIR&quot;)
-Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin =  = IN_OPEN,IN_ISDIR&quot;)
-Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin =  = IN_CLOSE_NOWRITE,IN_ISDIR&quot;)
-Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin = ssss = IN_DELETE&quot;)
-</code></pre>
-
-<p>总体来说，在文件和目录实时监控还是很有效的，可以结合其他工具来作统一化的解决方案,比如使用syslog-ng作统一化收集，当然最重要还是要有场景.</p>
 
 
 <footer class=" footline" >
 	
 </footer>
-
 
         
         </div> 
@@ -994,7 +1062,6 @@ Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin = ss
             
                 
                     
-                    
                 
                 
 
@@ -1011,59 +1078,6 @@ Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin = ss
             
                 
                     
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1079,6 +1093,9 @@ Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin = ss
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1122,6 +1139,47 @@ Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin = ss
                     
             
         
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
                     
                         
             
@@ -1187,6 +1245,54 @@ Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin = ss
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -1197,10 +1303,10 @@ Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin = ss
 
 
         
-            <a class="nav nav-prev" href="/docs/security/intro/" title="信息安全介绍"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/docs/security/other/tcp_wrapper/" title="Tcp Wrapper 应用安全指南"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/docs/security/iptable/" title="linux iptable 使用指南" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/docs/devops/" title="开发运维" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -1209,20 +1315,20 @@ Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin = ss
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/docs/js/clipboard.min.js?1522658580"></script>
-    <script src="/docs/js/perfect-scrollbar.min.js?1522658580"></script>
-    <script src="/docs/js/perfect-scrollbar.jquery.min.js?1522658580"></script>
-    <script src="/docs/js/jquery.sticky.js?1522658580"></script>
-    <script src="/docs/js/featherlight.min.js?1522658580"></script>
-    <script src="/docs/js/html5shiv-printshiv.min.js?1522658580"></script>
-    <script src="/docs/js/highlight.pack.js?1522658580"></script>
+    <script src="/docs/js/clipboard.min.js?1523858446"></script>
+    <script src="/docs/js/perfect-scrollbar.min.js?1523858446"></script>
+    <script src="/docs/js/perfect-scrollbar.jquery.min.js?1523858446"></script>
+    <script src="/docs/js/jquery.sticky.js?1523858446"></script>
+    <script src="/docs/js/featherlight.min.js?1523858446"></script>
+    <script src="/docs/js/html5shiv-printshiv.min.js?1523858446"></script>
+    <script src="/docs/js/highlight.pack.js?1523858446"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/docs/js/modernizr.custom.71422.js?1522658580"></script>
-    <script src="/docs/js/learn.js?1522658580"></script>
-    <script src="/docs/js/hugo-learn.js?1522658580"></script>
+    <script src="/docs/js/modernizr.custom.71422.js?1523858446"></script>
+    <script src="/docs/js/learn.js?1523858446"></script>
+    <script src="/docs/js/hugo-learn.js?1523858446"></script>
 
-    <link href="/docs/mermaid/mermaid.css?1522658580" type="text/css" rel="stylesheet" />
-    <script src="/docs/mermaid/mermaid.js?1522658580"></script>
+    <link href="/docs/mermaid/mermaid.css?1523858446" type="text/css" rel="stylesheet" />
+    <script src="/docs/mermaid/mermaid.js?1523858446"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
@@ -1238,4 +1344,3 @@ var _hmt = _hmt || [];
 
   </body>
 </html>
-

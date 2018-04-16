@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="generator" content="Hugo 0.37.1" />
-    <meta name="description" content="开源方案文档 Ops Solution">
+    <meta name="description" content="在日常的运维过程中，经常需要备份某些文件，或者对系统的某些文件进行监控，比如重要的配置文件等。如果需要作到实时同步或者监控，就需要使用内核的inotify机制">
 <meta name="author" content="Hunterfu2009@gmail.com">
-
+<meta name="keywords" content="[linux inotify shell]">
 
     <link rel="shortcut icon" href="/docs/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/docs/images/favicon.png" type="image/x-icon" />
-    <title>Shell脚本知识总结 :: OpsSoluiton 开源方案</title>
+    <title>Inotify监控文件系统事件 :: OpsSoluiton 开源方案</title>
     
     
     <link href="/docs/css/nucleus.css?1523858446" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/docs/devops/shell/">
+  <body class="" data-url="/docs/security/other/inotify/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -174,7 +174,7 @@
   
     
     <li data-nav-id="/docs/security/" title="信息安全" class="dd-item 
-        
+        parent
         
         
         ">
@@ -255,7 +255,7 @@
   
     
     <li data-nav-id="/docs/security/other/" title="安全知识点滴" class="dd-item 
-        
+        parent
         
         
         ">
@@ -283,7 +283,7 @@
  
   
     
-      <li data-nav-id="/docs/security/other/inotify/" title="Inotify监控文件系统事件" class="dd-item ">
+      <li data-nav-id="/docs/security/other/inotify/" title="Inotify监控文件系统事件" class="dd-item active">
         <a href="/docs/security/other/inotify/">
         Inotify监控文件系统事件
         <i class="fa fa-check read-icon"></i>
@@ -397,7 +397,7 @@
   
     
     <li data-nav-id="/docs/devops/" title="开发运维" class="dd-item 
-        parent
+        
         
         
         ">
@@ -463,7 +463,7 @@
  
   
     
-      <li data-nav-id="/docs/devops/shell/" title="Shell脚本知识总结" class="dd-item active">
+      <li data-nav-id="/docs/devops/shell/" title="Shell脚本知识总结" class="dd-item ">
         <a href="/docs/devops/shell/">
         Shell脚本知识总结
         <i class="fa fa-check read-icon"></i>
@@ -637,7 +637,13 @@
             
           
           
-            <a href='/docs/'>技术文档</a> > <a href='/docs/devops/'>开发运维</a> > Shell脚本知识总结
+            
+            
+          
+          
+            <a href='/docs/'>技术文档</a> > <a href='/docs/security/'>信息安全</a> > <a href='/docs/security/other/'>安全知识点滴</a> > Inotify监控文件系统事件
+          
+         
           
          
           
@@ -653,21 +659,17 @@
 <ul>
 <li>
 <ul>
-<li><a href="#单引号和双引号的区别">单引号和双引号的区别</a></li>
-<li><a href="#逐行读取文件">逐行读取文件</a></li>
-<li><a href="#bash-shell-脚本中常用隐含变量">bash shell 脚本中常用隐含变量</a></li>
-<li><a href="#变量内容的删除与替换">变量内容的删除与替换</a></li>
-<li><a href="#变量条件测试赋值">变量条件测试赋值</a></li>
-<li><a href="#shell-中分隔符-变量ifs-使用">shell 中分隔符 : 变量IFS 使用</a></li>
-<li><a href="#shell-数组的使用">shell 数组的使用</a></li>
-<li><a href="#逻辑判断-条件测试">逻辑判断 条件测试</a>
+<li><a href="#inotify-机制概述">Inotify 机制概述</a>
 <ul>
-<li>
-<ul>
-<li><a href="#文件属性的判断">文件属性的判断</a></li>
-<li><a href="#字符串比较">字符串比较</a></li>
-<li><a href="#数值比较-整数">数值比较(整数)</a></li>
+<li><a href="#inotify-介绍">Inotify 介绍</a></li>
+<li><a href="#inotify-可监视的文件系统事件">Inotify 可监视的文件系统事件</a></li>
+<li><a href="#inotify内核版本支持">Inotify内核版本支持</a></li>
+<li><a href="#inotify-的默认内核参数">inotify 的默认内核参数</a></li>
 </ul></li>
+<li><a href="#inotify-在系统中使用">Inotify 在系统中使用</a>
+<ul>
+<li><a href="#linux-shell-下使用inotify">linux shell 下使用inotify</a></li>
+<li><a href="#使用incron实现重要配置文件监控">使用incron实现重要配置文件监控</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -683,7 +685,7 @@
         
         <div id="body-inner">
           
-            <h1>Shell脚本知识总结</h1>
+            <h1>Inotify监控文件系统事件</h1>
           
 
         
@@ -704,580 +706,224 @@
 
 <tbody>
 <tr>
-<td>V1.0</td>
+<td>V1.1</td>
 <td>2016-03-28</td>
 <td>创建</td>
 <td>HunterFu</td>
-<td>创建文档</td>
+<td>初始版本</td>
 </tr>
 </tbody>
 </table>
 
-<p>在日常系统管理工作中，需要编写脚本来完成特定的功能，编写shell脚本是一个基本功了！<br>
-在编写的过程中，掌握一些常用的技巧和语法就可以完成大部分功能了，也就是2/8原则.</p>
+<h2 id="inotify-机制概述">Inotify 机制概述</h2>
 
-<h2 id="单引号和双引号的区别">单引号和双引号的区别</h2>
+<h3 id="inotify-介绍">Inotify 介绍</h3>
 
-<p>单引号与双引号的最大不同在于双引号仍然可以引用变量的内容，但单引号内仅是
-普通字符 ，不会作变量的引用，直接输出字符窜。请看如下例子：</p>
+<p>在日常的运维过程中，经常需要备份某些文件，或者对系统的某些文件进行监控，比如重要的配置文件等。如果需要作到实时同步或者监控，就需要使用内核的inotify机制<br>
+Inotify 是基于<strong>inode</strong>级别的文件系统监控技术,是一种强大的、细粒度的、异步的机制，它满足各种各样的文件监控需要，不仅限于安全和性能<br></p>
 
-<pre><code>    [root@linux ~]# name=HaHa 
-    [root@linux ~]# echo $name 
-    HaHa 
-    [root@linux ~]# myname=&quot;$name is wow&quot; 
-    [root@linux ~]# echo $myname 
-    HaHa is wow 
-    [root@linux ~]# myname='$name is wow' 
-    [root@linux ~]# echo $myname 
-    $name is wow  
+<ul>
+<li>Inotify 不需要对被监视的目标打开文件描述符，而且如果被监视目标在可移动介质上，那么在 umount 该介质上的文件系统后，被监视目标对应的 watch 将被自动删除，并且会产生一个 umount 事件。</li>
+<li>Inotify 既可以监视文件，也可以监视目录。</li>
+<li>Inotify 使用系统调用而非 SIGIO 来通知文件系统事件。</li>
+<li>Inotify 使用文件描述符作为接口，因而可以使用通常的文件 I/O 操作select 和 poll 来监视文件系统的变化。</li>
+</ul>
+
+<h3 id="inotify-可监视的文件系统事件">Inotify 可监视的文件系统事件</h3>
+
+<ul>
+<li>IN_ACCESS : 即文件被访问</li>
+<li>IN_MODIFY : 文件被 write</li>
+<li>IN_ATTRIB : 文件属性被修改，如 chmod、chown、touch 等</li>
+<li>IN_CLOSE_WRITE : 可写文件被 close</li>
+<li>IN_CLOSE_NOWRITE : 不可写文件被 close</li>
+<li>IN_OPEN : 文件被open</li>
+<li>IN_MOVED_FROM : 文件被移走,如 mv</li>
+<li>IN_MOVED_TO : 文件被移来，如 mv、cp</li>
+<li>IN_CREATE : 创建新文件</li>
+<li>IN_DELETE : 文件被删除，如 rm</li>
+<li>IN_DELETE_SELF : 自删除，即一个可执行文件在执行时删除自己</li>
+<li>IN_MOVE_SELF : 自移动，即一个可执行文件在执行时移动自己</li>
+<li>IN_UNMOUNT : 宿主文件系统被 umount</li>
+<li>IN_CLOSE : 文件被关闭，等同于(IN_CLOSE_WRITE | IN_CLOSE_NOWRITE)</li>
+<li>IN_MOVE : 文件被移动，等同于(IN_MOVED_FROM | IN_MOVED_TO)</li>
+</ul>
+
+<p>注：上面所说的文件也包括目录</p>
+
+<h3 id="inotify内核版本支持">Inotify内核版本支持</h3>
+
+<ul>
+<li>从<strong>kernel 2.6.13</strong>开始,Inotify正式并入内核，RHEL5已经支持.</li>
+<li>看看是否有 <strong>/proc/sys/fs/inotify/</strong>目录，以确定内核是否支持inotify</li>
+</ul>
+
+<pre><code>[root@RHEL5 Rsync]# ls -l /proc/sys/fs/inotify/
+total 0
+-rw-r--r-- 1 root root 0 Oct  9 09:36 max_queued_events
+-rw-r--r-- 1 root root 0 Oct  9 09:36 max_user_instances
+-rw-r--r-- 1 root root 0 Oct  9 09:36 max_user_watches
 </code></pre>
 
-<p>从上面例子可以看出,使用了单引号的时候，那么$name只是普通字符,直接输出而已！</p>
+<h3 id="inotify-的默认内核参数">inotify 的默认内核参数</h3>
 
-<h2 id="逐行读取文件">逐行读取文件</h2>
+<ul>
+<li><p><strong>/proc/sys/fs/inotify/max_queued_events</strong><br>
+默认值: 16384 该文件中的值为调用inotify_init时分配给inotify instance中可排队的event的数目的最大值，超出这个值得事件被丢弃，但会触发IN_Q_OVERFLOW事件</p></li>
 
-<ol>
-<li><p>使用for循环来读取文件</p>
+<li><p><strong>/proc/sys/fs/inotify/max_user_instances</strong><br>
+默认值: 128 指定了每一个real user ID可创建的inotify instatnces的数量上限</p></li>
 
-<pre><code>for line in `cat file.txt`
+<li><p><strong>/proc/sys/fs/inotify/max_user_watches</strong><br>
+默认值: 8192 指定了每个inotify instance相关联的watches的上限</p></li>
+</ul>
+
+<p>注意: max_queued_events 是 Inotify 管理的队列的最大长度，文件系统变化越频繁，这个值就应该越大 <br>
+如果你在日志中看到<strong>Event Queue Overflow</strong>，说明<strong>max_queued_events</strong>太小需要调整参数后再次使用.</p>
+
+<h2 id="inotify-在系统中使用">Inotify 在系统中使用</h2>
+
+<h3 id="linux-shell-下使用inotify">linux shell 下使用inotify</h3>
+
+<ul>
+<li><p>下载安装 [inotify-tools源码 <a href="http://inotify-tools.sourceforge.net/">http://inotify-tools.sourceforge.net/</a>]</p>
+
+<ul>
+<li><strong>inotifywait</strong> 仅执行阻塞，等待 inotify 事件。您可以监控任何一组文件和目录，或监控整个目录树（目录、子目录、子目录的子目录等等）<br>
+在 shell 脚本中使用 inotifywait。</li>
+<li><strong>inotifywatch</strong> 收集关于被监视的文件系统的统计数据，包括每个 inotify 事件发生多少次。</li>
+</ul></li>
+
+<li><p>shell脚本示例</p>
+
+<pre><code>[root@localhost ]# cat /tmp/test.sh
+#!/bin/bash
+inotifywait -mrq --timefmt '%d/%m/%y %H:%M' --format  '%T %w%f %e' --event modify,delete,create,attrib  /home/admin | while read  date time file event
 do
-	echo $line
+case $event in
+    MODIFY|CREATE|MOVE|MODIFY,ISDIR|CREATE,ISDIR|MODIFY,ISDIR)
+            echo $event'-'$file
+        ;;
+
+    MOVED_FROM|MOVED_FROM,ISDIR|DELETE|DELETE,ISDIR)
+            echo $event'-'$file
+        ;;
+esac
 done
+</code></pre></li>
+
+<li><p>执行脚本，结果输出(这里测试删除了一个目录 rm -fr cronolog-1.6.2.bak)</p>
+
+<pre><code>[root@localhost]# /tmp/test.sh 
+DELETE-/home/admin/cronolog-1.6.2.bak/COPYING
+DELETE-/home/admin/cronolog-1.6.2.bak/doc/cronolog.info
+DELETE-/home/admin/cronolog-1.6.2.bak/doc/cronolog.texi
+DELETE-/home/admin/cronolog-1.6.2.bak/doc/Makefile.am
+DELETE-/home/admin/cronolog-1.6.2.bak/doc/Makefile.in
+DELETE-/home/admin/cronolog-1.6.2.bak/doc/texinfo.tex
+DELETE-/home/admin/cronolog-1.6.2.bak/doc/cronosplit.1m
+DELETE-/home/admin/cronolog-1.6.2.bak/doc/Makefile
+DELETE-/home/admin/cronolog-1.6.2.bak/doc/cronolog.1m
+DELETE,ISDIR-/home/admin/cronolog-1.6.2.bak/doc
+DELETE-/home/admin/cronolog-1.6.2.bak/TODO
+DELETE-/home/admin/cronolog-1.6.2.bak/src/cronotest.c
+DELETE-/home/admin/cronolog-1.6.2.bak/src/cronolog.c
+DELETE-/home/admin/cronolog-1.6.2.bak/src/cronoutils.h
+DELETE-/home/admin/cronolog-1.6.2.bak/src/cronoutils.c
+DELETE-/home/admin/cronolog-1.6.2.bak/src/Makefile.am
+DELETE-/home/admin/cronolog-1.6.2.bak/src/Makefile.in
+DELETE-/home/admin/cronolog-1.6.2.bak/src/cronosplit.in
+DELETE-/home/admin/cronolog-1.6.2.bak/src/Makefile
+DELETE-/home/admin/cronolog-1.6.2.bak/src/cronosplit
+DELETE-/home/admin/cronolog-1.6.2.bak/src/config.h
+DELETE,ISDIR-/home/admin/cronolog-1.6.2.bak/src
+DELETE-/home/admin/cronolog-1.6.2.bak/lib/getopt1.c
+DELETE-/home/admin/cronolog-1.6.2.bak/lib/getopt.h
+DELETE-/home/admin/cronolog-1.6.2.bak/lib/Makefile.am
+DELETE-/home/admin/cronolog-1.6.2.bak/lib/Makefile.in
+DELETE-/home/admin/cronolog-1.6.2.bak/lib/localtime_r.c
+DELETE-/home/admin/cronolog-1.6.2.bak/lib/getopt.c
+DELETE-/home/admin/cronolog-1.6.2.bak/lib/Makefile
+DELETE-/home/admin/cronolog-1.6.2.bak/lib/strptime.c
+DELETE,ISDIR-/home/admin/cronolog-1.6.2.bak/lib
+DELETE-/home/admin/cronolog-1.6.2.bak/config.cache
+DELETE-/home/admin/cronolog-1.6.2.bak/install-sh
+DELETE-/home/admin/cronolog-1.6.2.bak/Makefile.am
+DELETE-/home/admin/cronolog-1.6.2.bak/README
+DELETE-/home/admin/cronolog-1.6.2.bak/AUTHORS
+DELETE-/home/admin/cronolog-1.6.2.bak/Makefile.in
+DELETE-/home/admin/cronolog-1.6.2.bak/testsuite/Makefile.am
+DELETE-/home/admin/cronolog-1.6.2.bak/testsuite/README
+DELETE-/home/admin/cronolog-1.6.2.bak/testsuite/Makefile.in
+DELETE-/home/admin/cronolog-1.6.2.bak/testsuite/Makefile
+DELETE,ISDIR-/home/admin/cronolog-1.6.2.bak/testsuite
+DELETE-/home/admin/cronolog-1.6.2.bak/cronolog.spec
+DELETE-/home/admin/cronolog-1.6.2.bak/NEWS
+DELETE-/home/admin/cronolog-1.6.2.bak/configure
+DELETE-/home/admin/cronolog-1.6.2.bak/ChangeLog
+DELETE-/home/admin/cronolog-1.6.2.bak/missing
+DELETE-/home/admin/cronolog-1.6.2.bak/config.log
+DELETE-/home/admin/cronolog-1.6.2.bak/aclocal.m4
+DELETE-/home/admin/cronolog-1.6.2.bak/Makefile
+DELETE-/home/admin/cronolog-1.6.2.bak/INSTALL
+DELETE-/home/admin/cronolog-1.6.2.bak/config.status
+DELETE-/home/admin/cronolog-1.6.2.bak/configure.in
+DELETE-/home/admin/cronolog-1.6.2.bak/mkinstalldirs
+DELETE,ISDIR-/home/admin/cronolog-1.6.2.bak
+</code></pre></li>
+</ul>
+
+<p>详细请参考 man inotify , man inotifywait</p>
+
+<h3 id="使用incron实现重要配置文件监控">使用incron实现重要配置文件监控</h3>
+
+<p>Incron是inotify的cron系统，与os本身的cron一样，包含一个后台守护进程（incrond）和一个事件编辑器（incrontab<br>
+与os本身的cron不同的仅仅是触发时间的是os对某个文件（夹）的操作而不是时间,由系统事件触发的机制，对于应用系统来说，几乎可以做到实时性。</p>
+
+<ul>
+<li><p>安装Incron [Centos/RHEL都以pm包方式安装]</p>
+
+<pre><code>[root@localhost]# yum install Incron
+</code></pre></li>
+
+<li><p>查看 incron 支持的事件类型 <strong>incrontab  -t</strong> ,编辑配置文件使用 <strong>incrontab  -e</strong></p></li>
+
+<li><p>配置文件格式说明(默认配置在/var/spool/incron/ 目录下)</p>
+
+<pre><code>&lt;path&gt; &lt;mask&gt; &lt;command&gt;
 </code></pre>
 
-<div class="notices note" ><p>注意:由于使用for来读入文件里的行时，会自动把空格和换行符作为一样分隔符，如果行里有空格的时候，输出的结果会很乱，所以只适用于行连续不能有空格或者换行符的文件</p>
-</div>
-</li>
+<p>选项说明:<br>
+&lt;path&gt;：欲监控的文件或者目录<br>
+&lt;mask&gt;：os对监控对象发生的事件<br>
+&lt;command&gt;：command可以是系统命令，也可以是脚本，不能是用系统的重定向，除非重定向写在脚本中。</p></li>
 
-<li><p>使用while循环读取文件</p>
+<li><p>&lt;Command&gt;中还可以使用下面的这些变量：<br>
+$@：代表<path>，即监控对象<br>
+$#：发生系统事件的对象（例如监控了某个文件夹，其下的某个文件发生了变化，那么$#就代表了该文件名）<br>
+$%：代表<mask>，即发生的事件</p></li>
 
-<pre><code>cat file.txt |while read line
-do
-    echo $line
-done
+<li><p>配置举例：</p>
+
+<ul>
+<li><p>/home/admin/a.txt IN_MODIFY echo &ldquo;$@ $#&rdquo; <br>
+表示文件a.txt一旦被修改，就执行 <strong>echo &ldquo;$@ $#&rdquo;</strong></p></li>
+
+<li><p>/home/admin/ IN_ALL_EVENTS echo &ldquo;$@ $# $%&rdquo; <br>
+表示目录下的文件任何事件触发,就执行 <strong>echo &ldquo;$@ $#&rdquo;</strong></p></li>
+</ul></li>
+
+<li><p>启动incrond (/etc/init.d/incrond start),然后在 /home/admin目录删除 ssss 文件，查看日志 tail /var/log/cron ,有如下输出</p></li>
+</ul>
+
+<pre><code>Mar 23 14:05:19 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin =  = IN_OPEN,IN_ISDIR&quot;)
+Mar 23 14:05:19 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin =  = IN_CLOSE_NOWRITE,IN_ISDIR&quot;)
+Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin =  = IN_OPEN,IN_ISDIR&quot;)
+Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin =  = IN_CLOSE_NOWRITE,IN_ISDIR&quot;)
+Mar 23 14:05:20 localhost incrond[6857]: (root) CMD (echo &quot;/home/admin = ssss = IN_DELETE&quot;)
 </code></pre>
 
-<p>或者：</p>
-
-<pre><code>while read line
-do
-    echo $line
-done &lt; file.txt
-</code></pre>
-
-<div class="notices note" ><p>注意:由于使用while来读入文件里的行时，会整行读入，不会关注行的内容(空格..)，所以比for读文件有更好的适用性，推荐使用while循环读取文件</p>
-</div>
-</li>
-</ol>
-
-<h2 id="bash-shell-脚本中常用隐含变量">bash shell 脚本中常用隐含变量</h2>
-
-<table>
-<thead>
-<tr>
-<th>隐含变量</th>
-<th>含义</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>$0</td>
-<td>当前执行的脚本或者命令名称</td>
-</tr>
-
-<tr>
-<td>$1-$9</td>
-<td>代表参数的位置. 举例 $1 代表第一个参数.</td>
-</tr>
-
-<tr>
-<td>$#</td>
-<td>脚本调用的参数的个数</td>
-</tr>
-
-<tr>
-<td>$@</td>
-<td>所有参数的内容</td>
-</tr>
-
-<tr>
-<td>$*</td>
-<td>所有参数的内容</td>
-</tr>
-
-<tr>
-<td>$$</td>
-<td>当前运行脚本的进程号</td>
-</tr>
-
-<tr>
-<td>$?</td>
-<td>命令执行后返回的状态</td>
-</tr>
-
-<tr>
-<td>$!</td>
-<td>后台运行的最后一个进程号</td>
-</tr>
-</tbody>
-</table>
-
-<div class="notices note" ><p>注意:<br>
-<strong>$?</strong> 用于检查上一个命令执行是否正确(在Linux中，命令退出状态为0表示该命令正确执行，任何非0值表示命令出错)<br>
-<strong>$$</strong> 变量最常见的用途是用做暂存文件的名字以保证暂存文件不会重复<br>
-$* 和 $@ 结果输出是一样的，但是在使用for循环，在使用 双引号(&ldquo;&rdquo;)引用时 <strong>&rdquo;$*&rdquo;</strong> 会输出成一个元素 而 <strong>&rdquo;$@&rdquo;</strong> 会按照每个参数是一个元素方式输出</p>
-</div>
-
-
-<p>请看测试例子</p>
-
-<pre><code>#cat test.sh 
-#!/bin/sh
-echo '&quot;$@&quot; output.....'
-for i in &quot;$@&quot;
-do
-    echo $i
-done
-echo '&quot;$*&quot; output ....'
-for i in &quot;$*&quot;
-do
-        echo $i
-done
-</code></pre>
-
-<p>输出结果</p>
-
-<pre><code>#sh test.sh a b c d
-&quot;$@&quot; output.....
-a
-b
-c
-d
-&quot;$*&quot; output ....
-a b c d
-</code></pre>
-
-<blockquote>
-<p>从输出结果可以看出 &ldquo;$*&rdquo; 输出是一行 而 &ldquo;$@&rdquo; 输出则是四行</p>
-</blockquote>
-
-<h2 id="变量内容的删除与替换">变量内容的删除与替换</h2>
-
-<p>我们在一些情况下，需要对变量中的字符窜进行查找删除或者替换，就需要使用下表列出的方法</p>
-
-<table>
-<thead>
-<tr>
-<th>变量设定方式</th>
-<th>说明</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>${变量#关键字}</td>
-<td>若变量内容从头开始的资料符合‘关键字’，则将符合的最短资料删除</td>
-</tr>
-
-<tr>
-<td>${变量##关键字}</td>
-<td>若变量内容从头开始的资料符合‘关键字’，则将符合的最长资料删除</td>
-</tr>
-
-<tr>
-<td>${变量%关键字}</td>
-<td>若变量内容从尾向前的资料符合‘关键字’，则将符合的最短资料删除</td>
-</tr>
-
-<tr>
-<td>${变量%%关键字}</td>
-<td>若变量内容从尾向前的资料符合‘关键字’，则将符合的最长资料删除</td>
-</tr>
-
-<tr>
-<td>${变量/旧字串/新字串}</td>
-<td>若变量内容符合‘旧字串’则‘第一个旧字串会被新字串取代</td>
-</tr>
-
-<tr>
-<td>${变量//旧字串/新字串}</td>
-<td>若变量内容符合‘旧字串’则‘全部的旧字串会被新字串取代</td>
-</tr>
-</tbody>
-</table>
-
-<p>举例如下(删除字符窜中的某个字符):</p>
-
-<pre><code>[root@linux ~]# export test_str=&quot;/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin&quot; 
-[root@linux ~]# echo ${test_str#/*kerberos/bin:}
-/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
-</code></pre>
-
-<h2 id="变量条件测试赋值">变量条件测试赋值</h2>
-
-<p>在某些时刻我们需要&rsquo;判断&rsquo;某个变量是否存在，若变量存在则将此变量值赋值给新的变量，若变量不存在则将其他值赋值给新的变量.</p>
-
-<table>
-<thead>
-<tr>
-<th>变量设定方式</th>
-<th>str 未定义</th>
-<th>str 为空字串</th>
-<th>str 已赋值为非空字串</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>var=${str-expr}</td>
-<td>var=expr</td>
-<td>var=</td>
-<td>var=$str</td>
-</tr>
-
-<tr>
-<td>var=${str:-expr}</td>
-<td>var=expr</td>
-<td>var=expr</td>
-<td>var=$str</td>
-</tr>
-
-<tr>
-<td>var=${str+expr}</td>
-<td>var=</td>
-<td>var=expr</td>
-<td>var=expr</td>
-</tr>
-
-<tr>
-<td>var=${str:+expr}</td>
-<td>var=</td>
-<td>var=</td>
-<td>var=expr</td>
-</tr>
-
-<tr>
-<td>var=${str?expr}</td>
-<td>expr 输出至 stderr</td>
-<td>var=</td>
-<td>var=$str</td>
-</tr>
-
-<tr>
-<td>var=${str:?expr}</td>
-<td>expr 输出至 stderr</td>
-<td>expr 输出至 stderr</td>
-<td>var=$str</td>
-</tr>
-
-<tr>
-<td>var=${str=expr}</td>
-<td>var=expr</td>
-<td>var=</td>
-<td>var=$str</td>
-</tr>
-
-<tr>
-<td>var=${str:=expr}</td>
-<td>var=expr</td>
-<td>var=expr</td>
-<td>var=$str</td>
-</tr>
-</tbody>
-</table>
-
-<p>举例如下:</p>
-
-<pre><code>[root@linux ~]# test_name=&quot;&quot;
-[root@linux ~]# test_name=${test_name-root}
-[root@linux ~]# echo $test_name
-      &lt;== 因为 test_name 被设定为空字符窜！所以当然还是保留为空字符窜！
-[root@linux ~]# test_name=${test_name:-root}
-[root@linux ~]# echo $test_name
-root  &lt;== 加上‘:’后若变量内容为空或者是未设定，都能够以后面的内容替换！
-</code></pre>
-
-<blockquote>
-<p>基本上这种变量的测试也能够透过 shell script 内的 if...then...
-来处理,不过通过上述提及的简单的方法来测试变量，是程序看起来更精简一些！</p>
-</blockquote>
-
-<h2 id="shell-中分隔符-变量ifs-使用">shell 中分隔符 : 变量IFS 使用</h2>
-
-<p>shell脚本中，如果使用for循环一个字符窜的话，默认使用空格来分割字符窜.
-还有前面所提到的
-使用for循环逐行读取文件内容时候,文件行中如果有空格的话输出的结果也会变乱.
-这个时候 使用 IFS 变量来设置特定的字符窜分割符来，达到输出正确的目的.
-默认情况下 IFS 是使用 <strong>空格 \t \n</strong> 来作为默认的分割符的.</p>
-
-<p>我们将前面使用for逐行读取文件的例子 改进下就可以输出正确了,请看下面</p>
-
-<pre><code>#!/bin/bash
-IFS_old=$IFS      #将原IFS值保存，以便用完后恢复
-IFS=$’\n’         #更改IFS值为$’\n’
-for line in `cat file.txt`
-do
-    echo $line
-done
-</code></pre>
-
-<p>file.txt 文件内容如下</p>
-
-<pre><code>[root@linux]$ cat file.txt 
-sdfsdfsdfsdf
-ssssss ssssss ssssss sssss
-sdfsdfsdfsdfsdf
-</code></pre>
-
-<p>执行测试程序 输出结果如下(正确输出)</p>
-
-<pre><code>[root@linux]$ sh test.sh 
-sdfsdfsdfsdf
-ssssss ssssss ssssss sssss
-sdfsdfsdfsdfsdf
-</code></pre>
-
-<p>如果未设置IFS变量,使用默认的IFS变量值 ,输出结果如下</p>
-
-<pre><code>[root@linux]$ sh test.sh 
-sdfsdfsdfsdf
-ssssss
-ssssss
-ssssss
-sssss
-sdfsdfsdfsdfsdf
-</code></pre>
-
-<p>从以上测试程序输出结果,可以根据自己的需求来设定
-IFS变量,在举一个例子如下:</p>
-
-<pre><code>while IFS=: read userName passWord userID groupID geCos homeDir userShell
-do
-      echo &quot;$userName -&gt; $homeDir&quot;
-done &lt; /etc/passwd
-</code></pre>
-
-<h2 id="shell-数组的使用">shell 数组的使用</h2>
-
-<p>数组赋值方式:</p>
-
-<pre><code>(1) array=(var1 var2 var3 ... varN)
-(2) array=([0]=var1 [1]=var2 [2]=var3 ... [n]=varN)
-(3) array[0]=var1
-    arrya[1]=var2
-    ...
-    array[n]=varN
-</code></pre>
-
-<p>计算数组元素个数或者长度:</p>
-
-<pre><code>(1) ${#array[@]}    
-(2) ${#array[*]}
-</code></pre>
-
-<p>了解了数组基础语法，举例说明，请看:</p>
-
-<pre><code>#!/bin/bash
-NAMESERVERS=(&quot;ns1.www.net.&quot; &quot;ns2.www.net.&quot; &quot;ns3.www.net.&quot;)
-# 得到数组长度
-tLen=${#NAMESERVERS[@]}
-
-# 循环数组
-for (( i=0; i&lt;${tLen}; i++ ));
-do
-  echo ${NAMESERVERS[$i]}
-done
-</code></pre>
-
-<p>在看一个复杂一点的例子,将文件内容读取到数组中:</p>
-
-<pre><code>#!/bin/bash
-
-# 设置IFS将分割符 设置为 换行符(\n)
-OLDIFS=$IFS
-IFS=$'\n' 
-
-# 读取文件内容到数组
-fileArray=($(cat file.txt))
-
-# restore it
-IFS=$OLDIFS
-tLen=${#fileArray[@]}
-
-# 循环显示文件内容
-for (( i=0; i&lt;${tLen}; i++ ));
-do
-  echo &quot;${fileArray[$i]}&quot;
-done
-</code></pre>
-
-<h2 id="逻辑判断-条件测试">逻辑判断 条件测试</h2>
-
-<h4 id="文件属性的判断">文件属性的判断</h4>
-
-<table>
-<thead>
-<tr>
-<th>操作符</th>
-<th>测试结果</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>-e filename</td>
-<td>文件存在返回1， 否则返回0</td>
-</tr>
-
-<tr>
-<td>-r filename</td>
-<td>文件可读返回1,否则返回0</td>
-</tr>
-
-<tr>
-<td>-w filename</td>
-<td>文件可写返回1,否则返回0</td>
-</tr>
-
-<tr>
-<td>-x filename</td>
-<td>文件可执行返回1,否则返回0</td>
-</tr>
-
-<tr>
-<td>-o filename</td>
-<td>文件属于用户本人返回1, 否则返回0</td>
-</tr>
-
-<tr>
-<td>-z filename</td>
-<td>文件长度为0返回1, 否则返回0</td>
-</tr>
-
-<tr>
-<td>-f filename</td>
-<td>文件为普通文件返回1, 否则返回0</td>
-</tr>
-
-<tr>
-<td>-d filename</td>
-<td>文件为目录文件时返回1, 否则返回0</td>
-</tr>
-</tbody>
-</table>
-
-<p>举例如下,测试文件是否存在:</p>
-
-<pre><code>#!/bin/bash
-echo &quot;checks the existence of the messages file.&quot;
-echo -n &quot;Checking...&quot;
-if [ -f /var/log/messages ];then
-    echo &quot;/var/log/messages exists.&quot;
-fi
-echo
-echo &quot;...done.&quot;
-</code></pre>
-
-<h4 id="字符串比较">字符串比较</h4>
-
-<table>
-<thead>
-<tr>
-<th>操作符</th>
-<th>比较结果</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>str1 = str2</td>
-<td>当两个字串相等时为真</td>
-</tr>
-
-<tr>
-<td>str1 != str2</td>
-<td>当两个字串不等时为真</td>
-</tr>
-
-<tr>
-<td>-n str1</td>
-<td>当字符串的长度大于0时为真</td>
-</tr>
-
-<tr>
-<td>-z str1</td>
-<td>当字符串的长度为0时为真</td>
-</tr>
-
-<tr>
-<td>str</td>
-<td>当字符串为非空时为真</td>
-</tr>
-</tbody>
-</table>
-
-<p>举例如下,比较字符串来测试用户ID :</p>
-
-<pre><code>if [ &quot;$(whoami)&quot; != 'root' ]; then
-        echo &quot;You have no permission to run $0 as non-root user.&quot;
-        exit 1;
-fi
-</code></pre>
-
-<h4 id="数值比较-整数">数值比较(整数)</h4>
-
-<table>
-<thead>
-<tr>
-<th>操作符</th>
-<th>比较结果</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>num1 -eq num2</td>
-<td>两数相等为真</td>
-</tr>
-
-<tr>
-<td>num1 -ne num2</td>
-<td>两数不等为真</td>
-</tr>
-
-<tr>
-<td>num1 -gt num2</td>
-<td>num1大于num2为真</td>
-</tr>
-
-<tr>
-<td>num1 -ge num2</td>
-<td>num1大于等于num2为真</td>
-</tr>
-
-<tr>
-<td>num1 -lt num2</td>
-<td>num1小于num2为真</td>
-</tr>
-
-<tr>
-<td>num1 -le num2</td>
-<td>num1小于等于num2为真</td>
-</tr>
-</tbody>
-</table>
-
-<p>举例如下:</p>
-
-<pre><code>num=`wc -l work.txt`
-if [ $num -gt 150 ];then
-    echo &quot;you've worked hard enough for today.&quot;
-    echo
-fi
-</code></pre>
-
-<p>如果要查看详细的测试操作,可以查看man手册 man test</p>
+<p>总体来说，在文件和目录实时监控还是很有效的，可以结合其他工具来作统一化的解决方案,比如使用syslog-ng作统一化收集，当然最重要还是要有场景.</p>
 
 
 <footer class=" footline" >
@@ -1383,138 +1029,6 @@ fi
             
                 
                     
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
                     
                 
                 
@@ -1560,6 +1074,22 @@ fi
                     
             
         
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
                     
                         
             
@@ -1629,6 +1159,123 @@ fi
             
         
                     
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
             
             
@@ -1655,10 +1302,10 @@ fi
 
 
         
-            <a class="nav nav-prev" href="/docs/devops/python_tips/" title="Python脚本知识总结"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/docs/security/other/" title="安全知识点滴"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/docs/devops/git_useage_qa/" title="Git使用常见问题" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/docs/security/other/iptable/" title="linux iptable 使用指南" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 

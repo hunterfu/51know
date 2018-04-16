@@ -13,6 +13,11 @@
   </url>
   
   <url>
+    <loc>/docs/security/scan/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/docs/cloudstack/</loc>
     <lastmod>2018-03-27T01:19:23-04:00</lastmod>
   </url>
@@ -38,7 +43,7 @@
   </url>
   
   <url>
-    <loc>/docs/security/inotify/</loc>
+    <loc>/docs/security/other/inotify/</loc>
     <lastmod>2018-03-30T01:46:28-04:00</lastmod>
   </url>
   
@@ -48,7 +53,7 @@
   </url>
   
   <url>
-    <loc>/docs/security/iptable/</loc>
+    <loc>/docs/security/other/iptable/</loc>
     <lastmod>2018-03-30T01:46:28-04:00</lastmod>
   </url>
   
@@ -63,7 +68,7 @@
   </url>
   
   <url>
-    <loc>/docs/security/tcp_wrapper/</loc>
+    <loc>/docs/security/other/tcp_wrapper/</loc>
     <lastmod>2018-03-30T01:46:28-04:00</lastmod>
   </url>
   
@@ -73,7 +78,7 @@
   </url>
   
   <url>
-    <loc>/docs/security/openssl/</loc>
+    <loc>/docs/security/other/openssl/</loc>
     <lastmod>2018-03-30T01:46:28-04:00</lastmod>
   </url>
   
@@ -90,6 +95,11 @@
   <url>
     <loc>/docs/devops/tun_tap/</loc>
     <lastmod>2018-03-29T06:08:26-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/docs/security/other/</loc>
+    <lastmod>2016-04-09T16:50:16+02:00</lastmod>
   </url>
   
   <url>

@@ -10,7 +10,7 @@
 
     <link rel="shortcut icon" href="/docs/images/favicon.png" type="image/x-icon" />
 <link rel="icon" href="/docs/images/favicon.png" type="image/x-icon" />
-    <title>Shell脚本知识总结 :: OpsSoluiton 开源方案</title>
+    <title>安全预警 :: OpsSoluiton 开源方案</title>
     
     
     <link href="/docs/css/nucleus.css?1523858446" rel="stylesheet">
@@ -35,7 +35,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/docs/devops/shell/">
+  <body class="" data-url="/docs/security/scan/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -174,7 +174,7 @@
   
     
     <li data-nav-id="/docs/security/" title="信息安全" class="dd-item 
-        
+        parent
         
         
         ">
@@ -229,8 +229,8 @@
   
     
     <li data-nav-id="/docs/security/scan/" title="安全预警" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/docs/security/scan/">
@@ -397,7 +397,7 @@
   
     
     <li data-nav-id="/docs/devops/" title="开发运维" class="dd-item 
-        parent
+        
         
         
         ">
@@ -463,7 +463,7 @@
  
   
     
-      <li data-nav-id="/docs/devops/shell/" title="Shell脚本知识总结" class="dd-item active">
+      <li data-nav-id="/docs/devops/shell/" title="Shell脚本知识总结" class="dd-item ">
         <a href="/docs/devops/shell/">
         Shell脚本知识总结
         <i class="fa fa-check read-icon"></i>
@@ -623,8 +623,6 @@
                         </a>
                     </span>
                   
-                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
-                  
                   <span class="links">
                     
           
@@ -637,7 +635,7 @@
             
           
           
-            <a href='/docs/'>技术文档</a> > <a href='/docs/devops/'>开发运维</a> > Shell脚本知识总结
+            <a href='/docs/'>技术文档</a> > <a href='/docs/security/'>信息安全</a> > 安全预警
           
          
           
@@ -647,43 +645,14 @@
                   </span>
                 </div>
                 
-                    <div class="progress">
-    <div class="wrapper">
-<nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#单引号和双引号的区别">单引号和双引号的区别</a></li>
-<li><a href="#逐行读取文件">逐行读取文件</a></li>
-<li><a href="#bash-shell-脚本中常用隐含变量">bash shell 脚本中常用隐含变量</a></li>
-<li><a href="#变量内容的删除与替换">变量内容的删除与替换</a></li>
-<li><a href="#变量条件测试赋值">变量条件测试赋值</a></li>
-<li><a href="#shell-中分隔符-变量ifs-使用">shell 中分隔符 : 变量IFS 使用</a></li>
-<li><a href="#shell-数组的使用">shell 数组的使用</a></li>
-<li><a href="#逻辑判断-条件测试">逻辑判断 条件测试</a>
-<ul>
-<li>
-<ul>
-<li><a href="#文件属性的判断">文件属性的判断</a></li>
-<li><a href="#字符串比较">字符串比较</a></li>
-<li><a href="#数值比较-整数">数值比较(整数)</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-    </div>
-</div>
-
-                
               </div>
             </div>
             
 
         
+          <div id="chapter">
+        
         <div id="body-inner">
-          
-            <h1>Shell脚本知识总结</h1>
           
 
         
@@ -691,600 +660,19 @@
 
 
 
-<table>
-<thead>
-<tr>
-<th>版本</th>
-<th>日期</th>
-<th>状态</th>
-<th>修订人</th>
-<th>摘要</th>
-</tr>
-</thead>
+<h3 id="安全预警">安全预警</h3>
 
-<tbody>
-<tr>
-<td>V1.0</td>
-<td>2016-03-28</td>
-<td>创建</td>
-<td>HunterFu</td>
-<td>创建文档</td>
-</tr>
-</tbody>
-</table>
+<h1 id="openvas">OpenVas</h1>
 
-<p>在日常系统管理工作中，需要编写脚本来完成特定的功能，编写shell脚本是一个基本功了！<br>
-在编写的过程中，掌握一些常用的技巧和语法就可以完成大部分功能了，也就是2/8原则.</p>
-
-<h2 id="单引号和双引号的区别">单引号和双引号的区别</h2>
-
-<p>单引号与双引号的最大不同在于双引号仍然可以引用变量的内容，但单引号内仅是
-普通字符 ，不会作变量的引用，直接输出字符窜。请看如下例子：</p>
-
-<pre><code>    [root@linux ~]# name=HaHa 
-    [root@linux ~]# echo $name 
-    HaHa 
-    [root@linux ~]# myname=&quot;$name is wow&quot; 
-    [root@linux ~]# echo $myname 
-    HaHa is wow 
-    [root@linux ~]# myname='$name is wow' 
-    [root@linux ~]# echo $myname 
-    $name is wow  
-</code></pre>
-
-<p>从上面例子可以看出,使用了单引号的时候，那么$name只是普通字符,直接输出而已！</p>
-
-<h2 id="逐行读取文件">逐行读取文件</h2>
-
-<ol>
-<li><p>使用for循环来读取文件</p>
-
-<pre><code>for line in `cat file.txt`
-do
-	echo $line
-done
-</code></pre>
-
-<div class="notices note" ><p>注意:由于使用for来读入文件里的行时，会自动把空格和换行符作为一样分隔符，如果行里有空格的时候，输出的结果会很乱，所以只适用于行连续不能有空格或者换行符的文件</p>
-</div>
-</li>
-
-<li><p>使用while循环读取文件</p>
-
-<pre><code>cat file.txt |while read line
-do
-    echo $line
-done
-</code></pre>
-
-<p>或者：</p>
-
-<pre><code>while read line
-do
-    echo $line
-done &lt; file.txt
-</code></pre>
-
-<div class="notices note" ><p>注意:由于使用while来读入文件里的行时，会整行读入，不会关注行的内容(空格..)，所以比for读文件有更好的适用性，推荐使用while循环读取文件</p>
-</div>
-</li>
-</ol>
-
-<h2 id="bash-shell-脚本中常用隐含变量">bash shell 脚本中常用隐含变量</h2>
-
-<table>
-<thead>
-<tr>
-<th>隐含变量</th>
-<th>含义</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>$0</td>
-<td>当前执行的脚本或者命令名称</td>
-</tr>
-
-<tr>
-<td>$1-$9</td>
-<td>代表参数的位置. 举例 $1 代表第一个参数.</td>
-</tr>
-
-<tr>
-<td>$#</td>
-<td>脚本调用的参数的个数</td>
-</tr>
-
-<tr>
-<td>$@</td>
-<td>所有参数的内容</td>
-</tr>
-
-<tr>
-<td>$*</td>
-<td>所有参数的内容</td>
-</tr>
-
-<tr>
-<td>$$</td>
-<td>当前运行脚本的进程号</td>
-</tr>
-
-<tr>
-<td>$?</td>
-<td>命令执行后返回的状态</td>
-</tr>
-
-<tr>
-<td>$!</td>
-<td>后台运行的最后一个进程号</td>
-</tr>
-</tbody>
-</table>
-
-<div class="notices note" ><p>注意:<br>
-<strong>$?</strong> 用于检查上一个命令执行是否正确(在Linux中，命令退出状态为0表示该命令正确执行，任何非0值表示命令出错)<br>
-<strong>$$</strong> 变量最常见的用途是用做暂存文件的名字以保证暂存文件不会重复<br>
-$* 和 $@ 结果输出是一样的，但是在使用for循环，在使用 双引号(&ldquo;&rdquo;)引用时 <strong>&rdquo;$*&rdquo;</strong> 会输出成一个元素 而 <strong>&rdquo;$@&rdquo;</strong> 会按照每个参数是一个元素方式输出</p>
-</div>
-
-
-<p>请看测试例子</p>
-
-<pre><code>#cat test.sh 
-#!/bin/sh
-echo '&quot;$@&quot; output.....'
-for i in &quot;$@&quot;
-do
-    echo $i
-done
-echo '&quot;$*&quot; output ....'
-for i in &quot;$*&quot;
-do
-        echo $i
-done
-</code></pre>
-
-<p>输出结果</p>
-
-<pre><code>#sh test.sh a b c d
-&quot;$@&quot; output.....
-a
-b
-c
-d
-&quot;$*&quot; output ....
-a b c d
-</code></pre>
-
-<blockquote>
-<p>从输出结果可以看出 &ldquo;$*&rdquo; 输出是一行 而 &ldquo;$@&rdquo; 输出则是四行</p>
-</blockquote>
-
-<h2 id="变量内容的删除与替换">变量内容的删除与替换</h2>
-
-<p>我们在一些情况下，需要对变量中的字符窜进行查找删除或者替换，就需要使用下表列出的方法</p>
-
-<table>
-<thead>
-<tr>
-<th>变量设定方式</th>
-<th>说明</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>${变量#关键字}</td>
-<td>若变量内容从头开始的资料符合‘关键字’，则将符合的最短资料删除</td>
-</tr>
-
-<tr>
-<td>${变量##关键字}</td>
-<td>若变量内容从头开始的资料符合‘关键字’，则将符合的最长资料删除</td>
-</tr>
-
-<tr>
-<td>${变量%关键字}</td>
-<td>若变量内容从尾向前的资料符合‘关键字’，则将符合的最短资料删除</td>
-</tr>
-
-<tr>
-<td>${变量%%关键字}</td>
-<td>若变量内容从尾向前的资料符合‘关键字’，则将符合的最长资料删除</td>
-</tr>
-
-<tr>
-<td>${变量/旧字串/新字串}</td>
-<td>若变量内容符合‘旧字串’则‘第一个旧字串会被新字串取代</td>
-</tr>
-
-<tr>
-<td>${变量//旧字串/新字串}</td>
-<td>若变量内容符合‘旧字串’则‘全部的旧字串会被新字串取代</td>
-</tr>
-</tbody>
-</table>
-
-<p>举例如下(删除字符窜中的某个字符):</p>
-
-<pre><code>[root@linux ~]# export test_str=&quot;/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin&quot; 
-[root@linux ~]# echo ${test_str#/*kerberos/bin:}
-/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
-</code></pre>
-
-<h2 id="变量条件测试赋值">变量条件测试赋值</h2>
-
-<p>在某些时刻我们需要&rsquo;判断&rsquo;某个变量是否存在，若变量存在则将此变量值赋值给新的变量，若变量不存在则将其他值赋值给新的变量.</p>
-
-<table>
-<thead>
-<tr>
-<th>变量设定方式</th>
-<th>str 未定义</th>
-<th>str 为空字串</th>
-<th>str 已赋值为非空字串</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>var=${str-expr}</td>
-<td>var=expr</td>
-<td>var=</td>
-<td>var=$str</td>
-</tr>
-
-<tr>
-<td>var=${str:-expr}</td>
-<td>var=expr</td>
-<td>var=expr</td>
-<td>var=$str</td>
-</tr>
-
-<tr>
-<td>var=${str+expr}</td>
-<td>var=</td>
-<td>var=expr</td>
-<td>var=expr</td>
-</tr>
-
-<tr>
-<td>var=${str:+expr}</td>
-<td>var=</td>
-<td>var=</td>
-<td>var=expr</td>
-</tr>
-
-<tr>
-<td>var=${str?expr}</td>
-<td>expr 输出至 stderr</td>
-<td>var=</td>
-<td>var=$str</td>
-</tr>
-
-<tr>
-<td>var=${str:?expr}</td>
-<td>expr 输出至 stderr</td>
-<td>expr 输出至 stderr</td>
-<td>var=$str</td>
-</tr>
-
-<tr>
-<td>var=${str=expr}</td>
-<td>var=expr</td>
-<td>var=</td>
-<td>var=$str</td>
-</tr>
-
-<tr>
-<td>var=${str:=expr}</td>
-<td>var=expr</td>
-<td>var=expr</td>
-<td>var=$str</td>
-</tr>
-</tbody>
-</table>
-
-<p>举例如下:</p>
-
-<pre><code>[root@linux ~]# test_name=&quot;&quot;
-[root@linux ~]# test_name=${test_name-root}
-[root@linux ~]# echo $test_name
-      &lt;== 因为 test_name 被设定为空字符窜！所以当然还是保留为空字符窜！
-[root@linux ~]# test_name=${test_name:-root}
-[root@linux ~]# echo $test_name
-root  &lt;== 加上‘:’后若变量内容为空或者是未设定，都能够以后面的内容替换！
-</code></pre>
-
-<blockquote>
-<p>基本上这种变量的测试也能够透过 shell script 内的 if...then...
-来处理,不过通过上述提及的简单的方法来测试变量，是程序看起来更精简一些！</p>
-</blockquote>
-
-<h2 id="shell-中分隔符-变量ifs-使用">shell 中分隔符 : 变量IFS 使用</h2>
-
-<p>shell脚本中，如果使用for循环一个字符窜的话，默认使用空格来分割字符窜.
-还有前面所提到的
-使用for循环逐行读取文件内容时候,文件行中如果有空格的话输出的结果也会变乱.
-这个时候 使用 IFS 变量来设置特定的字符窜分割符来，达到输出正确的目的.
-默认情况下 IFS 是使用 <strong>空格 \t \n</strong> 来作为默认的分割符的.</p>
-
-<p>我们将前面使用for逐行读取文件的例子 改进下就可以输出正确了,请看下面</p>
-
-<pre><code>#!/bin/bash
-IFS_old=$IFS      #将原IFS值保存，以便用完后恢复
-IFS=$’\n’         #更改IFS值为$’\n’
-for line in `cat file.txt`
-do
-    echo $line
-done
-</code></pre>
-
-<p>file.txt 文件内容如下</p>
-
-<pre><code>[root@linux]$ cat file.txt 
-sdfsdfsdfsdf
-ssssss ssssss ssssss sssss
-sdfsdfsdfsdfsdf
-</code></pre>
-
-<p>执行测试程序 输出结果如下(正确输出)</p>
-
-<pre><code>[root@linux]$ sh test.sh 
-sdfsdfsdfsdf
-ssssss ssssss ssssss sssss
-sdfsdfsdfsdfsdf
-</code></pre>
-
-<p>如果未设置IFS变量,使用默认的IFS变量值 ,输出结果如下</p>
-
-<pre><code>[root@linux]$ sh test.sh 
-sdfsdfsdfsdf
-ssssss
-ssssss
-ssssss
-sssss
-sdfsdfsdfsdfsdf
-</code></pre>
-
-<p>从以上测试程序输出结果,可以根据自己的需求来设定
-IFS变量,在举一个例子如下:</p>
-
-<pre><code>while IFS=: read userName passWord userID groupID geCos homeDir userShell
-do
-      echo &quot;$userName -&gt; $homeDir&quot;
-done &lt; /etc/passwd
-</code></pre>
-
-<h2 id="shell-数组的使用">shell 数组的使用</h2>
-
-<p>数组赋值方式:</p>
-
-<pre><code>(1) array=(var1 var2 var3 ... varN)
-(2) array=([0]=var1 [1]=var2 [2]=var3 ... [n]=varN)
-(3) array[0]=var1
-    arrya[1]=var2
-    ...
-    array[n]=varN
-</code></pre>
-
-<p>计算数组元素个数或者长度:</p>
-
-<pre><code>(1) ${#array[@]}    
-(2) ${#array[*]}
-</code></pre>
-
-<p>了解了数组基础语法，举例说明，请看:</p>
-
-<pre><code>#!/bin/bash
-NAMESERVERS=(&quot;ns1.www.net.&quot; &quot;ns2.www.net.&quot; &quot;ns3.www.net.&quot;)
-# 得到数组长度
-tLen=${#NAMESERVERS[@]}
-
-# 循环数组
-for (( i=0; i&lt;${tLen}; i++ ));
-do
-  echo ${NAMESERVERS[$i]}
-done
-</code></pre>
-
-<p>在看一个复杂一点的例子,将文件内容读取到数组中:</p>
-
-<pre><code>#!/bin/bash
-
-# 设置IFS将分割符 设置为 换行符(\n)
-OLDIFS=$IFS
-IFS=$'\n' 
-
-# 读取文件内容到数组
-fileArray=($(cat file.txt))
-
-# restore it
-IFS=$OLDIFS
-tLen=${#fileArray[@]}
-
-# 循环显示文件内容
-for (( i=0; i&lt;${tLen}; i++ ));
-do
-  echo &quot;${fileArray[$i]}&quot;
-done
-</code></pre>
-
-<h2 id="逻辑判断-条件测试">逻辑判断 条件测试</h2>
-
-<h4 id="文件属性的判断">文件属性的判断</h4>
-
-<table>
-<thead>
-<tr>
-<th>操作符</th>
-<th>测试结果</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>-e filename</td>
-<td>文件存在返回1， 否则返回0</td>
-</tr>
-
-<tr>
-<td>-r filename</td>
-<td>文件可读返回1,否则返回0</td>
-</tr>
-
-<tr>
-<td>-w filename</td>
-<td>文件可写返回1,否则返回0</td>
-</tr>
-
-<tr>
-<td>-x filename</td>
-<td>文件可执行返回1,否则返回0</td>
-</tr>
-
-<tr>
-<td>-o filename</td>
-<td>文件属于用户本人返回1, 否则返回0</td>
-</tr>
-
-<tr>
-<td>-z filename</td>
-<td>文件长度为0返回1, 否则返回0</td>
-</tr>
-
-<tr>
-<td>-f filename</td>
-<td>文件为普通文件返回1, 否则返回0</td>
-</tr>
-
-<tr>
-<td>-d filename</td>
-<td>文件为目录文件时返回1, 否则返回0</td>
-</tr>
-</tbody>
-</table>
-
-<p>举例如下,测试文件是否存在:</p>
-
-<pre><code>#!/bin/bash
-echo &quot;checks the existence of the messages file.&quot;
-echo -n &quot;Checking...&quot;
-if [ -f /var/log/messages ];then
-    echo &quot;/var/log/messages exists.&quot;
-fi
-echo
-echo &quot;...done.&quot;
-</code></pre>
-
-<h4 id="字符串比较">字符串比较</h4>
-
-<table>
-<thead>
-<tr>
-<th>操作符</th>
-<th>比较结果</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>str1 = str2</td>
-<td>当两个字串相等时为真</td>
-</tr>
-
-<tr>
-<td>str1 != str2</td>
-<td>当两个字串不等时为真</td>
-</tr>
-
-<tr>
-<td>-n str1</td>
-<td>当字符串的长度大于0时为真</td>
-</tr>
-
-<tr>
-<td>-z str1</td>
-<td>当字符串的长度为0时为真</td>
-</tr>
-
-<tr>
-<td>str</td>
-<td>当字符串为非空时为真</td>
-</tr>
-</tbody>
-</table>
-
-<p>举例如下,比较字符串来测试用户ID :</p>
-
-<pre><code>if [ &quot;$(whoami)&quot; != 'root' ]; then
-        echo &quot;You have no permission to run $0 as non-root user.&quot;
-        exit 1;
-fi
-</code></pre>
-
-<h4 id="数值比较-整数">数值比较(整数)</h4>
-
-<table>
-<thead>
-<tr>
-<th>操作符</th>
-<th>比较结果</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>num1 -eq num2</td>
-<td>两数相等为真</td>
-</tr>
-
-<tr>
-<td>num1 -ne num2</td>
-<td>两数不等为真</td>
-</tr>
-
-<tr>
-<td>num1 -gt num2</td>
-<td>num1大于num2为真</td>
-</tr>
-
-<tr>
-<td>num1 -ge num2</td>
-<td>num1大于等于num2为真</td>
-</tr>
-
-<tr>
-<td>num1 -lt num2</td>
-<td>num1小于num2为真</td>
-</tr>
-
-<tr>
-<td>num1 -le num2</td>
-<td>num1小于等于num2为真</td>
-</tr>
-</tbody>
-</table>
-
-<p>举例如下:</p>
-
-<pre><code>num=`wc -l work.txt`
-if [ $num -gt 150 ];then
-    echo &quot;you've worked hard enough for today.&quot;
-    echo
-fi
-</code></pre>
-
-<p>如果要查看详细的测试操作,可以查看man手册 man test</p>
+<p>本节主要讲述开源风险控制系统 OpenVas 相关配置等实践</p>
 
 
 <footer class=" footline" >
 	
 </footer>
 
-
+        
+            </div> 
         
         </div> 
         
@@ -1383,138 +771,6 @@ fi
             
                 
                     
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                        
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
                     
                 
                 
@@ -1533,22 +789,6 @@ fi
                     
                         
                         
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1585,6 +825,21 @@ fi
                     
                         
                         
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -1650,15 +905,148 @@ fi
                     
             
         
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
         
         
 
 
         
-            <a class="nav nav-prev" href="/docs/devops/python_tips/" title="Python脚本知识总结"> <i class="fa fa-chevron-left"></i></a>
+            <a class="nav nav-prev" href="/docs/security/intro/" title="信息安全介绍"> <i class="fa fa-chevron-left"></i></a>
         
         
-            <a class="nav nav-next" href="/docs/devops/git_useage_qa/" title="Git使用常见问题" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+            <a class="nav nav-next" href="/docs/security/other/" title="安全知识点滴" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
         
     </div>
 
@@ -1696,4 +1084,3 @@ var _hmt = _hmt || [];
 
   </body>
 </html>
-
