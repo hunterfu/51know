@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.39" />
+    <meta name="description" content="开源方案文档 Ops Solution">
+<meta name="author" content="Hunterfu2009@gmail.com">
+<meta name="keywords" content="[openshift node,架构,docker,部署环境,router,docker registry]">
+
+    <link rel="shortcut icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+    <title>Router And Registry安装 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/openshift/css/nucleus.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/font-awesome.min.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/hybrid.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/featherlight.min.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/perfect-scrollbar.min.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/auto-complete.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/theme.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/hugo-theme.css?1524640645" rel="stylesheet">
+    
+      <link href="/openshift/css/theme-mine.css?1524640645" rel="stylesheet">
+    
+
+    <script src="/openshift/js/jquery-2.x.min.js?1524640645"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/openshift/install/router_registry_install/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/openshift">
+<img src="/openshift/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/openshift/js/lunr.min.js?1524640645"></script>
+<script type="text/javascript" src="/openshift/js/auto-complete.js?1524640645"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/openshift';
+    
+</script>
+<script type="text/javascript" src="/openshift/js/search.js?1524640645"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/" title="集群安装" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/openshift/install/">
+          <b>1. </b>集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/arch_intro/" title="架构介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/arch_intro/">
+          架构介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/env_intro/" title="部署环境介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/env_intro/">
+          部署环境介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/etcd_install/" title="Etcd集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/etcd_install/">
+          Etcd集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/master_install/" title="主服务安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/master_install/">
+          主服务安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/haproxy_install/" title="Haproxy安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/haproxy_install/">
+          Haproxy安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/node_install/" title="计算节点安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/node_install/">
+          计算节点安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/router_registry_install/" title="Router And Registry安装" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/openshift/install/router_registry_install/">
+          Router And Registry安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/metric_install/" title="度量系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/metric_install/">
+          度量系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/efk_install/" title="EFK日志系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/efk_install/">
+          EFK日志系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/application/" title="应用部署" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/">
+          <b>2. </b>应用部署
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/monitor/" title="平台监控" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/monitor/">
+          <b>3. </b>平台监控
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/appcenter/" title="组件中心" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/">
+          <b>4. </b>组件中心
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/security/" title="平台安全" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/security/">
+          <b>5. </b>平台安全
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/openshift/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/openshift/'>红帽 OpenShift</a> > <a href='/openshift/install/'>集群安装</a> > Router And Registry安装
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#部署主机角色说明">部署主机角色说明</a></li>
+<li><a href="#部署-router-组件">部署 Router 组件</a></li>
+<li><a href="#部署registry">部署registry</a></li>
+<li><a href="#查看各个service的内部集群地址">查看各个SERVICE的内部集群地址</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>Router And Registry安装</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2018-04-17</td>
+<td>创建</td>
+<td>开源方案</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="部署主机角色说明">部署主机角色说明</h2>
+
+<table>
+<thead>
+<tr>
+<th>主机角色</th>
+<th>IP地址</th>
+<th>节点标签</th>
+<th>域名</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>基础设施节点(Node)</td>
+<td>openshift-node1（192.168.124.30)</td>
+<td>zone=ops</td>
+<td>lb.openshift.ops.com</td>
+</tr>
+</tbody>
+</table>
+
+<p>说明:<br>
+router 组件是用户访问的入口，域名都需要指向Router组件所在运行的计算节点上</p>
+
+<p>registry组件是openshift集群内部使用的docker仓库,主要存放源代码打包生成的镜像</p>
+
+<h2 id="部署-router-组件">部署 Router 组件</h2>
+
+<ul>
+<li>给Node节点打标签</li>
+</ul>
+
+<pre><code>[root@openshift-master master]# oc label node openshift-node1 zone=ops
+node &quot;openshift-node1&quot; labeled
+[root@openshift-master master]# oc get node --show-labels
+NAME              STATUS    AGE       VERSION             LABELS
+openshift-node1   Ready     3h        v1.6.1+5115d708d7   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/hostname=openshift-node1,zone=ops
+openshift-node2   Ready     31m       v1.6.1+5115d708d7   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/hostname=openshift-node2
+</code></pre>
+
+<p>通过对Node节点打标签，在部署组件的时候，可以指定部署到特定节点上</p>
+
+<ul>
+<li>建立一个 service account 关联router 并赋予权限</li>
+</ul>
+
+<pre><code>[root@openshift-master ~]# oc project default
+[root@openshift-master ~]# oadm policy add-scc-to-user privileged system:serviceaccount:default:router
+[root@openshift-master ~]# oadm policy add-cluster-role-to-user cluster-reader system:serviceaccount:default:router
+cluster role &quot;cluster-reader&quot; added: &quot;system:serviceaccount:default:router&quot;
+</code></pre>
+
+<ul>
+<li>创建一个名为 router01 的实例，在指定的计算节点上</li>
+</ul>
+
+<pre><code>[root@openshift-master ~]# oadm router router01 --replicas=1 --service-account=router --selector='zone=ops'
+info: password for stats user admin has been set to iC3sKtFY5k
+--&gt; Creating router router01 ...
+    serviceaccount &quot;router&quot; created
+    clusterrolebinding &quot;router-router01-role&quot; created
+    deploymentconfig &quot;router01&quot; created
+    service &quot;router01&quot; created
+--&gt; Success
+
+查看状态
+[root@openshift-master ~]# oc get pod -n default
+NAME                READY     STATUS              RESTARTS   AGE
+router01-1-deploy   0/1       ContainerCreating   0          1m
+正在下载docker images  过几分钟再看(取决于下载速度)
+[root@openshift-master ~]# oc get pod -n default
+NAME               READY     STATUS    RESTARTS   AGE
+router01-1-hvc1j   1/1       Running   0          1m
+</code></pre>
+
+<h2 id="部署registry">部署registry</h2>
+
+<pre><code>[root@openshift-master ~]# oadm registry --config=/etc/origin/master/admin.kubeconfig  --service-account=registry --selector='zone=ops'
+--&gt; Creating registry registry ...
+    serviceaccount &quot;registry&quot; created
+    clusterrolebinding &quot;registry-registry-role&quot; created
+    deploymentconfig &quot;docker-registry&quot; created
+    service &quot;docker-registry&quot; created
+--&gt; Success
+[root@openshift-master ~]# oc get pod
+NAME                       READY     STATUS              RESTARTS   AGE
+docker-registry-1-deploy   0/1       ContainerCreating   0          3s
+router01-1-hvc1j           1/1       Running             0          14h
+[root@openshift-master ~]# oc get pod
+NAME                      READY     STATUS    RESTARTS   AGE
+docker-registry-1-k5zq1   1/1       Running   0          3m
+router01-1-hvc1j          1/1       Running   0          14h
+</code></pre>
+
+<h2 id="查看各个service的内部集群地址">查看各个SERVICE的内部集群地址</h2>
+
+<pre><code>[root@openshift-master ~]# oc get svc
+NAME              CLUSTER-IP       EXTERNAL-IP   PORT(S)                   AGE
+docker-registry   172.30.111.126   &lt;none&gt;        5000/TCP                  9m
+kubernetes        172.30.0.1       &lt;none&gt;        443/TCP,53/UDP,53/TCP     22h
+router01          172.30.121.139   &lt;none&gt;        80/TCP,443/TCP,1936/TCP   15h
+</code></pre>
+
+<p>注意: 172.30.0.0/16 这个段是 cluster ip,如果容器出现问题或者迁移，这个 cluster ip 是不会改变的</p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/openshift/install/node_install/" title="计算节点安装"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/openshift/install/metric_install/" title="度量系统安装" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/openshift/js/clipboard.min.js?1524640645"></script>
+    <script src="/openshift/js/perfect-scrollbar.min.js?1524640645"></script>
+    <script src="/openshift/js/perfect-scrollbar.jquery.min.js?1524640645"></script>
+    <script src="/openshift/js/jquery.sticky.js?1524640645"></script>
+    <script src="/openshift/js/featherlight.min.js?1524640645"></script>
+    <script src="/openshift/js/html5shiv-printshiv.min.js?1524640645"></script>
+    <script src="/openshift/js/highlight.pack.js?1524640645"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/openshift/js/modernizr.custom.71422.js?1524640645"></script>
+    <script src="/openshift/js/learn.js?1524640645"></script>
+    <script src="/openshift/js/hugo-learn.js?1524640645"></script>
+
+    <link href="/openshift/mermaid/mermaid.css?1524640645" type="text/css" rel="stylesheet" />
+    <script src="/openshift/mermaid/mermaid.js?1524640645"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>

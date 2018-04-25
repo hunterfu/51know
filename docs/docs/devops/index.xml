@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>开发运维 on OpsSoluiton 开源方案</title>
+    <link>/docs/devops/</link>
+    <description>Recent content in 开发运维 on OpsSoluiton 开源方案</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 27 Mar 2018 01:19:23 -0400</lastBuildDate>
+    
+	<atom:link href="/docs/devops/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mysql常用用法总结</title>
+      <link>/docs/devops/mysql/</link>
+      <pubDate>Thu, 29 Mar 2018 06:08:26 -0400</pubDate>
+      
+      <guid>/docs/devops/mysql/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 创建文档    在日常工作中，会简单的使用一下mysql,故对常见命令操作总结一下，常用方式如下
+mysqldump 命令的使用  备份和导出数据库
+mysqldump -h database_ip -u Username -p --opt databasename &amp;gt; backup-file.sql  只导出数据库表结构
+mysqldump -h database_ip -d -u Username -p databasename &amp;gt;database_structure.sql  只导出数据库中的某个表
+mysqldump --opt --add-drop-table -u Username -p databasename tablename &amp;gt; dump.sql  如果不想手工输入密码 请使用--password 参数
+mysqldump -h database_ip -u Username --password=123456 --opt databasename &amp;gt; backup-file.</description>
+    </item>
+    
+    <item>
+      <title>Python脚本知识总结</title>
+      <link>/docs/devops/python_tips/</link>
+      <pubDate>Thu, 29 Mar 2018 22:36:36 +0800</pubDate>
+      
+      <guid>/docs/devops/python_tips/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 创建文档   V1.1 2017-08-07 修订 HunterFu 增加 指定占位符宽度(左对齐)    数据对象持久化 在某些时候，需要将数据对象的内容保存下来，方便下次程序启动时读取，这个就需要将对象持久化，请看如下例子
+import pickle # create the test dictionary before_d = {} before_d[1]=&amp;quot;Name 1&amp;quot; before_d[2]=&amp;quot;Name 2&amp;quot; before_d[3]=&amp;quot;Name 3&amp;quot; # pickle dump the dictionary fout = open(&amp;quot;dict1.dat&amp;quot;, &amp;quot;w&amp;quot;) pickle.dump(before_d, fout, protocol=0) fout.close() # pickle load the dictionary fin = open(&amp;quot;dict1.dat&amp;quot;, &amp;quot;r&amp;quot;) after_d = pickle.</description>
+    </item>
+    
+    <item>
+      <title>Shell脚本知识总结</title>
+      <link>/docs/devops/shell/</link>
+      <pubDate>Fri, 30 Mar 2018 00:38:26 -0400</pubDate>
+      
+      <guid>/docs/devops/shell/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 创建文档    在日常系统管理工作中，需要编写脚本来完成特定的功能，编写shell脚本是一个基本功了！
+在编写的过程中，掌握一些常用的技巧和语法就可以完成大部分功能了，也就是2/8原则.
+单引号和双引号的区别 单引号与双引号的最大不同在于双引号仍然可以引用变量的内容，但单引号内仅是 普通字符 ，不会作变量的引用，直接输出字符窜。请看如下例子：
+ [root@linux ~]# name=HaHa [root@linux ~]# echo $name HaHa [root@linux ~]# myname=&amp;quot;$name is wow&amp;quot; [root@linux ~]# echo $myname HaHa is wow [root@linux ~]# myname=&#39;$name is wow&#39; [root@linux ~]# echo $myname $name is wow  从上面例子可以看出,使用了单引号的时候，那么$name只是普通字符,直接输出而已！
+逐行读取文件  使用for循环来读取文件
+for line in `cat file.txt` do echo $line done  注意:由于使用for来读入文件里的行时，会自动把空格和换行符作为一样分隔符，如果行里有空格的时候，输出的结果会很乱，所以只适用于行连续不能有空格或者换行符的文件</description>
+    </item>
+    
+    <item>
+      <title>Perl脚本常用方法总结</title>
+      <link>/docs/devops/perl/</link>
+      <pubDate>Thu, 29 Mar 2018 06:08:26 -0400</pubDate>
+      
+      <guid>/docs/devops/perl/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 创建文档    在日常系统管理工作中，需要编写脚本来完成特定的功能，如果要实现复杂一些的功能，就需要使用perl脚本了！
+在编写的过程中，掌握一些常用的技巧和语法就可以完成大部分功能了，也就是2/8原则.
+perl 读写文件  将文件读取到数组中,进行处理
+open (IN,&amp;quot;file.txt&amp;quot;) ||(die &amp;quot;can not open the file input.txt\n$!&amp;quot;); my @all = &amp;lt;IN&amp;gt;; foreach $line(@all) { process $line; }  注意:将文件load到数组中，在对数组进行遍历操作,这样子做得缺点是文件很大时,会占据很大内存，当然速度上占优势
+ 为节省内存，一般建议如下操作来进行文件读取
+open (IN,&amp;quot;file.txt&amp;quot;) ||(die &amp;quot;can not open the file input.txt\n$!&amp;quot;); while ($line = &amp;lt;IN&amp;gt;) { process $line; }  注意:每次 $line = &amp;lt;IN&amp;gt;,文件指针后移,节省内存</description>
+    </item>
+    
+    <item>
+      <title>linux下TUN/TAP虚拟网卡的使用</title>
+      <link>/docs/devops/tun_tap/</link>
+      <pubDate>Thu, 29 Mar 2018 06:08:26 -0400</pubDate>
+      
+      <guid>/docs/devops/tun_tap/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.0 2016-03-28 创建 HunterFu 创建文档    tun/tap 驱动程序实现了虚拟网卡的功能，tun表示虚拟的是点对点设备，tap表示虚拟的是以太网设备，这两种设备针对网络包实施不同的封装。
+利用tun/tap 驱动，可以将tcp/ip协议栈处理好的网络分包传给任何一个使用tun/tap驱动的进程，由进程重新处理后再发到物理链路中。
+开源项目openvpn 和 Vtun 都是利用tun/tap驱动实现的隧道封装。
+确认内核是否支持tun/tap  确认内核是否有tun模块
+[root@hunterfu]# modinfo tun filename: /lib/modules/2.6.34.7-56.fc13.i686.PAE/kernel/drivers/net/tun.ko alias: char-major-10-200 license: GPL author: (C) 1999-2004 Max Krasnyansky &amp;lt;maxk@qualcomm.com&amp;gt; description: Universal TUN/TAP device driver srcversion: 880DE258930FE60D765B735 depends: vermagic: 2.6.34.7-56.fc13.i686.PAE SMP mod_unload 686  加载内核模块 -
+[root@hunterfu ~]# modprobe tun [root@hunterfu ~]# lsmod | grep tun tun 10548 1  执行以上命令后，出现如上输出，说明模块加载成功</description>
+    </item>
+    
+  </channel>
+</rss>

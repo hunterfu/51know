@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.39" />
+    <meta name="description" content="开源方案文档 Ops Solution">
+<meta name="author" content="Hunterfu2009@gmail.com">
+
+
+    <link rel="shortcut icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+    <title>红帽 OpenShift :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/openshift/css/nucleus.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/font-awesome.min.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/hybrid.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/featherlight.min.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/perfect-scrollbar.min.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/auto-complete.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/theme.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/hugo-theme.css?1524640645" rel="stylesheet">
+    
+      <link href="/openshift/css/theme-mine.css?1524640645" rel="stylesheet">
+    
+
+    <script src="/openshift/js/jquery-2.x.min.js?1524640645"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/openshift/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/openshift">
+<img src="/openshift/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/openshift/js/lunr.min.js?1524640645"></script>
+<script type="text/javascript" src="/openshift/js/auto-complete.js?1524640645"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/openshift';
+    
+</script>
+<script type="text/javascript" src="/openshift/js/search.js?1524640645"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/" title="集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/">
+          <b>1. </b>集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/arch_intro/" title="架构介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/arch_intro/">
+          架构介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/env_intro/" title="部署环境介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/env_intro/">
+          部署环境介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/etcd_install/" title="Etcd集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/etcd_install/">
+          Etcd集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/master_install/" title="主服务安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/master_install/">
+          主服务安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/haproxy_install/" title="Haproxy安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/haproxy_install/">
+          Haproxy安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/node_install/" title="计算节点安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/node_install/">
+          计算节点安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/router_registry_install/" title="Router And Registry安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/router_registry_install/">
+          Router And Registry安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/metric_install/" title="度量系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/metric_install/">
+          度量系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/efk_install/" title="EFK日志系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/efk_install/">
+          EFK日志系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/application/" title="应用部署" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/">
+          <b>2. </b>应用部署
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/monitor/" title="平台监控" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/monitor/">
+          <b>3. </b>平台监控
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/appcenter/" title="组件中心" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/">
+          <b>4. </b>组件中心
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/security/" title="平台安全" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/security/">
+          <b>5. </b>平台安全
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/openshift/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+
+        
+        <div id="body-inner">
+          
+
+        
+
+<span id="sidebar-toggle-span">
+<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fa fa-bars"></i> navigation</a>
+</span>
+
+ 
+
+
+<h1 id="红帽-openshift">红帽 OpenShift</h1>
+
+<p>红帽® OpenShift 是一款容器应用平台，它将 Docker 和 Kubernetes 技术带入企业。</p>
+
+<p>无论您采用何种应用架构，OpenShift 都能让您在任意架构中（公共或私有云中）轻松、快速实现应用的构建、开发和部署。</p>
+
+<p>无论是在企业内部，公共云，或是托管环境中，您都能凭借这一备受业务青睐的平台，快速您的最新创意推向市场，从而在激烈的市场竞争中脱颖而出。</p>
+
+<h2 id="本套文档涉及到的版本">本套文档涉及到的版本</h2>
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>CentOS Linux release 7.3.1611 (Core)</td>
+<td>操作系统</td>
+<td>使用centos</td>
+</tr>
+
+<tr>
+<td>Openshift Origin v3.6.1</td>
+<td>容器云</td>
+<td>使用开源版本</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="问题反馈">问题反馈</h2>
+
+<p>在看文档过程中，有任何问题，请到这里<a href="https://github.com/hunterfu/51know/issues/1">留言反馈</a>，谢谢。</p>
+
+<div class="notices info" ><p>我们会在第一时间响应回复</p>
+</div>
+
+
+<h2 id="openshift-origin-使用客户列表">openshift origin 使用客户列表</h2>
+
+<p>如果您在真实的生产工作中，使用了openshift origin, 请反馈给我们,也能看出在国内的使用情况,请到这里<a href="https://github.com/hunterfu/51know/issues/1">推荐给我们</a></p>
+
+<h2 id="openshift-功能和优势">Openshift 功能和优势</h2>
+
+<ul>
+<li><p>企业级 Kubernetes<br>
+红帽 OpenShift 作为一个功能全面容器应用平台，其自身具备 Docker 和 Kubernetes 等最新技术，是一款功能强大的容器集群管理和编排系统。 该平台和红帽企业 Linux系统一同为企业提供坚实技术基础。
+OpenShift 集成了企业所需的多种架构、流程、平台及服务，可为开发和运营团队同时提供强大支持。</p></li>
+
+<li><p>有状态和无状态的应用<br>
+红帽 OpenShift 可运行和支持有状态和无状态的应用。因此，您无需完全重构您的企业应用，即可充分利用容器技术。</p></li>
+
+<li><p>实现应用现代化<br>
+OpenShift 与红帽 JBoss 中间件相结合后，可以实现多种综合性云原生服务，包括开发人员工具、整合、业务自动化、数据管理等。因而，有助您更加快速、智能、灵活地开发应用，克服使用微服务构建分布式系统的挑战。</p></li>
+
+<li><p>构建更出色、更强大的混合云<br>
+就像红帽企业 Linux，这一用于构建众多公共、私有云环境的基础平台一样，您可以在任意位置部署 OpenShift 和获得相应支持。这些云环境包括 Amazon Web Services、Azure、Google 云平台、VMware 等等。依托 OpenShift，您可以在这些公共云和私有云上，提供单个容器应用平台。另外，借助在 Microsoft Azure 上运行的红帽 OpenShift 容器平台，您可以构建、部署和管理容器化服务和应用。</p></li>
+
+<li><p>拥抱 DevOps<br>
+OpenShift 为开发和运营团队提供了一个通用平台和一整套开发和管理工具。这使得两个团队能够步调一致，保持持续、协调化的应用开发和维护流程。通过此方法，您可以消除耗时缓慢的业务流程和手动操作，根据业务需求灵活开展运营。</p></li>
+</ul>
+	
+  
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+        
+            <a class="nav nav-next" href="/openshift/install/" title="集群安装" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/openshift/js/clipboard.min.js?1524640645"></script>
+    <script src="/openshift/js/perfect-scrollbar.min.js?1524640645"></script>
+    <script src="/openshift/js/perfect-scrollbar.jquery.min.js?1524640645"></script>
+    <script src="/openshift/js/jquery.sticky.js?1524640645"></script>
+    <script src="/openshift/js/featherlight.min.js?1524640645"></script>
+    <script src="/openshift/js/html5shiv-printshiv.min.js?1524640645"></script>
+    <script src="/openshift/js/highlight.pack.js?1524640645"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/openshift/js/modernizr.custom.71422.js?1524640645"></script>
+    <script src="/openshift/js/learn.js?1524640645"></script>
+    <script src="/openshift/js/hugo-learn.js?1524640645"></script>
+
+    <link href="/openshift/mermaid/mermaid.css?1524640645" type="text/css" rel="stylesheet" />
+    <script src="/openshift/mermaid/mermaid.js?1524640645"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>
+

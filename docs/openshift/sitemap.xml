@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/openshift/install/arch_intro/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/install/env_intro/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/install/etcd_install/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/install/master_install/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/install/haproxy_install/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/install/node_install/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/install/router_registry_install/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/install/metric_install/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/install/efk_install/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/install/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/application/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/monitor/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/appcenter/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/security/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/devops/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/openshift/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/openshift/</loc>
+  </url>
+  
+</urlset>

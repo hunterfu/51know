@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.39" />
+    <meta name="description" content="开源方案文档 Ops Solution">
+<meta name="author" content="Hunterfu2009@gmail.com">
+<meta name="keywords" content="[openshift arch,架构,docker,部署环境,etcd]">
+
+    <link rel="shortcut icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+    <title>Etcd集群安装 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/openshift/css/nucleus.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/font-awesome.min.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/hybrid.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/featherlight.min.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/perfect-scrollbar.min.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/auto-complete.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/theme.css?1524640645" rel="stylesheet">
+    <link href="/openshift/css/hugo-theme.css?1524640645" rel="stylesheet">
+    
+      <link href="/openshift/css/theme-mine.css?1524640645" rel="stylesheet">
+    
+
+    <script src="/openshift/js/jquery-2.x.min.js?1524640645"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/openshift/install/etcd_install/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/openshift">
+<img src="/openshift/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/openshift/js/lunr.min.js?1524640645"></script>
+<script type="text/javascript" src="/openshift/js/auto-complete.js?1524640645"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/openshift';
+    
+</script>
+<script type="text/javascript" src="/openshift/js/search.js?1524640645"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/" title="集群安装" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/openshift/install/">
+          <b>1. </b>集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/arch_intro/" title="架构介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/arch_intro/">
+          架构介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/env_intro/" title="部署环境介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/env_intro/">
+          部署环境介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/etcd_install/" title="Etcd集群安装" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/openshift/install/etcd_install/">
+          Etcd集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/master_install/" title="主服务安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/master_install/">
+          主服务安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/haproxy_install/" title="Haproxy安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/haproxy_install/">
+          Haproxy安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/node_install/" title="计算节点安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/node_install/">
+          计算节点安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/router_registry_install/" title="Router And Registry安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/router_registry_install/">
+          Router And Registry安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/metric_install/" title="度量系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/metric_install/">
+          度量系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/install/efk_install/" title="EFK日志系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/efk_install/">
+          EFK日志系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/application/" title="应用部署" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/">
+          <b>2. </b>应用部署
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/monitor/" title="平台监控" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/monitor/">
+          <b>3. </b>平台监控
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/appcenter/" title="组件中心" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/">
+          <b>4. </b>组件中心
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/security/" title="平台安全" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/security/">
+          <b>5. </b>平台安全
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/openshift/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/openshift/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/openshift/'>红帽 OpenShift</a> > <a href='/openshift/install/'>集群安装</a> > Etcd集群安装
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#etcd证书">ETCD证书</a></li>
+<li><a href="#部署-etcd-集群">部署 ETCD 集群</a>
+<ul>
+<li><a href="#第一个节点etcd0-安装">第一个节点etcd0 安装</a></li>
+<li><a href="#其他2个节点安装">其他2个节点安装</a></li>
+</ul></li>
+<li><a href="#验证-3个节点都安装配置完成后">验证(3个节点都安装配置完成后)</a></li>
+<li><a href="#数据初始化">数据初始化</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>Etcd集群安装</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2018-04-17</td>
+<td>创建</td>
+<td>开源方案</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="etcd证书">ETCD证书</h2>
+
+<ul>
+<li>etcd集群信息</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>IP地址</th>
+<th>域名</th>
+<th>etcd版本</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>etcd0</td>
+<td>192.168.124.22</td>
+<td>etcd0.51know.info</td>
+<td>etcd-3.2.15-1.el7.x86_64</td>
+</tr>
+
+<tr>
+<td>etcd1</td>
+<td>192.168.124.23</td>
+<td>etcd1.51know.info</td>
+<td>etcd-3.2.15-1.el7.x86_64</td>
+</tr>
+
+<tr>
+<td>etcd2</td>
+<td>192.168.124.24</td>
+<td>etcd0.51know.info</td>
+<td>etcd-3.2.15-1.el7.x86_64</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>证书生成</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>证书名称</th>
+<th>配置文件</th>
+<th>用途</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>etcd-root-ca.pem</td>
+<td>etcd-root-ca-csr.json</td>
+<td>etcd 根 CA 证书</td>
+</tr>
+
+<tr>
+<td>etcd.pem</td>
+<td>etcd-gencert.json、etcd-csr.json</td>
+<td>etcd 集群证书</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>CFSSL 工具安装
+首先下载 cfssl，并给予可执行权限，然后扔到 PATH 目录下</li>
+</ul>
+
+<pre><code>[root@openshift-master1 /opt]# wget https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
+[root@openshift-master1 /opt]# wget https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+[root@openshift-master1 /opt]# chmod +x cfssl_linux-amd64 cfssljson_linux-amd64
+[root@openshift-master1 /opt]# mv cfssl_linux-amd64 /usr/local/bin/cfssl
+[root@openshift-master1 /opt]# mv cfssljson_linux-amd64 /usr/local/bin/cfssljson
+</code></pre>
+
+<ul>
+<li>Etcd 证书生成所需配置文件如下:</li>
+</ul>
+
+<pre><code>[root@openshift-master1 /opt]# cat etcd-root-ca-csr.json 
+{
+   &quot;key&quot;: {
+     &quot;algo&quot;: &quot;rsa&quot;,
+     &quot;size&quot;: 4096
+   },
+   &quot;names&quot;: [
+     {
+       &quot;O&quot;: &quot;etcd&quot;,
+       &quot;OU&quot;: &quot;etcd Security&quot;,
+       &quot;L&quot;: &quot;Beijing&quot;,
+       &quot;ST&quot;: &quot;Beijing&quot;,
+       &quot;C&quot;: &quot;CN&quot;
+     }
+   ],
+   &quot;CN&quot;: &quot;etcd-root-ca&quot;
+}
+
+[root@openshift-master1 /opt]# cat etcd-gencert.json 
+{
+  &quot;signing&quot;: {
+    &quot;default&quot;: {
+        &quot;usages&quot;: [
+          &quot;signing&quot;,
+          &quot;key encipherment&quot;,
+          &quot;server auth&quot;,
+          &quot;client auth&quot;
+        ],
+        &quot;expiry&quot;: &quot;87600h&quot;
+    }
+  }
+}
+
+[root@openshift-master1 /opt]# cat etcd-csr.json 
+{
+  &quot;key&quot;: {
+    &quot;algo&quot;: &quot;rsa&quot;,
+    &quot;size&quot;: 4096
+  },
+  &quot;names&quot;: [
+    {
+      &quot;O&quot;: &quot;etcd&quot;,
+      &quot;OU&quot;: &quot;etcd Security&quot;,
+      &quot;L&quot;: &quot;Beijing&quot;,
+      &quot;ST&quot;: &quot;Beijing&quot;,
+      &quot;C&quot;: &quot;CN&quot;
+    }
+  ],
+  &quot;CN&quot;: &quot;etcd&quot;,
+  &quot;hosts&quot;: [
+    &quot;127.0.0.1&quot;,
+    &quot;localhost&quot;,
+    &quot;192.168.124.22&quot;,
+    &quot;192.168.124.23&quot;,
+    &quot;192.168.124.24&quot;
+  ]
+}
+</code></pre>
+
+<p><strong>注意: hosts 要将 etcd 集群的所在节点的 IP地址,主机名(FQDN),都要加入到此列表中</strong></p>
+
+<ul>
+<li>生成 Etcd 证书</li>
+</ul>
+
+<pre><code>[root@openshift-master1 /opt]# cfssl gencert --initca=true etcd-root-ca-csr.json | cfssljson --bare etcd-root-ca
+[root@openshift-master1 /opt]# cfssl gencert --ca etcd-root-ca.pem --ca-key etcd-root-ca-key.pem --config etcd-gencert.json etcd-csr.json | cfssljson --bare etcd
+
+#生成的证书列表如下
+[root@openshift-master1 /opt]
+# ll 
+总用量 36
+-rw-r--r-- 1 root root 2033 3月  27 18:09 etcd.csr
+-rw-r--r-- 1 root root  513 3月  27 18:09 etcd-csr.json
+-rw-r--r-- 1 root root  204 3月  27 18:08 etcd-gencert.json
+-rw------- 1 root root 3247 3月  27 18:09 etcd-key.pem
+-rw-r--r-- 1 root root 2415 3月  27 18:09 etcd.pem
+-rw-r--r-- 1 root root 1708 3月  27 18:09 etcd-root-ca.csr
+-rw-r--r-- 1 root root  232 3月  27 18:07 etcd-root-ca-csr.json
+-rw------- 1 root root 3243 3月  27 18:09 etcd-root-ca-key.pem
+-rw-r--r-- 1 root root 2078 3月  27 18:09 etcd-root-ca.pem
+</code></pre>
+
+<h2 id="部署-etcd-集群">部署 ETCD 集群</h2>
+
+<h3 id="第一个节点etcd0-安装">第一个节点etcd0 安装</h3>
+
+<ul>
+<li>安装etcd，并将证书拷贝安装目录，赋权</li>
+</ul>
+
+<pre><code>[root@openshift-master1 /opt]# yum install etcd -y
+[root@openshift-master1 /opt]# cp *.pem /etc/etcd/
+[root@openshift-master1 /opt]# chown -R etcd:etcd /etc/etcd/
+[root@openshift-master1 /opt]# chmod -R 755 /etc/etcd/
+</code></pre>
+
+<ul>
+<li>配置内容</li>
+</ul>
+
+<pre><code>[root@openshift-master etcd]# cat /etc/etcd/etcd.conf
+#[Member]
+ETCD_DATA_DIR=&quot;/var/lib/etcd/default.etcd&quot;
+ETCD_LISTEN_PEER_URLS=&quot;https://192.168.124.22:2380&quot;
+ETCD_LISTEN_CLIENT_URLS=&quot;https://192.168.124.22:2379,http://localhost:2379&quot;
+ETCD_NAME=&quot;etcd0&quot;
+ETCD_HEARTBEAT_INTERVAL=500
+ETCD_ELECTION_TIMEOUT=2500
+#[Clustering]
+ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;https://192.168.124.22:2380&quot;
+ETCD_ADVERTISE_CLIENT_URLS=&quot;https://192.168.124.22:2379&quot;
+ETCD_INITIAL_CLUSTER=&quot;etcd0=https://192.168.124.22:2380,etcd1=https://192.168.124.23:2380,etcd2=https://192.168.124.24:2380&quot;
+ETCD_INITIAL_CLUSTER_TOKEN=&quot;etcd-cluster&quot;
+ETCD_INITIAL_CLUSTER_STATE=&quot;new&quot;
+#[Security]
+ETCD_CERT_FILE=&quot;/etc/etcd/etcd.pem&quot;
+ETCD_KEY_FILE=&quot;/etc/etcd/etcd-key.pem&quot;
+ETCD_CLIENT_CERT_AUTH=&quot;true&quot;
+ETCD_TRUSTED_CA_FILE=&quot;/etc/etcd/etcd-root-ca.pem&quot;
+ETCD_AUTO_TLS=&quot;true&quot;
+ETCD_PEER_CERT_FILE=&quot;/etc/etcd/etcd.pem&quot;
+ETCD_PEER_KEY_FILE=&quot;/etc/etcd/etcd-key.pem&quot;
+ETCD_PEER_CLIENT_CERT_AUTH=&quot;true&quot;
+ETCD_PEER_TRUSTED_CA_FILE=&quot;/etc/etcd/etcd-root-ca.pem&quot;
+ETCD_PEER_AUTO_TLS=&quot;true&quot;
+</code></pre>
+
+<ul>
+<li>启动服务</li>
+</ul>
+
+<pre><code>[root@openshift-master1 /opt]# systemctl enable etcd
+[root@openshift-master1 /opt]# systemctl start etcd
+</code></pre>
+
+<h3 id="其他2个节点安装">其他2个节点安装</h3>
+
+<ul>
+<li>安装 etcd 软件包</li>
+</ul>
+
+<pre><code>yum install etcd -y
+</code></pre>
+
+<ul>
+<li>将第一个节点的配置拷贝到其他2个节点</li>
+</ul>
+
+<pre><code>[root@openshift-master ~]# cd /etc/etcd/
+[root@openshift-master etcd]# ll
+total 20
+-rwxr-xr-x 1 etcd etcd  920 Apr 18 06:11 etcd.conf
+-rwxr-xr-x 1 etcd etcd 3243 Apr 18 06:07 etcd-key.pem
+-rwxr-xr-x 1 etcd etcd 2167 Apr 18 06:07 etcd.pem
+-rwxr-xr-x 1 etcd etcd 3247 Apr 18 06:07 etcd-root-ca-key.pem
+-rwxr-xr-x 1 etcd etcd 2078 Apr 18 06:07 etcd-root-ca.pem
+[root@openshift-master1 etcd]# scp * openshift-master2:/etc/etcd/
+etcd.conf                                     100%  920     0.9KB/s   00:00
+etcd-key.pem                                  100% 3243     3.2KB/s   00:00
+etcd.pem                                      100% 2167     2.1KB/s   00:00
+etcd-root-ca-key.pem                          100% 3247     3.2KB/s   00:00
+etcd-root-ca.pem                              100% 2078     2.0KB/s   00:00
+</code></pre>
+
+<ul>
+<li>在其他2个节点上修改如下配置项,ip地址改成本节点的对应的IP地址</li>
+</ul>
+
+<pre><code>ETCD_LISTEN_PEER_URLS=&quot;https://192.168.124.23:2380&quot;
+ETCD_LISTEN_CLIENT_URLS=&quot;https://192.168.124.23:2379,http://localhost:2379&quot;
+#ETCD节点名称 按顺序增加即可
+ETCD_NAME=&quot;etcd1&quot;  
+ETCD_INITIAL_ADVERTISE_PEER_URLS=&quot;https://192.168.124.23:2380&quot;
+ETCD_ADVERTISE_CLIENT_URLS=&quot;https://192.168.124.23:2379&quot;
+</code></pre>
+
+<ul>
+<li>启动服务即可</li>
+</ul>
+
+<h2 id="验证-3个节点都安装配置完成后">验证(3个节点都安装配置完成后)</h2>
+
+<pre><code>[root@openshift-master etcd]# export ETCDCTL_API=3
+[root@openshift-master etcd]# etcdctl member list
+2da38978bc038ba1, started, etcd1, https://192.168.124.22:2380, https://192.168.124.22:2379
+56e71904a9636fcf, started, etcd0, https://192.168.124.23:2380, https://192.168.124.23:2379
+faf6915e4bb01350, started, etcd2, https://192.168.124.24:2380, https://192.168.124.24:2379
+
+[root@openshift-master etcd]# etcdctl --cacert=/etc/etcd/etcd-root-ca.pem --cert=/etc/etcd/etcd.pem --key=/etc/etcd/etcd-key.pem --endpoints=https://192.168.124.22:2379,https://192.168.124.23:2379,https://192.168.124.24:2379 endpoint health
+https://192.168.124.22:2379 is healthy: successfully committed proposal: took = 3.852481ms
+https://192.168.124.23:2379 is healthy: successfully committed proposal: took = 4.035725ms
+https://192.168.124.24:2379 is healthy: successfully committed proposal: took = 1.489679ms
+</code></pre>
+
+<p>至此,etcd集群安装完成</p>
+
+<h2 id="数据初始化">数据初始化</h2>
+
+<p>如果在安装过程中，可能需要重新初始化数据可以参考如下方法</p>
+
+<ol>
+<li><p>导出API版本，这里使用3版本</p>
+
+<pre><code>export ETCDCTL_API=3
+</code></pre></li>
+
+<li><p>获取key</p>
+
+<pre><code>etcdctl get / --prefix --keys-only
+</code></pre></li>
+
+<li><p>删除 openshift.io 相关内容</p>
+
+<pre><code>etcdctl del --prefix=true /openshift.io
+</code></pre></li>
+
+<li><p>删除 kubernetes.io</p>
+
+<pre><code>etcdctl del --prefix=true /kubernetes.io
+</code></pre></li>
+
+<li><p>再次查看</p>
+
+<pre><code>etcdctl get / --prefix --keys-only
+</code></pre></li>
+</ol>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/openshift/install/env_intro/" title="部署环境介绍"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/openshift/install/master_install/" title="主服务安装" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/openshift/js/clipboard.min.js?1524640645"></script>
+    <script src="/openshift/js/perfect-scrollbar.min.js?1524640645"></script>
+    <script src="/openshift/js/perfect-scrollbar.jquery.min.js?1524640645"></script>
+    <script src="/openshift/js/jquery.sticky.js?1524640645"></script>
+    <script src="/openshift/js/featherlight.min.js?1524640645"></script>
+    <script src="/openshift/js/html5shiv-printshiv.min.js?1524640645"></script>
+    <script src="/openshift/js/highlight.pack.js?1524640645"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/openshift/js/modernizr.custom.71422.js?1524640645"></script>
+    <script src="/openshift/js/learn.js?1524640645"></script>
+    <script src="/openshift/js/hugo-learn.js?1524640645"></script>
+
+    <link href="/openshift/mermaid/mermaid.css?1524640645" type="text/css" rel="stylesheet" />
+    <script src="/openshift/mermaid/mermaid.js?1524640645"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>
