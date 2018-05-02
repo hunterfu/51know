@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/openshift/application/import_template/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/openshift/install/arch_intro/</loc>
     <lastmod>2018-03-30T01:46:28-04:00</lastmod>
   </url>
@@ -48,6 +53,11 @@
   </url>
   
   <url>
+    <loc>/openshift/install/harbor_install/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/openshift/install/</loc>
     <lastmod>2018-03-27T01:19:23-04:00</lastmod>
   </url>
@@ -78,6 +88,11 @@
   </url>
   
   <url>
+    <loc>/openshift/faq/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/openshift/categories/</loc>
     <priority>0</priority>
   </url>
@@ -89,6 +104,7 @@
   
   <url>
     <loc>/openshift/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
   </url>
   
 </urlset>

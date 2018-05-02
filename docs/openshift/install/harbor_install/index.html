@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.39" />
+    <meta name="description" content="开源方案文档 Ops Solution">
+<meta name="author" content="Hunterfu2009@gmail.com">
+<meta name="keywords" content="[openshift node,docker,registry,harbor]">
+
+    <link rel="shortcut icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+    <title>Harbor Docker仓库安装 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/openshift/css/nucleus.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/font-awesome.min.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/hybrid.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/featherlight.min.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/perfect-scrollbar.min.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/auto-complete.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/theme.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/hugo-theme.css?1525238717" rel="stylesheet">
+    
+      <link href="/openshift/css/theme-mine.css?1525238717" rel="stylesheet">
+    
+
+    <script src="/openshift/js/jquery-2.x.min.js?1525238717"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/install/harbor_install/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/openshift/openshift">
+<img src="/openshift/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/openshift/js/lunr.min.js?1525238717"></script>
+<script type="text/javascript" src="/openshift/js/auto-complete.js?1525238717"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/openshift/js/search.js?1525238717"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/install/" title="集群安装" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/openshift/install/">
+          <b>1. </b>集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/arch_intro/" title="架构介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/arch_intro/">
+          架构介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/env_intro/" title="部署环境介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/env_intro/">
+          部署环境介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/etcd_install/" title="Etcd集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/etcd_install/">
+          Etcd集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/master_install/" title="主服务安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/master_install/">
+          主服务安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/haproxy_install/" title="Haproxy安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/haproxy_install/">
+          Haproxy安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/node_install/" title="计算节点安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/node_install/">
+          计算节点安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/router_registry_install/" title="Router And Registry安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/router_registry_install/">
+          Router And Registry安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/metric_install/" title="度量系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/metric_install/">
+          度量系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/efk_install/" title="EFK日志系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/efk_install/">
+          EFK日志系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/harbor_install/" title="Harbor Docker仓库安装" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/openshift/install/harbor_install/">
+          Harbor Docker仓库安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/application/" title="应用部署" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/">
+          <b>2. </b>应用部署
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/application/import_template/" title="导入示例模板" class="dd-item ">
+        <a href="/openshift/application/import_template/">
+        导入示例模板
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/monitor/" title="平台监控" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/monitor/">
+          <b>3. </b>平台监控
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/" title="组件中心" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/">
+          <b>4. </b>组件中心
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/security/" title="平台安全" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/security/">
+          <b>5. </b>平台安全
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/faq/" title="常见问题" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/faq/">
+          <b>7. </b>常见问题
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/openshift/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/openshift/'>红帽 OpenShift</a> > <a href='/openshift/install/'>集群安装</a> > Harbor Docker仓库安装
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#harbor-介绍">Harbor 介绍</a></li>
+<li><a href="#部署主机角色说明">部署主机角色说明</a></li>
+<li><a href="#harbor-部署">harbor 部署</a></li>
+<li><a href="#推送镜像到harbor">推送镜像到harbor</a></li>
+<li><a href="#配置docker镜像复制">配置docker镜像复制</a></li>
+<li><a href="#数据库备份">数据库备份</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>Harbor Docker仓库安装</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2018-04-27</td>
+<td>创建</td>
+<td>开源方案</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="harbor-介绍">Harbor 介绍</h2>
+
+<p>Harbor 是 Vmwar 公司开源的 企业级的 Docker Registry 管理项目</p>
+
+<p>它主要 提供 Dcoker Registry 管理UI，可基于角色访问控制, AD/LDAP 集成，日志审核等功能，完全的支持中文。</p>
+
+<p>Harbor 的所有组件都在 Dcoker 中部署，所以 Harbor 可使用 Docker Compose 快速部署。</p>
+
+<h2 id="部署主机角色说明">部署主机角色说明</h2>
+
+<table>
+<thead>
+<tr>
+<th>主机角色</th>
+<th>IP地址</th>
+<th>操作系统</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>主节点(Master)</td>
+<td>hz01-prod-ops-harbor-01(172.16.8.228)</td>
+<td>CentOS Linux release 7.3.1611 (Core) x86_64</td>
+<td>harbor安装及配置</td>
+</tr>
+
+<tr>
+<td>从节点(Node)</td>
+<td>hz01-prod-ops-harbor-02(172.16.8.245）</td>
+<td>CentOS Linux release 7.3.1611 (Core) X86-64</td>
+<td>主节点数据复制</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="harbor-部署">harbor 部署</h2>
+
+<ul>
+<li>开源项目地址：<a href="https://github.com/vmware/harbor">https://github.com/vmware/harbor</a></li>
+<li>官方安装说明：<a href="https://github.com/vmware/harbor/blob/master/docs/installation_guide.md">https://github.com/vmware/harbor/blob/master/docs/installation_guide.md</a></li>
+<li>下载安装包并解压：</li>
+</ul>
+
+<pre><code>[root@hz01-prod-ops-harbor-02 /opt]# wget https://storage.googleapis.com/harbor-releases/release-1.4.0/harbor-online-installer-v1.4.0.tgz
+[root@hz01-prod-ops-harbor-02 /opt]# tar xvf harbor-online-installer-v1.4.0.tgz
+</code></pre>
+
+<ul>
+<li>安装docker-compose</li>
+</ul>
+
+<pre><code>[root@hz01-prod-ops-harbor-02 /opt/harbor]# yum install docker
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# yum install python2-pip
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# yum install docker-compose
+</code></pre>
+
+<ul>
+<li>修改镜像源,增加docker hub 的镜像</li>
+</ul>
+
+<pre><code>[root@hz01-prod-ops-harbor-01 /opt/harbor]# vim /etc/sysconfig/docker
+{
+ &quot;registry-mirrors&quot;: [&quot;http://ef017c13.m.daocloud.io&quot;]
+}
+
+</code></pre>
+
+<ul>
+<li>修改harbor配置(reg.ops.com域名指向harbor所安装的服务器)</li>
+</ul>
+
+<pre><code>[root@hz01-prod-ops-harbor-02 /opt/harbor]# vim /opt/harbor/harbor.cfg
+# hostname 设置访问地址，支持IP，域名，主机名，禁止设置127.0.0.1
+hostname = reg.ops.com
+# 访问协议，可设置 http,https
+ui_url_protocol = http
+# harbor WEB UI登陆使用的密码
+harbor_admin_password = Harbor12345
+# 认证方式，这里支持多种认证方式，默认是 db_auth ，既mysql数据库存储认证。
+# 这里还支持 ldap 以及 本地文件存储方式。
+auth_mode = db_auth
+# mysql root 账户的 密码
+db_password = root123
+self_registration= on
+use_compressed_js= on
+max_job_workers= 3
+verify_remote_cert= on
+customize_crt= on
+#这些需要修改的其他的参数可以保持默认
+</code></pre>
+
+<ul>
+<li>安装harbor</li>
+</ul>
+
+<pre><code>[root@hz01-prod-ops-harbor-02 /opt/harbor]# cd /opt/harbor
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# ./install.sh
+
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# docker-compose ps
+       Name                     Command               State                                Ports                              
+---------------------------------------------------------------------------------------------------
+harbor-adminserver   /harbor/start.sh                 Up                                                                      
+harbor-db            /usr/local/bin/docker-entr ...   Up      3306/tcp                                                        
+harbor-jobservice    /harbor/start.sh                 Up                                                                      
+harbor-log           /bin/sh -c /usr/local/bin/ ...   Up      127.0.0.1:1514-&gt;10514/tcp                                       
+harbor-ui            /harbor/start.sh                 Up                                                                      
+nginx                nginx -g daemon off;             Up      0.0.0.0:443-&gt;443/tcp, 0.0.0.0:4443-&gt;4443/tcp, 0.0.0.0:80-&gt;80/tcp
+registry             /entrypoint.sh serve /etc/ ...   Up      5000/tcp   
+</code></pre>
+
+<ul>
+<li>通过终端登陆镜像仓库</li>
+</ul>
+
+<pre><code>[root@hz01-prod-ops-harbor-02 /opt/harbor]# docker login reg.ops.com
+Username: admin
+Password: 
+Error response from daemon: Get https://reg.ops.com/v1/users/: dial tcp 172.16.8.245:443: getsockopt: connection refused
+
+#这里配置的是http，docker login默认走的是https.
+
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# cat /etc/docker/daemon.json
+{
+ &quot;registry-mirrors&quot;: [&quot;http://ef017c13.m.daocloud.io&quot;],
+ &quot;insecure-registries&quot;: [ &quot;reg.ops.com&quot;]
+}
+
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# systemctl daemon-reload
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# systemctl restart docker
+
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# docker login hz01-prod-ops-harbor-02.sysadmin.xinguangnet.com
+Username: admin
+Password: 
+Login Succeeded
+</code></pre>
+
+<h2 id="推送镜像到harbor">推送镜像到harbor</h2>
+
+<p>登陆harbor，创建一个test测试的项目:</p>
+
+<p><img src="create_project.jpg" alt="harbor页面" title="harbor页面" /></p>
+
+<pre><code>#公网上随便拉个镜像
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# docker pull mongo
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# docker images
+REPOSITORY                            TAG                 IMAGE ID            CREATED             SIZE
+docker.io/mongo                       latest              5b1317f8158f        7 days ago          365.9 MB
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# docker tag mongo hz01-prod-ops-harbor-02.sysadmin.xinguangnet.com/test/mongodb:1.0
+
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# docker images
+REPOSITORY                                                      TAG                 IMAGE ID            CREATED             SIZE
+docker.io/mongo                                                 latest              5b1317f8158f        7 days ago          365.9 MB
+hz01-prod-ops-harbor-02.sysadmin.xinguangnet.com/test/mongodb   1.0                 5b1317f8158f        7 days ago          365.9 MB
+
+[root@hz01-prod-ops-harbor-02 /opt/harbor]# docker push hz01-prod-ops-harbor-02.sysadmin.xinguangnet.com/test/mongodb:1.0
+The push refers to a repository [hz01-prod-ops-harbor-02.sysadmin.xinguangnet.com/test/mongodb]
+99099bc0f52d: Pushed 
+5388bfbc2c01: Pushed 
+d6ac487f7716: Pushed 
+2ecbdcef31f1: Pushed 
+4786aaf122f1: Pushed 
+b597eb624250: Pushed 
+d1a481118c6e: Pushed 
+217a81d3bde9: Pushed 
+54e8db6ab32d: Pushed 
+43efe85a991c: Pushed 
+1.0: digest: sha256:82fb1f2483179a7c26ac603d5ad0f9cf6992a27f272c82e277371a96657b799b size: 2407
+</code></pre>
+
+<p><img src="push_success.jpg" alt="镜像推送成功" title="镜像推送成功" /></p>
+
+<h2 id="配置docker镜像复制">配置docker镜像复制</h2>
+
+<p><img src="replication.png" alt="replication.png" /></p>
+
+<ul>
+<li>登陆master节点的web ui</li>
+</ul>
+
+<p>根据上文创建一个openshift的项目，这里不做演示了。</p>
+
+<ul>
+<li>选择仓库管理，创建从节点的信息</li>
+</ul>
+
+<p><img src="new_target.jpg" alt="new_target.jpg" /></p>
+
+<ul>
+<li>填写node节点的信息，并测试连接</li>
+</ul>
+
+<p><img src="new_target_info.jpg" alt="new_target_info.jpg" /></p>
+
+<ul>
+<li>连接成功后，仓库管理会生成一条信息</li>
+</ul>
+
+<p><img src="registry_info.jpg" alt="registry_info.jpg" /></p>
+
+<ul>
+<li>点击复制管理，添加一条复制策略</li>
+</ul>
+
+<p><img src="rule.jpg" alt="" /></p>
+
+<ul>
+<li>新建复制规则，主要是复制源项目，目标节点，触发模式，之后选择保存</li>
+</ul>
+
+<p><img src="new_rule.jpg" alt="" /></p>
+
+<ul>
+<li>复制管理会生成一条oepnshift复制的规则</li>
+</ul>
+
+<p><img src="sync_success.jpg" alt="" /></p>
+
+<ul>
+<li>测试镜像复制策略是否生效</li>
+</ul>
+
+<pre><code>#推送一个镜像到openshift项目
+[root@hz01-prod-ops-harbor-01 /root]# docker tag docker.io/mongo 172.16.8.228/openshift/mongodb:1.0
+
+[root@hz01-prod-ops-harbor-01 /root]# docker push 172.16.8.228/openshift/mongodb:1.0
+The push refers to a repository [172.16.8.228/openshift/mongodb]
+99099bc0f52d: Pushed 
+5388bfbc2c01: Pushed 
+d6ac487f7716: Pushed 
+2ecbdcef31f1: Pushed 
+4786aaf122f1: Pushed 
+b597eb624250: Pushed 
+d1a481118c6e: Pushed 
+217a81d3bde9: Pushed 
+54e8db6ab32d: Pushed 
+43efe85a991c: Pushed 
+1.0: digest: sha256:82fb1f2483179a7c26ac603d5ad0f9cf6992a27f272c82e277371a96657b799b size: 2407
+</code></pre>
+
+<ul>
+<li>在主节点web ui查看，生成了一条复制任务！</li>
+</ul>
+
+<p><img src="sync_job.jpg" alt="" /></p>
+
+<ul>
+<li>在从节点web ui查看，已经从主节点把镜像复制过来了</li>
+</ul>
+
+<p><img src="sync_already.jpg" alt="" /></p>
+
+<h2 id="数据库备份">数据库备份</h2>
+
+<pre><code>#根据文件定义数据文件放在/data/database/目录下
+[root@hz01-prod-ops-harbor-01 /opt/harbor]# vim docker-compose.yml
+mysql:
+    image: vmware/harbor-db:v1.4.0
+    container_name: harbor-db
+    restart: always
+    volumes:
+      - /data/database:/var/lib/mysql:z
+
+[root@hz01-prod-ops-harbor-01 /data/database]# ls /data/database/
+aria_log.00000001  aria_log_control  created_in_mariadb.flag  ib_buffer_pool  ibdata1  ib_logfile0  ib_logfile1  ibtmp1  multi-master.info  mysql  performance_schema  registry  tc.log
+</code></pre>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/openshift/install/efk_install/" title="EFK日志系统安装"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/openshift/application/" title="应用部署" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/openshift/js/clipboard.min.js?1525238717"></script>
+    <script src="/openshift/js/perfect-scrollbar.min.js?1525238717"></script>
+    <script src="/openshift/js/perfect-scrollbar.jquery.min.js?1525238717"></script>
+    <script src="/openshift/js/jquery.sticky.js?1525238717"></script>
+    <script src="/openshift/js/featherlight.min.js?1525238717"></script>
+    <script src="/openshift/js/html5shiv-printshiv.min.js?1525238717"></script>
+    <script src="/openshift/js/highlight.pack.js?1525238717"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/openshift/js/modernizr.custom.71422.js?1525238717"></script>
+    <script src="/openshift/js/learn.js?1525238717"></script>
+    <script src="/openshift/js/hugo-learn.js?1525238717"></script>
+
+    <link href="/openshift/mermaid/mermaid.css?1525238717" type="text/css" rel="stylesheet" />
+    <script src="/openshift/mermaid/mermaid.js?1525238717"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>

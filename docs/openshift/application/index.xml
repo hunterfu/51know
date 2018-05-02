@@ -10,5 +10,15 @@
 	<atom:link href="/openshift/application/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>导入示例模板</title>
+      <link>/openshift/application/import_template/</link>
+      <pubDate>Fri, 30 Mar 2018 01:46:28 -0400</pubDate>
+      
+      <guid>/openshift/application/import_template/</guid>
+      <description>版本 日期 状态 修订人 摘要     V1.0 2018-04-27 创建 开源方案 初始版本    导入模板和镜像(导入了部分模板) 本节的所涉及到的操作都是在openshift master节点上操作
+导入基础镜像(S2I RUNTIME) oc project openshift oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/image-streams/image-streams-centos7.json -n openshift imagestream &amp;quot;httpd&amp;quot; created imagestream &amp;quot;ruby&amp;quot; created imagestream &amp;quot;nodejs&amp;quot; created imagestream &amp;quot;perl&amp;quot; created imagestream &amp;quot;php&amp;quot; created imagestream &amp;quot;python&amp;quot; created imagestream &amp;quot;wildfly&amp;quot; created imagestream &amp;quot;mysql&amp;quot; created imagestream &amp;quot;mariadb&amp;quot; created imagestream &amp;quot;postgresql&amp;quot; created imagestream &amp;quot;mongodb&amp;quot; created imagestream &amp;quot;redis&amp;quot; created imagestream &amp;quot;jenkins&amp;quot; created  导入应用模板(openshift项目中) oc project openshift oc create -f https://raw.</description>
+    </item>
+    
   </channel>
 </rss>

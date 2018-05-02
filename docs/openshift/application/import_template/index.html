@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.39" />
+    <meta name="description" content="开源方案文档 Ops Solution">
+<meta name="author" content="Hunterfu2009@gmail.com">
+<meta name="keywords" content="[openshift template,oc import]">
+
+    <link rel="shortcut icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+    <title>导入示例模板 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/openshift/css/nucleus.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/font-awesome.min.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/hybrid.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/featherlight.min.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/perfect-scrollbar.min.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/auto-complete.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/theme.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/hugo-theme.css?1525238717" rel="stylesheet">
+    
+      <link href="/openshift/css/theme-mine.css?1525238717" rel="stylesheet">
+    
+
+    <script src="/openshift/js/jquery-2.x.min.js?1525238717"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/application/import_template/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/openshift/openshift">
+<img src="/openshift/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/openshift/js/lunr.min.js?1525238717"></script>
+<script type="text/javascript" src="/openshift/js/auto-complete.js?1525238717"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/openshift/js/search.js?1525238717"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/install/" title="集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/">
+          <b>1. </b>集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/arch_intro/" title="架构介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/arch_intro/">
+          架构介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/env_intro/" title="部署环境介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/env_intro/">
+          部署环境介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/etcd_install/" title="Etcd集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/etcd_install/">
+          Etcd集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/master_install/" title="主服务安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/master_install/">
+          主服务安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/haproxy_install/" title="Haproxy安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/haproxy_install/">
+          Haproxy安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/node_install/" title="计算节点安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/node_install/">
+          计算节点安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/router_registry_install/" title="Router And Registry安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/router_registry_install/">
+          Router And Registry安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/metric_install/" title="度量系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/metric_install/">
+          度量系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/efk_install/" title="EFK日志系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/efk_install/">
+          EFK日志系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/harbor_install/" title="Harbor Docker仓库安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/harbor_install/">
+          Harbor Docker仓库安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/application/" title="应用部署" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/openshift/application/">
+          <b>2. </b>应用部署
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/application/import_template/" title="导入示例模板" class="dd-item active">
+        <a href="/openshift/application/import_template/">
+        导入示例模板
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/monitor/" title="平台监控" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/monitor/">
+          <b>3. </b>平台监控
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/" title="组件中心" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/">
+          <b>4. </b>组件中心
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/security/" title="平台安全" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/security/">
+          <b>5. </b>平台安全
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/faq/" title="常见问题" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/faq/">
+          <b>7. </b>常见问题
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/openshift/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/openshift/'>红帽 OpenShift</a> > <a href='/openshift/application/'>应用部署</a> > 导入示例模板
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#导入模板和镜像-导入了部分模板">导入模板和镜像(导入了部分模板)</a>
+<ul>
+<li><a href="#导入基础镜像-s2i-runtime">导入基础镜像(S2I RUNTIME)</a></li>
+<li><a href="#导入应用模板-openshift项目中">导入应用模板(openshift项目中)</a></li>
+</ul></li>
+<li><a href="#查看导入的镜像列表">查看导入的镜像列表</a></li>
+<li><a href="#查看导入的应用模板列表-相当于企业内部的appstore-应用市场">查看导入的应用模板列表(相当于企业内部的APPSTORE 应用市场)</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>导入示例模板</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2018-04-27</td>
+<td>创建</td>
+<td>开源方案</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="导入模板和镜像-导入了部分模板">导入模板和镜像(导入了部分模板)</h2>
+
+<p>本节的所涉及到的操作都是在openshift master节点上操作</p>
+
+<h3 id="导入基础镜像-s2i-runtime">导入基础镜像(S2I RUNTIME)</h3>
+
+<pre><code>oc project openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/image-streams/image-streams-centos7.json -n openshift
+imagestream &quot;httpd&quot; created
+imagestream &quot;ruby&quot; created
+imagestream &quot;nodejs&quot; created
+imagestream &quot;perl&quot; created
+imagestream &quot;php&quot; created
+imagestream &quot;python&quot; created
+imagestream &quot;wildfly&quot; created
+imagestream &quot;mysql&quot; created
+imagestream &quot;mariadb&quot; created
+imagestream &quot;postgresql&quot; created
+imagestream &quot;mongodb&quot; created
+imagestream &quot;redis&quot; created
+imagestream &quot;jenkins&quot; created
+</code></pre>
+
+<h3 id="导入应用模板-openshift项目中">导入应用模板(openshift项目中)</h3>
+
+<pre><code>oc project openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/db-templates/mariadb-ephemeral-template.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/db-templates/mariadb-persistent-template.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/db-templates/mongodb-ephemeral-template.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/db-templates/mongodb-persistent-template.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/db-templates/mysql-ephemeral-template.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/db-templates/mysql-persistent-template.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/db-templates/redis-ephemeral-template.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/db-templates/redis-persistent-template.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/quickstart-templates/cakephp-mysql.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/quickstart-templates/cakephp-mysql-persistent.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/quickstart-templates/jenkins-ephemeral-template.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/quickstart-templates/jenkins-persistent-template.json -n openshift
+oc create -f https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/quickstart-templates/httpd.json -n openshift
+</code></pre>
+
+<h2 id="查看导入的镜像列表">查看导入的镜像列表</h2>
+
+<pre><code>[root@openshift-master ~]# oc project openshift
+Now using project &quot;openshift&quot; on server &quot;https://192.168.124.22:8443&quot;.
+[root@openshift-master ~]#  oc get is -n openshift
+NAME         DOCKER REPO                                TAGS                           UPDATED
+httpd        172.30.111.126:5000/openshift/httpd        latest,2.4                     About an hour ago
+jenkins      172.30.111.126:5000/openshift/jenkins      latest,1,2                     About an hour ago
+mariadb      172.30.111.126:5000/openshift/mariadb      10.1,latest                    About an hour ago
+mongodb      172.30.111.126:5000/openshift/mongodb      2.4,latest,3.2 + 1 more...     About an hour ago
+mysql        172.30.111.126:5000/openshift/mysql        latest,5.7,5.6 + 1 more...     About an hour ago
+nodejs       172.30.111.126:5000/openshift/nodejs       latest,0.10,4 + 1 more...      About an hour ago
+perl         172.30.111.126:5000/openshift/perl         latest,5.24,5.20 + 1 more...   About an hour ago
+php          172.30.111.126:5000/openshift/php          5.5,latest,7.0 + 1 more...     About an hour ago
+postgresql   172.30.111.126:5000/openshift/postgresql   latest,9.5,9.4 + 1 more...     About an hour ago
+python       172.30.111.126:5000/openshift/python       latest,3.5,3.4 + 2 more...     About an hour ago
+redis        172.30.111.126:5000/openshift/redis        latest,3.2                     About an hour ago
+ruby         172.30.111.126:5000/openshift/ruby         2.3,2.2,2.0 + 1 more...        About an hour ago
+wildfly      172.30.111.126:5000/openshift/wildfly      latest,10.1,10.0 + 2 more...   About an hour ago
+</code></pre>
+
+<h2 id="查看导入的应用模板列表-相当于企业内部的appstore-应用市场">查看导入的应用模板列表(相当于企业内部的APPSTORE 应用市场)</h2>
+
+<pre><code>[root@openshift-master ~]# oc get templates -n openshift
+NAME                       DESCRIPTION                                                                        PARAMETERS        OBJECTS
+cakephp-mysql-example      An example CakePHP application with a MySQL database. For more information ab...   19 (4 blank)      8
+cakephp-mysql-persistent   An example CakePHP application with a MySQL database. For more information ab...   20 (4 blank)      9
+httpd-example              An example Httpd application that serves static content. For more information...   9 (3 blank)       5
+jenkins-ephemeral          Jenkins service, without persistent storage....                                    7 (all set)       6
+jenkins-persistent         Jenkins service, with persistent storage....                                       8 (all set)       7
+mariadb-ephemeral          MariaDB database service, without persistent storage. For more information ab...   7 (3 generated)   3
+mariadb-persistent         MariaDB database service, with persistent storage. For more information about...   8 (3 generated)   4
+mongodb-ephemeral          MongoDB database service, without persistent storage. For more information ab...   8 (3 generated)   3
+mongodb-persistent         MongoDB database service, with persistent storage. For more information about...   9 (3 generated)   4
+mysql-ephemeral            MySQL database service, without persistent storage. For more information abou...   8 (3 generated)   3
+mysql-persistent           MySQL database service, with persistent storage. For more information about u...   9 (3 generated)   4
+redis-ephemeral            Redis in-memory data structure store, without persistent storage. For more in...   5 (1 generated)   3
+redis-persistent           Redis in-memory data structure store, with persistent storage. For more infor...   6 (1 generated)   4
+</code></pre>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/openshift/application/" title="应用部署"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/openshift/monitor/" title="平台监控" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/openshift/js/clipboard.min.js?1525238717"></script>
+    <script src="/openshift/js/perfect-scrollbar.min.js?1525238717"></script>
+    <script src="/openshift/js/perfect-scrollbar.jquery.min.js?1525238717"></script>
+    <script src="/openshift/js/jquery.sticky.js?1525238717"></script>
+    <script src="/openshift/js/featherlight.min.js?1525238717"></script>
+    <script src="/openshift/js/html5shiv-printshiv.min.js?1525238717"></script>
+    <script src="/openshift/js/highlight.pack.js?1525238717"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/openshift/js/modernizr.custom.71422.js?1525238717"></script>
+    <script src="/openshift/js/learn.js?1525238717"></script>
+    <script src="/openshift/js/hugo-learn.js?1525238717"></script>
+
+    <link href="/openshift/mermaid/mermaid.css?1525238717" type="text/css" rel="stylesheet" />
+    <script src="/openshift/mermaid/mermaid.js?1525238717"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>
+
