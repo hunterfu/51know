@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>S2I Build 镜像制作 on OpsSoluiton 开源方案</title>
+    <link>/openshift/application/s2i_custom/</link>
+    <description>Recent content in S2I Build 镜像制作 on OpsSoluiton 开源方案</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 30 Mar 2018 01:46:28 -0400</lastBuildDate>
+    
+	<atom:link href="/openshift/application/s2i_custom/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>

@@ -1,0 +1,47 @@
+{
+  "kind": "ImageStream",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "tomcat",
+    "annotations": {
+      "openshift.io/display-name": "Tomcat7"
+    }
+  },
+  "spec": {
+    "tags": [
+      {
+        "name": "Tomcat 7",
+        "annotations": {
+          "openshift.io/display-name": "Tomcat7 (Latest)",
+          "openshift.io/provider-display-name": "OpsSolution, Inc.",
+          "description": "在Centos7上编译和运行tomcat应用. 更多关于此构建镜像(S2I)信息,请参考 https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md.\n\n警告: 使用此版本,你的应用将使用最新版本的tomca7, 包含主要版本更新",
+          "iconClass": "icon-tomcat",
+          "tags": "builder,tomcat,java,51know",
+          "supports":"jee,java",
+          "sampleRepo": "https://github.com/nichochen/mybank-demo-maven.git"
+        },
+        "from": {
+          "kind": "DockerImage",
+          "name": "51knowinfo/ops-tomcat7-jdk7-s2i:latest"
+        }
+      },
+      {
+        "name": "Tomcat 8",
+        "annotations": {
+          "openshift.io/display-name": "Tomcat8 (Latest)",
+          "openshift.io/provider-display-name": "OpsSolution, Inc.",
+          "description": "在Centos7上编译和运行tomcat应用. 更多关于此构建镜像(S2I)信息,请参考 https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md.",
+          "iconClass": "icon-tomcat",
+          "tags": "builder,tomcat,java,51know",
+          "supports":"tomcat:8,jee,java",
+          "version": "8",
+          "sampleRepo": "https://github.com/nichochen/mybank-demo-maven.git"
+        },
+        "from": {
+          "kind": "DockerImage",
+          "name": "51knowinfo/ops-tomcat7-jdk7-s2i:latest"
+        }
+      }
+    ]
+  }
+}

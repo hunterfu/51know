@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/openshift/appcenter/custom_category/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/openshift/application/import_template/</loc>
     <lastmod>2018-03-30T01:46:28-04:00</lastmod>
   </url>
@@ -54,6 +59,11 @@
   
   <url>
     <loc>/openshift/install/harbor_install/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/application/s2i_custom/</loc>
     <lastmod>2018-03-30T01:46:28-04:00</lastmod>
   </url>
   

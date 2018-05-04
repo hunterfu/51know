@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.39" />
+    <meta name="description" content="开源方案文档 Ops Solution">
+<meta name="author" content="Hunterfu2009@gmail.com">
+<meta name="keywords" content="[openshift template,s2i,tomcat,runtime]">
+
+    <link rel="shortcut icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+    <title>S2I Build 镜像制作 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/openshift/css/nucleus.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/font-awesome.min.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/hybrid.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/featherlight.min.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/perfect-scrollbar.min.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/auto-complete.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/theme.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/hugo-theme.css?1525404685" rel="stylesheet">
+    
+      <link href="/openshift/css/theme-mine.css?1525404685" rel="stylesheet">
+    
+
+    <script src="/openshift/js/jquery-2.x.min.js?1525404685"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/application/s2i_custom/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/openshift/openshift">
+<img src="/openshift/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/openshift/js/lunr.min.js?1525404685"></script>
+<script type="text/javascript" src="/openshift/js/auto-complete.js?1525404685"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/openshift/js/search.js?1525404685"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/install/" title="集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/">
+          <b>1. </b>集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/arch_intro/" title="架构介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/arch_intro/">
+          架构介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/env_intro/" title="部署环境介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/env_intro/">
+          部署环境介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/etcd_install/" title="Etcd集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/etcd_install/">
+          Etcd集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/master_install/" title="主服务安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/master_install/">
+          主服务安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/haproxy_install/" title="Haproxy安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/haproxy_install/">
+          Haproxy安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/node_install/" title="计算节点安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/node_install/">
+          计算节点安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/router_registry_install/" title="Router And Registry安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/router_registry_install/">
+          Router And Registry安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/metric_install/" title="度量系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/metric_install/">
+          度量系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/efk_install/" title="EFK日志系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/efk_install/">
+          EFK日志系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/harbor_install/" title="Harbor Docker仓库安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/harbor_install/">
+          Harbor Docker仓库安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/application/" title="应用部署" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/openshift/application/">
+          <b>2. </b>应用部署
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/application/import_template/" title="导入示例模板" class="dd-item ">
+        <a href="/openshift/application/import_template/">
+        导入示例模板
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/s2i_custom/" title="S2I Build 镜像制作" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/openshift/application/s2i_custom/">
+          S2I Build 镜像制作
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/monitor/" title="平台监控" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/monitor/">
+          <b>3. </b>平台监控
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/" title="组件中心" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/">
+          <b>4. </b>组件中心
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/custom_category/" title="定制 Catalog 分类" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/custom_category/">
+          定制 Catalog 分类
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/security/" title="平台安全" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/security/">
+          <b>5. </b>平台安全
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/faq/" title="常见问题" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/faq/">
+          <b>7. </b>常见问题
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> </a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/openshift/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/openshift/'>红帽 OpenShift</a> > <a href='/openshift/application/'>应用部署</a> > S2I Build 镜像制作
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#s2i-source-to-image-说明">S2I(Source-to-Image) 说明</a></li>
+<li><a href="#准备环境">准备环境</a></li>
+<li><a href="#创建项目目录">创建项目目录</a></li>
+<li><a href="#开始项目工作">开始项目工作</a>
+<ul>
+<li><a href="#编写dockerfile">编写Dockerfile</a></li>
+</ul></li>
+<li><a href="#编辑s2i-bin-assemble脚本-负责源代码的编译-构建以及构建产出物的部署">编辑s2i/bin/assemble脚本（负责源代码的编译、构建以及构建产出物的部署）。</a>
+<ul>
+<li><a href="#编辑s2i-bin-run脚本-s2i流程生成的最终镜像将以这个脚本作为容器的启动命令">编辑s2i/bin/run脚本（S2I流程生成的最终镜像将以这个脚本作为容器的启动命令）。</a></li>
+<li><a href="#执行镜像构建">执行镜像构建</a></li>
+</ul></li>
+<li><a href="#导入镜像-reg-ops-com">导入镜像(reg.ops.com)</a>
+<ul>
+<li><a href="#编写s2i-builder镜像模板">编写S2I Builder镜像模板</a></li>
+<li><a href="#查看刚刚导入的镜像">查看刚刚导入的镜像</a></li>
+<li><a href="#登录web-console-使用新的s2i-builder-镜像">登录web console,使用新的s2i builder 镜像</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>S2I Build 镜像制作</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2018-05-02</td>
+<td>创建</td>
+<td>开源方案</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="s2i-source-to-image-说明">S2I(Source-to-Image) 说明</h2>
+
+<p><img src="s2i.png" alt="s2i.png" /></p>
+
+<ol>
+<li>开发人员完成代码开发</li>
+<li>S2I过程负责将代码和运行环境(比如 python 或者 Java)整合构建,生成应用docker镜像</li>
+<li>应用镜像构建完成并推送至openshift集群内部的docker镜像仓库,再由openshift进行各个环境的部署</li>
+</ol>
+
+<h2 id="准备环境">准备环境</h2>
+
+<ul>
+<li><p>在Master上下载S2I的二进制执行文件。</p>
+
+<pre><code># cd /opt 
+# wget -c https://github.com/openshift/source-to-image/releases/download/v1.1.7/source-to-image-v1.1.7-226afa1-linux-amd64.tar.gz
+</code></pre></li>
+
+<li><p>解压到/usr/bin目录下</p>
+
+<pre><code># tar zxvf source-to-image-v1.1.7-226afa1-linux-amd64.tar.gz -C /usr/bin
+</code></pre></li>
+</ul>
+
+<h2 id="创建项目目录">创建项目目录</h2>
+
+<ul>
+<li><p>通过s2i create命令创建一个名为tomcat-s2i的S2I Builder镜像。
+第二个参数ops-tomcat-s2i为S2I Builder镜像名称。第三个参数tomcat-s2i-catalog定义了工作目录的名称。</p>
+
+<pre><code># s2i create ops-tomcat-s2i tomcat-s2i-catalog
+</code></pre></li>
+
+<li><p>执行<strong>find tomcat-s2i-catalog</strong>查看目录。</p>
+
+<pre><code>[root@openshift-master S2I]# find tomcat-s2i-catalog
+tomcat-s2i-catalog
+tomcat-s2i-catalog/s2i
+tomcat-s2i-catalog/s2i/bin
+tomcat-s2i-catalog/s2i/bin/assemble
+tomcat-s2i-catalog/s2i/bin/run
+tomcat-s2i-catalog/s2i/bin/usage
+tomcat-s2i-catalog/s2i/bin/save-artifacts
+tomcat-s2i-catalog/Dockerfile
+tomcat-s2i-catalog/README.md
+tomcat-s2i-catalog/test
+tomcat-s2i-catalog/test/test-app
+tomcat-s2i-catalog/test/test-app/index.html
+tomcat-s2i-catalog/test/run
+tomcat-s2i-catalog/Makefile
+</code></pre></li>
+
+<li><p>s2i目录下为S2I脚本</p></li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>脚本名称</th>
+<th>功能作用</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>assemble</td>
+<td>负责源代码的编译、构建以及构建产出物的部署</td>
+</tr>
+
+<tr>
+<td>run</td>
+<td>S2I流程生成的最终镜像将以这个脚本作为容器的启动命令</td>
+</tr>
+
+<tr>
+<td>usage</td>
+<td>打印帮助信息，一般作为S2I Builder镜像的启动命令</td>
+</tr>
+
+<tr>
+<td>save-artifacts</td>
+<td>为了实现增量构建，在构建过程中会执行此脚本保存中间构建产物。此脚本并不是必需的</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="开始项目工作">开始项目工作</h2>
+
+<h3 id="编写dockerfile">编写Dockerfile</h3>
+
+<p>编写一个制作Tomcat的S2I镜像。Dockerfile的内容如下：</p>
+
+<pre><code># ops-tomcat-s2i
+FROM openshift/base-centos7
+
+# TODO: Put the maintainer name in the image metadata
+MAINTAINER fuhua &lt;fuhua@xinguangnet.com&gt;
+
+# TODO: Rename the builder environment variable to inform users about application you provide them
+ENV BUILDER_VERSION 1.0
+
+# TODO: Set labels used in OpenShift to describe the builder image
+LABEL io.k8s.description=&quot;Platform for building tomcat&quot; \
+      io.k8s.display-name=&quot;builder tomcat&quot; \
+      io.openshift.expose-services=&quot;8080:http&quot; \
+      io.openshift.tags=&quot;builder,tomcat,java,openjdk7,etc.&quot;
+
+# Setting local yum repo
+#RUN rm -fr /etc/yum.repos.d/
+#ADD ./local-mirror.repo /etc/yum.repos.d/
+
+# TODO: Install required packages here:
+RUN yum install -y java-1.7.0-openjdk git wget&amp;&amp; yum clean all -y
+
+# TODO (optional): Copy the builder files into /opt/app-root
+# COPY ./&lt;builder_folder&gt;/ /opt/app-root/
+
+# Dwonload And install Tomcat7
+RUN  mkdir -p /opt/app-root/ &amp;&amp; cd /opt/app-root/ &amp;&amp; wget http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz
+RUN cd /opt/app-root/ &amp;&amp; tar -xzvf apache-tomcat-7.0.82.tar.gz
+RUN cd /opt/app-root/ &amp;&amp; rm -fr apache-tomcat-7.0.82.tar.gz &amp;&amp; ln -s apache-tomcat-7.0.82 tomcat7
+RUN cd /opt/app-root/ &amp;&amp; rm -fr tomcat7/webapps/*
+
+# Download and install maven
+RUN  mkdir -p /opt/app-root/ &amp;&amp; cd /opt/app-root/ &amp;&amp; wget https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz
+RUN cd /opt/app-root/ &amp;&amp; tar -xzvf apache-maven-3.5.2-bin.tar.gz
+RUN cd /opt/app-root/ &amp;&amp; rm -fr apache-maven-3.5.2-bin.tar.gz &amp;&amp; ln -s apache-maven-3.5.2 maven
+RUN ln -s /opt/app-root/maven/bin/mvn /usr/bin/mvn
+
+# TODO: Copy the S2I scripts to /usr/libexec/s2i, since openshift/base-centos7 image
+# sets io.openshift.s2i.scripts-url label that way, or update that label
+COPY ./s2i/bin/ /usr/libexec/s2i
+
+# TODO: Drop the root user and make the content of /opt/app-root owned by user 1001
+# RUN chown -R 1001:1001 /opt/app-root
+RUN chown -R 1001:0 /opt/app-root &amp;&amp; chown -R 1001:0 $HOME &amp;&amp; \
+    chmod -R ug+rw /opt/app-root
+
+# This default user is created in the openshift/base-centos7 image
+USER 1001
+
+# TODO: Set the default port for applications built using this image
+EXPOSE 8080
+
+# TODO: Set the default CMD for the image
+CMD [&quot;/usr/libexec/s2i/usage&quot;]
+
+</code></pre>
+
+<p>注意: 通过<strong>USER 1001</strong>定义了一个新用户，并指定该用户为容器的启动用户。以root用户作为启动用户在某些情况下存在安全风险</p>
+
+<h2 id="编辑s2i-bin-assemble脚本-负责源代码的编译-构建以及构建产出物的部署">编辑s2i/bin/assemble脚本（负责源代码的编译、构建以及构建产出物的部署）。</h2>
+
+<p>在脚本最末尾添加如下代码：</p>
+
+<pre><code>mvn -Dmaven.test.skip=true package
+find . -type f -name '*.war'|xargs -i cp {} /opt/app-root/tomcat7/webapps/ROOT.war
+mvn clean
+</code></pre>
+
+<p>这段代码会触发一次Maven构建，并将构建产生的WAR包拷贝到Tomcat服务器的webapps目录下进行部署。
+ 完整的assemble脚本如下：</p>
+
+<pre><code>[root@openshift-master s2i]# cat bin/assemble
+#!/bin/bash -e
+#
+# S2I assemble script for the 'ops-tomcat-s2i' image.
+# The 'assemble' script builds your application source so that it is ready to run.
+#
+# For more information refer to the documentation:
+#       https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
+#
+
+# If the 'ops-tomcat-s2i' assemble script is executed with the '-h' flag, print the usage.
+if [[ &quot;$1&quot; == &quot;-h&quot; ]]; then
+        exec /usr/libexec/s2i/usage
+fi
+
+# Restore artifacts from the previous build (if they exist).
+#
+if [ &quot;$(ls /tmp/artifacts/ 2&gt;/dev/null)&quot; ]; then
+  echo &quot;---&gt; Restoring build artifacts...&quot;
+  mv /tmp/artifacts/. ./
+fi
+
+echo &quot;---&gt; Installing application source...&quot;
+cp -Rf /tmp/src/. ./
+
+echo &quot;---&gt; Building application from source...&quot;
+# TODO: Add build steps for your application, eg npm install, bundle install, pip install, etc.
+mvn -Dmaven.test.skip=true package
+find . -type f -name '*.war'|xargs -i cp {} /opt/app-root/tomcat7/webapps/ROOT.war
+mvn clean
+</code></pre>
+
+<h3 id="编辑s2i-bin-run脚本-s2i流程生成的最终镜像将以这个脚本作为容器的启动命令">编辑s2i/bin/run脚本（S2I流程生成的最终镜像将以这个脚本作为容器的启动命令）。</h3>
+
+<p>替换为以下内容：</p>
+
+<pre><code>exec /opt/app-root/tomcat7/bin/catalina.sh run
+</code></pre>
+
+<h3 id="执行镜像构建">执行镜像构建</h3>
+
+<pre><code>[root@openshift-master tomcat-s2i-catalog]# make
+docker build -t ops-tomcat-s2i .
+Sending build context to Docker daemon 23.04 kB
+Step 1 : FROM openshift/base-centos7
+ ---&gt; 4842f0bd3d61
+Step 2 : MAINTAINER fuhua &lt;fuhua@xinguangnet.com&gt;
+ ---&gt; Using cache
+ ---&gt; bfc335ce78e5
+Step 3 : ENV BUILDER_VERSION 1.0
+ ---&gt; Using cache
+ ---&gt; ecc162dc5cd5
+Step 4 : LABEL io.k8s.description &quot;Platform for building tomcat&quot; io.k8s.display-name &quot;builder tomcat&quot; io.openshift.expose-services &quot;8080:http&quot; io.openshift.tags &quot;builder,tomcat,java,openjdk7,etc.&quot;
+ ---&gt; Using cache
+ ---&gt; cfa61aa14bb4
+Step 5 : RUN yum install -y java-1.7.0-openjdk git wget&amp;&amp; yum clean all -y
+ ---&gt; Using cache
+ ---&gt; baf7452d6f3d
+Step 6 : RUN mkdir -p /opt/app-root/ &amp;&amp; cd /opt/app-root/ &amp;&amp; wget http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-7/v7.0.82/bin/apache-tomcat-7.0.82.tar.gz
+ ---&gt; Using cache
+ ---&gt; bda3da428f9f
+Step 7 : RUN cd /opt/app-root/ &amp;&amp; tar -xzvf apache-tomcat-7.0.82.tar.gz
+ ---&gt; Using cache
+ ---&gt; 8b9288b65eb6
+Step 8 : RUN cd /opt/app-root/ &amp;&amp; rm -fr apache-tomcat-7.0.82.tar.gz &amp;&amp; ln -s apache-tomcat-7.0.82 tomcat7
+ ---&gt; Using cache
+ ---&gt; 95e3f4fc9f01
+Step 9 : RUN cd /opt/app-root/ &amp;&amp; rm -fr tomcat7/webapps/*
+ ---&gt; Using cache
+ ---&gt; 6977f7726e29
+Step 10 : RUN mkdir -p /opt/app-root/ &amp;&amp; cd /opt/app-root/ &amp;&amp; wget https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.5.2/binaries/apache-maven-3.5.2-bin.tar.gz
+ ---&gt; Using cache
+ ---&gt; b630e55722e8
+Step 11 : RUN cd /opt/app-root/ &amp;&amp; tar -xzvf apache-maven-3.5.2-bin.tar.gz
+ ---&gt; Using cache
+ ---&gt; 048259dcf249
+Step 12 : RUN cd /opt/app-root/ &amp;&amp; rm -fr apache-maven-3.5.2-bin.tar.gz &amp;&amp; ln -s apache-maven-3.5.2 maven
+ ---&gt; Using cache
+ ---&gt; 4b55059b8437
+Step 13 : RUN ln -s /opt/app-root/maven/bin/mvn /usr/bin/mvn
+ ---&gt; Using cache
+ ---&gt; 6981f2ef18e0
+Step 14 : COPY ./s2i/bin/ /usr/libexec/s2i
+ ---&gt; Using cache
+ ---&gt; ce773a99ab69
+Step 15 : RUN groupadd -g 1002 tomcat &amp;&amp;     useradd -ms /bin/bash -u 1002 -g 1002 tomcat &amp;&amp;    chown -R 1002:1002 /opt/app-root &amp;&amp;     chmod -R a+w /opt/app-root
+ ---&gt; Using cache
+ ---&gt; 1141afc04321
+Step 16 : USER 1002
+ ---&gt; Using cache
+ ---&gt; 704361ace73c
+Step 17 : EXPOSE 8080
+ ---&gt; Using cache
+ ---&gt; 2530fdc4612f
+Step 18 : CMD /usr/libexec/s2i/usage
+ ---&gt; Using cache
+ ---&gt; 884edf911bcc
+Successfully built 884edf911bcc
+
+</code></pre>
+
+<h2 id="导入镜像-reg-ops-com">导入镜像(reg.ops.com)</h2>
+
+<ol>
+<li><p>需要将 reg.ops.com 加入到 非安全连接列表中</p>
+
+<pre><code>[root@openshift-master tomcat-s2i-catalog]# cat /etc/docker/daemon.json
+{
+&quot;registry-mirrors&quot;: [&quot;http://ef017c13.m.daocloud.io&quot;],
+&quot;insecure-registries&quot;: [&quot;reg.ops.com&quot;]
+}
+</code></pre></li>
+
+<li><p>测试build镜像(这个镜像是jdk1.7)</p>
+
+<pre><code>s2i build https://github.com/nichochen/mybank-demo-maven.git ops-tomcat-s2i ops-tomcat-s2i-app
+</code></pre></li>
+
+<li><p>使用新构建出的应用镜像启动</p>
+
+<pre><code>docker run -it -p 8080:8080 ops-tomcat-s2i-app
+</code></pre>
+
+<p>正常应该能看到tomcat的启动日志</p></li>
+
+<li><p>推送到自己仓库 这里推送到 reg.ops.com 的registry仓库</p>
+
+<pre><code>[root@openshift-master tomcat-s2i-catalog]# docker tag ops-tomcat-s2i:latest reg.ops.com/opssolution/ops-tomcat-s2i:latest
+[root@openshift-master tomcat-s2i-catalog]# docker push reg.ops.com/opssolution/ops-tomcat-s2i:latest
+The push refers to a repository [reg.ops.com/opssolution/ops-tomcat-s2i]
+b9b8ffca1e5a: Pushed
+be79645180dc: Pushed
+3f84a2b90659: Pushed
+04b90df78611: Pushed
+0c56c93ac2a7: Pushed
+50596ec3b0e4: Pushed
+bdac80fbd115: Pushed
+7842c35bf593: Pushed
+fa84fac3a7ce: Pushed
+4cec9f30e5a2: Pushed
+10811061f79a: Pushed
+cb96aea742c3: Pushed
+f1bbaf33b49c: Pushed
+4b1e8db0189a: Pushed
+34e7b85d83e4: Pushed
+latest: digest: sha256:097d24d53e4f5abc1fe25dfba4914603c3b6027e01a5ad51e4eb6e69bbdcd22d size: 3461
+</code></pre></li>
+</ol>
+
+<p>注意: 需要在harbor 镜像仓库中先创建 opssolution 项目</p>
+
+<p>如果用自己的reg.ops.com的镜像仓库 需要修改master配置文件</p>
+
+<pre><code>imagePolicyConfig:
+  allowedRegistriesForImport:
+  - domainName: docker.io
+  - domainName: '*.docker.io'
+  - domainName: '*.redhat.com'
+  - domainName: gcr.io
+  - domainName: quay.io
+  - domainName: '*.amazonaws.com'
+  disableScheduledImport: false
+  maxImagesBulkImportedPerRepository: 5
+  maxScheduledImageImportsPerMinute: 60
+  scheduledImageImportMinimumIntervalSeconds: 900
+</code></pre>
+
+<p>在这里把 <strong>reg.ops.com</strong> 加入到上述配置中,这样才能导入镜像
+在这里为了方便 镜像也推送到了  <a href="https://hub.docker.com/r/51knowinfo/ops-tomcat7-jdk7-s2i">https://hub.docker.com/r/51knowinfo/ops-tomcat7-jdk7-s2i</a></p>
+
+<h3 id="编写s2i-builder镜像模板">编写S2I Builder镜像模板</h3>
+
+<p><a href="tomcat-imagestream.json">在此下载模板文件 tomcat-imagestream.json</a></p>
+
+<p>模板文件中主要注意annotations中的内容</p>
+
+<pre><code>{
+  &quot;name&quot;: &quot;Tomcat 7&quot;,
+  &quot;annotations&quot;: {
+    &quot;openshift.io/display-name&quot;: &quot;Tomcat7 (Latest)&quot;,
+    &quot;openshift.io/provider-display-name&quot;: &quot;OpsSolution, Inc.&quot;,
+    &quot;description&quot;: &quot;在Centos7上编译和运行tomcat应用. 更多关于此构建镜像(S2I)信息,请参考 https://github.com/openshift-s2i/s2i-wildfly/blob/master/README.md.\n\n警告: 使用此版本,你的应用将使用最新版本的tomca7, 包含主要版本更新&quot;,
+    &quot;iconClass&quot;: &quot;icon-tomcat&quot;,
+    &quot;tags&quot;: &quot;builder,tomcat,java,51know&quot;,
+    &quot;supports&quot;:&quot;jee,java&quot;,
+    &quot;sampleRepo&quot;: &quot;https://github.com/nichochen/mybank-demo-maven.git&quot;
+  },
+  &quot;from&quot;: {
+    &quot;kind&quot;: &quot;DockerImage&quot;,
+    &quot;name&quot;: &quot;51knowinfo/ops-tomcat7-jdk7-s2i:latest&quot;
+  }
+}
+</code></pre>
+
+<p>注意: <strong>tags</strong> 标签项要特别注意，用于catalog 分类用</p>
+
+<h3 id="查看刚刚导入的镜像">查看刚刚导入的镜像</h3>
+
+<pre><code>[root@openshift-master ~]# oc get is -n openshift | grep ops-tomcat-s2i
+ops-tomcat-s2i   172.30.188.209:5000/openshift/ops-tomcat-s2i   latest                         2 minutes ago
+</code></pre>
+
+<h3 id="登录web-console-使用新的s2i-builder-镜像">登录web console,使用新的s2i builder 镜像</h3>
+
+<p><img src="s2i_image.png" alt="" /></p>
+
+<p><img src="s2i_image_info.png" alt="" /></p>
+
+<p><img src="s2i_image_build.jpg" alt="" /></p>
+
+<p>直到构建镜像成功，会自动部署pod</p>
+
+<p>删除默认router,创建新的router, app.ops.com(指向router所运行计算节点的ip),访问效果如下
+<img src="app-demo.png" alt="" /></p>
+
+<p>至此一个自定义版本的Tomcat S2I 就完成了</p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/openshift/application/import_template/" title="导入示例模板"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/openshift/monitor/" title="平台监控" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/openshift/js/clipboard.min.js?1525404685"></script>
+    <script src="/openshift/js/perfect-scrollbar.min.js?1525404685"></script>
+    <script src="/openshift/js/perfect-scrollbar.jquery.min.js?1525404685"></script>
+    <script src="/openshift/js/jquery.sticky.js?1525404685"></script>
+    <script src="/openshift/js/featherlight.min.js?1525404685"></script>
+    <script src="/openshift/js/html5shiv-printshiv.min.js?1525404685"></script>
+    <script src="/openshift/js/highlight.pack.js?1525404685"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/openshift/js/modernizr.custom.71422.js?1525404685"></script>
+    <script src="/openshift/js/learn.js?1525404685"></script>
+    <script src="/openshift/js/hugo-learn.js?1525404685"></script>
+
+    <link href="/openshift/mermaid/mermaid.css?1525404685" type="text/css" rel="stylesheet" />
+    <script src="/openshift/mermaid/mermaid.js?1525404685"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="js csstransforms3d">
+<html lang="zh-CN" class="js csstransforms3d">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -13,19 +13,19 @@
     <title>常见问题 :: OpsSoluiton 开源方案</title>
     
     
-    <link href="/openshift/css/nucleus.css?1525238717" rel="stylesheet">
-    <link href="/openshift/css/font-awesome.min.css?1525238717" rel="stylesheet">
-    <link href="/openshift/css/hybrid.css?1525238717" rel="stylesheet">
-    <link href="/openshift/css/featherlight.min.css?1525238717" rel="stylesheet">
-    <link href="/openshift/css/perfect-scrollbar.min.css?1525238717" rel="stylesheet">
-    <link href="/openshift/css/auto-complete.css?1525238717" rel="stylesheet">
-    <link href="/openshift/css/theme.css?1525238717" rel="stylesheet">
-    <link href="/openshift/css/hugo-theme.css?1525238717" rel="stylesheet">
+    <link href="/openshift/css/nucleus.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/font-awesome.min.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/hybrid.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/featherlight.min.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/perfect-scrollbar.min.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/auto-complete.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/theme.css?1525404685" rel="stylesheet">
+    <link href="/openshift/css/hugo-theme.css?1525404685" rel="stylesheet">
     
-      <link href="/openshift/css/theme-mine.css?1525238717" rel="stylesheet">
+      <link href="/openshift/css/theme-mine.css?1525404685" rel="stylesheet">
     
 
-    <script src="/openshift/js/jquery-2.x.min.js?1525238717"></script>
+    <script src="/openshift/js/jquery-2.x.min.js?1525404685"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -50,18 +50,18 @@
     
         <div class="searchbox">
     <label for="search-by"><i class="fa fa-search"></i></label>
-    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <input data-search-input id="search-by" type="text" placeholder="">
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/openshift/js/lunr.min.js?1525238717"></script>
-<script type="text/javascript" src="/openshift/js/auto-complete.js?1525238717"></script>
+<script type="text/javascript" src="/openshift/js/lunr.min.js?1525404685"></script>
+<script type="text/javascript" src="/openshift/js/auto-complete.js?1525404685"></script>
 <script type="text/javascript">
     
         var baseurl = '\/';
     
 </script>
-<script type="text/javascript" src="/openshift/js/search.js?1525238717"></script>
+<script type="text/javascript" src="/openshift/js/search.js?1525404685"></script>
 
     
   </div>
@@ -389,6 +389,8 @@
         <ul>
           
           
+            
+          
           
           
         
@@ -407,6 +409,32 @@
         </a>
     </li>
      
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/s2i_custom/" title="S2I Build 镜像制作" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/s2i_custom/">
+          S2I Build 镜像制作
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
   
  
 
@@ -462,6 +490,44 @@
           
       </a>
       
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/custom_category/" title="定制 Catalog 分类" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/custom_category/">
+          定制 Catalog 分类
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
               
     </li>
   
@@ -553,7 +619,7 @@
        
       
       
-        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> </a></li>         
       
       </ul>
     </section>
@@ -612,12 +678,13 @@
     <div class="wrapper">
 <nav id="TableOfContents">
 <ul>
-<li><a href="#红帽-openshift">红帽 OpenShift</a>
+<li>
 <ul>
-<li><a href="#本套文档涉及到的版本">本套文档涉及到的版本</a></li>
-<li><a href="#问题反馈">问题反馈</a></li>
-<li><a href="#openshift-origin-使用客户列表">openshift origin 使用客户列表</a></li>
-<li><a href="#openshift-功能和优势">Openshift 功能和优势</a></li>
+<li>
+<ul>
+<li><a href="#error-build-error-failed-to-push-image-after-retrying-6-times-push-image-still-failed">error: Build error: Failed to push image: After retrying 6 times, Push image still failed.</a></li>
+<li><a href="#解决方法">解决方法</a></li>
+</ul></li>
 </ul></li>
 </ul>
 </nav>
@@ -640,81 +707,72 @@
 
 
 
-<h1 id="红帽-openshift">红帽 OpenShift</h1>
-
-<p>红帽® OpenShift 是一款容器应用平台，它将 Docker 和 Kubernetes 技术带入企业。</p>
-
-<p>无论您采用何种应用架构，OpenShift 都能让您在任意架构中（公共或私有云中）轻松、快速实现应用的构建、开发和部署。</p>
-
-<p>无论是在企业内部，公共云，或是托管环境中，您都能凭借这一备受业务青睐的平台，快速您的最新创意推向市场，从而在激烈的市场竞争中脱颖而出。</p>
-
-<h2 id="本套文档涉及到的版本">本套文档涉及到的版本</h2>
-
 <table>
 <thead>
 <tr>
 <th>版本</th>
-<th>类型</th>
-<th>备注</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>CentOS Linux release 7.3.1611 (Core)</td>
-<td>操作系统</td>
-<td>使用centos,yum仓库默认配置EPEL仓库源</td>
-</tr>
-
-<tr>
-<td>Openshift Origin v3.6.1</td>
-<td>容器云</td>
-<td>使用开源版本</td>
+<td>V1.0</td>
+<td>2018-05-02</td>
+<td>创建</td>
+<td>开源方案</td>
+<td>初始版本</td>
 </tr>
 </tbody>
 </table>
 
-<pre><code>[root@openshift-master ~]# oc version
-oc v3.6.1+008f2d5
-kubernetes v1.6.1+5115d708d7
-features: Basic-Auth GSSAPI Kerberos SPNEGO
+<h3 id="error-build-error-failed-to-push-image-after-retrying-6-times-push-image-still-failed">error: Build error: Failed to push image: After retrying 6 times, Push image still failed.</h3>
 
-Server https://192.168.124.22:8443
-openshift v3.6.1+008f2d5
-kubernetes v1.6.1+5115d708d7
-</code></pre>
+<p><img src="img_push_error.jpg" alt="img_push_error.jpg" /></p>
 
-<h2 id="问题反馈">问题反馈</h2>
-
-<p>在看文档过程中，有任何问题，请到这里<a href="https://github.com/hunterfu/51know/issues/1">留言反馈</a>，谢谢。</p>
-
-<div class="notices info" ><p>我们会在第一时间响应回复</p>
+<div class="notices note" ><p>问题原因: 没有配置openshift sdn 网络</p>
 </div>
 
 
-<h2 id="openshift-origin-使用客户列表">openshift origin 使用客户列表</h2>
+<h3 id="解决方法">解决方法</h3>
 
-<p>如果您在真实的生产工作中，使用了openshift origin, 请反馈给我们,也能看出在国内的使用情况,请到这里<a href="https://github.com/hunterfu/51know/issues/1">推荐给我们</a></p>
+<ol>
+<li><p>所有计算节点都需要安装 <strong>origin-sdn-ovs</strong> 软件包 (如果master节点也做计算节点的话，也需要安装)</p>
 
-<h2 id="openshift-功能和优势">Openshift 功能和优势</h2>
+<pre><code>yum install origin-sdn-ovs.x86_64 -y
+</code></pre></li>
 
-<ul>
-<li><p>企业级 Kubernetes<br>
-红帽 OpenShift 作为一个功能全面容器应用平台，其自身具备 Docker 和 Kubernetes 等最新技术，是一款功能强大的容器集群管理和编排系统。 该平台和红帽企业 Linux系统一同为企业提供坚实技术基础。
-OpenShift 集成了企业所需的多种架构、流程、平台及服务，可为开发和运营团队同时提供强大支持。</p></li>
+<li><p>修改 主节点(master) 和 计算节点(node)的配置文件（红色框框原来默认是空的）
+<strong>/etc/origin/master/master-config.yaml</strong>
+<img src="master_sdn.jpg" alt="master_sdn.jpg" />
+重启master 节点</p>
 
-<li><p>有状态和无状态的应用<br>
-红帽 OpenShift 可运行和支持有状态和无状态的应用。因此，您无需完全重构您的企业应用，即可充分利用容器技术。</p></li>
+<pre><code>systemctl daemon-reload
+systemctl restart origin-master
+</code></pre></li>
 
-<li><p>实现应用现代化<br>
-OpenShift 与红帽 JBoss 中间件相结合后，可以实现多种综合性云原生服务，包括开发人员工具、整合、业务自动化、数据管理等。因而，有助您更加快速、智能、灵活地开发应用，克服使用微服务构建分布式系统的挑战。</p></li>
+<li><p>修改所有计算节点的配置,与master设置一致
+<strong>/etc/origin/node/node-config.yaml</strong>
+<img src="node_sdn.jpg" alt="node_sdn.jpg" />
+重启计算节点(node)</p>
 
-<li><p>构建更出色、更强大的混合云<br>
-就像红帽企业 Linux，这一用于构建众多公共、私有云环境的基础平台一样，您可以在任意位置部署 OpenShift 和获得相应支持。这些云环境包括 Amazon Web Services、Azure、Google 云平台、VMware 等等。依托 OpenShift，您可以在这些公共云和私有云上，提供单个容器应用平台。另外，借助在 Microsoft Azure 上运行的红帽 OpenShift 容器平台，您可以构建、部署和管理容器化服务和应用。</p></li>
+<pre><code>systemctl daemon-reload
+systemctl restart origin-node
+</code></pre>
 
-<li><p>拥抱 DevOps<br>
-OpenShift 为开发和运营团队提供了一个通用平台和一整套开发和管理工具。这使得两个团队能够步调一致，保持持续、协调化的应用开发和维护流程。通过此方法，您可以消除耗时缓慢的业务流程和手动操作，根据业务需求灵活开展运营。</p></li>
-</ul>
+<p><strong>注意： master 节点网络配置 和  计算节点(node) 一定要一致</strong></p></li>
+
+<li><p>通过在master 节点执行如下命令查看分配到各个节点的子网</p>
+
+<pre><code>[root@openshift-master ~]# oc get hostsubnets
+NAME              HOST              HOST IP          SUBNET
+openshift-node1   openshift-node1   192.168.124.30   10.128.0.0/23
+openshift-node2   openshift-node2   192.168.124.46   10.129.0.0/23
+</code></pre></li>
+</ol>
 
 
 <footer class=" footline" >
@@ -938,8 +996,26 @@ OpenShift 为开发和运营团队提供了一个通用平台和一整套开发�
 
                     
                     
+                        
+                    
                     
 
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
                     
                         
             
@@ -986,8 +1062,26 @@ OpenShift 为开发和运营团队提供了一个通用平台和一整套开发�
 
                     
                     
+                        
+                    
                     
 
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
                     
             
         
@@ -1060,20 +1154,20 @@ OpenShift 为开发和运营团队提供了一个通用平台和一整套开发�
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/openshift/js/clipboard.min.js?1525238717"></script>
-    <script src="/openshift/js/perfect-scrollbar.min.js?1525238717"></script>
-    <script src="/openshift/js/perfect-scrollbar.jquery.min.js?1525238717"></script>
-    <script src="/openshift/js/jquery.sticky.js?1525238717"></script>
-    <script src="/openshift/js/featherlight.min.js?1525238717"></script>
-    <script src="/openshift/js/html5shiv-printshiv.min.js?1525238717"></script>
-    <script src="/openshift/js/highlight.pack.js?1525238717"></script>
+    <script src="/openshift/js/clipboard.min.js?1525404685"></script>
+    <script src="/openshift/js/perfect-scrollbar.min.js?1525404685"></script>
+    <script src="/openshift/js/perfect-scrollbar.jquery.min.js?1525404685"></script>
+    <script src="/openshift/js/jquery.sticky.js?1525404685"></script>
+    <script src="/openshift/js/featherlight.min.js?1525404685"></script>
+    <script src="/openshift/js/html5shiv-printshiv.min.js?1525404685"></script>
+    <script src="/openshift/js/highlight.pack.js?1525404685"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/openshift/js/modernizr.custom.71422.js?1525238717"></script>
-    <script src="/openshift/js/learn.js?1525238717"></script>
-    <script src="/openshift/js/hugo-learn.js?1525238717"></script>
+    <script src="/openshift/js/modernizr.custom.71422.js?1525404685"></script>
+    <script src="/openshift/js/learn.js?1525404685"></script>
+    <script src="/openshift/js/hugo-learn.js?1525404685"></script>
 
-    <link href="/openshift/mermaid/mermaid.css?1525238717" type="text/css" rel="stylesheet" />
-    <script src="/openshift/mermaid/mermaid.js?1525238717"></script>
+    <link href="/openshift/mermaid/mermaid.css?1525404685" type="text/css" rel="stylesheet" />
+    <script src="/openshift/mermaid/mermaid.js?1525404685"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
