@@ -6,7 +6,7 @@
     <meta name="generator" content="Hugo 0.37.1" />
     <meta name="description" content="linux系统中,防火墙(Firewall),网址转换(NAT),数据包(package)记录,流量统计,这些功能是由Netfilter子系统所提供的，而iptables是控制Netfilter的工具">
 <meta name="author" content="HunterFu 北方人">
-<meta name="keywords" content="[linux,iptable,netfilter,filter,nat,postrouting]">
+<meta name="keywords" content="linux,iptable,netfilter,filter,nat,postrouting">
 <meta http-equiv="content-language" content="zh-CN" />
 
     <link rel="shortcut icon" href="/tech/images/favicon.png" type="image/x-icon" />
@@ -14,19 +14,19 @@
     <title>linux iptable 使用指南 :: OpsSoluiton 开源方案</title>
     
     
-    <link href="/tech/css/nucleus.css?1542628007" rel="stylesheet">
-    <link href="/tech/css/font-awesome.min.css?1542628007" rel="stylesheet">
-    <link href="/tech/css/hybrid.css?1542628007" rel="stylesheet">
-    <link href="/tech/css/featherlight.min.css?1542628007" rel="stylesheet">
-    <link href="/tech/css/perfect-scrollbar.min.css?1542628007" rel="stylesheet">
-    <link href="/tech/css/auto-complete.css?1542628007" rel="stylesheet">
-    <link href="/tech/css/theme.css?1542628007" rel="stylesheet">
-    <link href="/tech/css/hugo-theme.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/nucleus.css?1542631211" rel="stylesheet">
+    <link href="/tech/css/font-awesome.min.css?1542631211" rel="stylesheet">
+    <link href="/tech/css/hybrid.css?1542631211" rel="stylesheet">
+    <link href="/tech/css/featherlight.min.css?1542631211" rel="stylesheet">
+    <link href="/tech/css/perfect-scrollbar.min.css?1542631211" rel="stylesheet">
+    <link href="/tech/css/auto-complete.css?1542631211" rel="stylesheet">
+    <link href="/tech/css/theme.css?1542631211" rel="stylesheet">
+    <link href="/tech/css/hugo-theme.css?1542631211" rel="stylesheet">
     
-      <link href="/tech/css/theme-mine.css?1542628007" rel="stylesheet">
+      <link href="/tech/css/theme-mine.css?1542631211" rel="stylesheet">
     
 
-    <script src="/tech/js/jquery-2.x.min.js?1542628007"></script>
+    <script src="/tech/js/jquery-2.x.min.js?1542631211"></script>
     
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{ 
@@ -66,14 +66,14 @@
     <span data-search-clear=""><i class="fa fa-close"></i></span>
 </div>
 
-<script type="text/javascript" src="/tech/js/lunr.min.js?1542628007"></script>
-<script type="text/javascript" src="/tech/js/auto-complete.js?1542628007"></script>
+<script type="text/javascript" src="/tech/js/lunr.min.js?1542631211"></script>
+<script type="text/javascript" src="/tech/js/auto-complete.js?1542631211"></script>
 <script type="text/javascript">
     
         var baseurl = '\/';
     
 </script>
-<script type="text/javascript" src="/tech/js/search.js?1542628007"></script>
+<script type="text/javascript" src="/tech/js/search.js?1542631211"></script>
 
     
   </div>
@@ -1092,20 +1092,20 @@ MASQUERADE : 是针对ADSL动态拨号这种场景而设计,从服务器的网�
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/tech/js/clipboard.min.js?1542628007"></script>
-    <script src="/tech/js/perfect-scrollbar.min.js?1542628007"></script>
-    <script src="/tech/js/perfect-scrollbar.jquery.min.js?1542628007"></script>
-    <script src="/tech/js/jquery.sticky.js?1542628007"></script>
-    <script src="/tech/js/featherlight.min.js?1542628007"></script>
-    <script src="/tech/js/html5shiv-printshiv.min.js?1542628007"></script>
-    <script src="/tech/js/highlight.pack.js?1542628007"></script>
+    <script src="/tech/js/clipboard.min.js?1542631211"></script>
+    <script src="/tech/js/perfect-scrollbar.min.js?1542631211"></script>
+    <script src="/tech/js/perfect-scrollbar.jquery.min.js?1542631211"></script>
+    <script src="/tech/js/jquery.sticky.js?1542631211"></script>
+    <script src="/tech/js/featherlight.min.js?1542631211"></script>
+    <script src="/tech/js/html5shiv-printshiv.min.js?1542631211"></script>
+    <script src="/tech/js/highlight.pack.js?1542631211"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/tech/js/modernizr.custom.71422.js?1542628007"></script>
-    <script src="/tech/js/learn.js?1542628007"></script>
-    <script src="/tech/js/hugo-learn.js?1542628007"></script>
+    <script src="/tech/js/modernizr.custom.71422.js?1542631211"></script>
+    <script src="/tech/js/learn.js?1542631211"></script>
+    <script src="/tech/js/hugo-learn.js?1542631211"></script>
 
-    <link href="/tech/mermaid/mermaid.css?1542628007" type="text/css" rel="stylesheet" />
-    <script src="/tech/mermaid/mermaid.js?1542628007"></script>
+    <link href="/tech/mermaid/mermaid.css?1542631211" type="text/css" rel="stylesheet" />
+    <script src="/tech/mermaid/mermaid.js?1542631211"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
