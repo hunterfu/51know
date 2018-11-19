@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.37.1" />
+    <meta name="description" content="linux系统中,防火墙(Firewall),网址转换(NAT),数据包(package)记录,流量统计,这些功能是由Netfilter子系统所提供的，而iptables是控制Netfilter的工具">
+<meta name="author" content="HunterFu 北方人">
+<meta name="keywords" content="[linux,iptable,netfilter,filter,nat,postrouting]">
+<meta http-equiv="content-language" content="zh-CN" />
+
+    <link rel="shortcut icon" href="/tech/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/tech/images/favicon.png" type="image/x-icon" />
+    <title>linux iptable 使用指南 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/tech/css/nucleus.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/font-awesome.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/hybrid.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/featherlight.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/perfect-scrollbar.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/auto-complete.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/theme.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/hugo-theme.css?1542628007" rel="stylesheet">
+    
+      <link href="/tech/css/theme-mine.css?1542628007" rel="stylesheet">
+    
+
+    <script src="/tech/js/jquery-2.x.min.js?1542628007"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7322741757959159",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+  </head>
+  <body class="" data-url="/opnsense/other/iptable/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/tech/">
+<img src="/tech/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/tech/js/lunr.min.js?1542628007"></script>
+<script type="text/javascript" src="/tech/js/auto-complete.js?1542628007"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/tech/js/search.js?1542628007"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/mysql/" title="Mysql常用用法总结" class="dd-item ">
+        <a href="/tech/devops/mysql/">
+        Mysql常用用法总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/python_tips/" title="Python脚本知识总结" class="dd-item ">
+        <a href="/tech/devops/python_tips/">
+        Python脚本知识总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/shell/" title="Shell脚本知识总结" class="dd-item ">
+        <a href="/tech/devops/shell/">
+        Shell脚本知识总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/git_useage_qa/" title="Git使用常见问题" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/git_useage_qa/">
+          Git使用常见问题
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/cdn/" title="网站加速之CDN技术原理" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/cdn/">
+          网站加速之CDN技术原理
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/perl/" title="Perl脚本常用方法总结" class="dd-item ">
+        <a href="/tech/devops/perl/">
+        Perl脚本常用方法总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/tun_tap/" title="linux下TUN/TAP虚拟网卡的使用" class="dd-item ">
+        <a href="/tech/devops/tun_tap/">
+        linux下TUN/TAP虚拟网卡的使用
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/" title="OpnSense防火墙" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/tech/opnsense/">
+          <b>7. </b>OpnSense防火墙
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/openvpn/" title="设置openvpn服务" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/openvpn/">
+          设置openvpn服务
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/scan/" title="安全预警" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/scan/">
+          安全预警
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/" title="安全知识点滴" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/tech/opnsense/other/">
+          安全知识点滴
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/opnsense/other/inotify/" title="Inotify监控文件系统事件" class="dd-item ">
+        <a href="/tech/opnsense/other/inotify/">
+        Inotify监控文件系统事件
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/iptable/" title="linux iptable 使用指南" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/tech/opnsense/other/iptable/">
+          linux iptable 使用指南
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/tcp_wrapper/" title="Tcp Wrapper 应用安全指南" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/tcp_wrapper/">
+          Tcp Wrapper 应用安全指南
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/openssl/" title="openssl加密DSA,RSA介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/openssl/">
+          openssl加密DSA,RSA介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/tech/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/tech/'>日常积累技术文档</a> > <a href='/tech/opnsense/'>OpnSense防火墙</a> > <a href='/tech/opnsense/other/'>安全知识点滴</a> > linux iptable 使用指南
+          
+         
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#术语解释">术语解释</a></li>
+<li><a href="#iptable-概述">iptable 概述</a>
+<ul>
+<li><a href="#iptable的链和表结构">iptable的链和表结构</a></li>
+<li><a href="#5个链-chain">5个链(chain)</a></li>
+<li><a href="#4个表-table">4个表(table)</a></li>
+<li><a href="#详细的数据包流程">详细的数据包流程</a></li>
+</ul></li>
+<li><a href="#iptable应用场景">iptable应用场景</a>
+<ul>
+<li><a href="#网关服务器安全策略">网关服务器安全策略</a></li>
+<li><a href="#共享上网-nat">共享上网(nat)</a></li>
+<li><a href="#内网的服务器对外服务-端口映射">内网的服务器对外服务(端口映射)</a></li>
+<li><a href="#在网关服务器进行透明代理">在网关服务器进行透明代理</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>linux iptable 使用指南</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2016-03-28</td>
+<td>创建</td>
+<td>HunterFu</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<p>linux系统中,防火墙(Firewall),网址转换(NAT),数据包(package)记录,流量统计,这些功能是由Netfilter子系统所提供的，而iptables是控制Netfilter的工具.<br>
+iptables将许多复杂的规则组织成成容易控制的方式，以便管理员可以进行分组测试，或关闭、启动某组规则。</p>
+
+<p>iptable能够为Unix、Linux和BSD个人工作站创建一个防火墙，也可以为一个子网创建防火墙以保护其它的系统平台。<br>
+iptable只读取数据包头，不会给信息流增加负担，也无需进行验证。</p>
+
+<h2 id="术语解释">术语解释</h2>
+
+<dl>
+<dd><p><strong>DNAT</strong>
+Destination Network Address Translation 目标网络地址转换。 DNAT是一种改变数据包目的ip地址的技术，经常和SNAT联用，以使多台服务器能共享一个ip地址连入Internet，并且继续服务。通过对同一个ip地址分配不同的端口，来决定数据的流向。</p></dd>
+<dd><p><strong>SNAT</strong>
+Source Network Address Translation源网络地址转换。这是一种改变数据包源ip地址的技术， 经常用来使多台计算机分享一个Internet地址。这只在IPv4中使用，因为IPv4的地址已快用完了，IPv6将解 决这个问题。</p></dd>
+</dl>
+
+<h2 id="iptable-概述">iptable 概述</h2>
+
+<h3 id="iptable的链和表结构">iptable的链和表结构</h3>
+
+<p><img src="ip_flow.PNG" alt="ip_flow.PNG" /></p>
+
+<p>如上图可以看出，iptable总体结构.</p>
+
+<h3 id="5个链-chain">5个链(chain)</h3>
+
+<dl>
+<dt><img src="iptable_chain.png" alt="iptable_chain.png" /></dt>
+<dd><p><strong>PREROUTING</strong>
+在数据包进入防火墙之后、路由判断之前对数据包进行修改</p></dd>
+<dd><p><strong>INPUT</strong>
+在数据包被路由到本地之后，但在用户空间程序看到它之前对数据包进行修改</p></dd>
+<dd><p><strong>OUTPUT</strong>
+用户空间程序处理数据包后，由本地发出，再次被路由之前更改数据包</p></dd>
+<dd><p><strong>FORWARD</strong>
+在最初的路由判断之后、最后一次更改包的源地址之前对数据包进行修改</p></dd>
+<dd><p><strong>POSTROUTING</strong>
+在所有路由判断之后,对数据包进行修改</p></dd>
+</dl>
+
+<p><strong>注意:</strong> 链 是每个数据包流需要经过的不同环节，你可以在不同的环节根据需要设置不同的过滤策略,<strong>每个链的默认策略都是Accept</strong></p>
+
+<h3 id="4个表-table">4个表(table)</h3>
+
+<dl>
+<dd><p><strong>Mangle表</strong>
+这个表主要用来mangle包，你可以使用mangle匹配来改变包的一些属性，比如 TOS（TYPE OF SERVICE),TTL (TIME TO LIVE),MARK(后续流量控制TC等)</p></dd>
+<dd><p><strong>Nat表</strong>
+此表仅用于NAT，也就是转换包的源或目标地址。注意，就象我们前面说过的，只有流的第一个 包会被这个链匹配，其后的包会自动被做相同的处理(DNAT,SNAT,MASQUERADE)</p></dd>
+<dd><p><strong>Filter表</strong>
+此表用来过滤数据包，我们可以在任何时候匹配包并过滤它们。 我们就是在这里根据包的内容对包做DROP或ACCEPT的.<br>
+iptalbe中,要用 <strong>-t</strong> 参数指定要操作哪个表,如果没有 <strong>-t</strong> 参数，就默认对<strong>filter表</strong>操作.</p></dd>
+<dd><p><strong>Raw表</strong>
+优先级最高，设置raw时一般是为了不再让iptables做数据包的链接跟踪处理，提高性能</p></dd>
+</dl>
+
+<p><strong>注意:</strong> 表 是规则的集合组,<strong>每个表中的规则条目是按顺序匹配的</strong>,你可以在数据包经过的不同环节设置规则,表的处理优先级：<strong>raw &gt; mangle &gt; nat &gt; filter</strong></p>
+
+<h3 id="详细的数据包流程">详细的数据包流程</h3>
+
+<p><img src="packet_flow.png" alt="packet_flow.png" /></p>
+
+<p>从上图可以看出，数据包流环节和表的配合使用方法</p>
+
+<h2 id="iptable应用场景">iptable应用场景</h2>
+
+<p><img src="iptable_example.gif" alt="iptable_example.gif" /></p>
+
+<p>上图是应用场景的简单拓扑描述,下面的应用场景举例，都以上图为参考.<br>
+<strong>系统启动的时候所有的默认策略都是ACCEPT</strong>,在下面的场景举例中，我们都是在这种前提下设定iptable的<br>
+<strong>下面每个场景举例都是独立的，没有相关联性的</strong></p>
+
+<h3 id="网关服务器安全策略">网关服务器安全策略</h3>
+
+<p>目标 : 网关服务器系统自生安全策略，只对内网用户开放22端口(sshd服务)</p>
+
+<pre><code>#清空 filter table
+[root@localhost]# iptables -F -t filter
+[root@localhost]# iptables -X -t filter
+[root@localhost]# iptables -Z -t filter
+
+#清空 nat table
+[root@localhost]# iptables -F -t nat
+[root@localhost]# iptables -X -t nat
+[root@localhost]# iptables -Z -t nat
+
+#设置默认策略(INPUT链默认为DROP)
+[root@localhost]# iptables -t filter -P INPUT DROP
+[root@localhost]# iptables -t filter -P OUTPUT ACCEPT
+[root@localhost]# iptables -t filter -P FORWARD ACCEPT
+
+#回环接口(lo),默认accept
+[root@localhost]# iptables -A INPUT -p ALL -i lo -j ACCEPT
+
+#只对内网用户开放sshd服务
+[root@localhost]# iptables -A INPUT -p tcp -s 192.168.138.0/24 --dport 22 -j ACCEPT
+</code></pre>
+
+<p>说明: 防火墙的策略顺序一般都是 从 <strong>非信任 ==&gt; 信任</strong>,默认关闭所有访问权限,然后按照需要逐条开放访问权限.</p>
+
+<h3 id="共享上网-nat">共享上网(nat)</h3>
+
+<p>目标：使局域网的用户都可以访问外网的服务器</p>
+
+<pre><code>[root@localhost]# echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+[root@localhost]# iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE 
+</code></pre>
+
+<p><strong>说明: SNAT 和 MASQUERADE 区别</strong></p>
+
+<p>SNAT : 不管是几个地址，必须明确的指定要SNAT的ip，适合网关服务器有固定地址或者是固定地址范围.
+MASQUERADE : 是针对ADSL动态拨号这种场景而设计,从服务器的网络接口上,自动获取当前ip地址来做NAT,这样就实现了动态SNAT地址转换</p>
+
+<h3 id="内网的服务器对外服务-端口映射">内网的服务器对外服务(端口映射)</h3>
+
+<p>目标：使外网用户可以访问到局域网<strong>192.168.138.21</strong>这台<strong>HTTP</strong>服务</p>
+
+<pre><code>[root@localhost]# echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+[root@localhost]# iptables -t nat -A PREROUTING -p tcp -m tcp --dport 80 -j DNAT --to-destination 192.168.138.21
+[root@localhost]# iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE
+</code></pre>
+
+<h3 id="在网关服务器进行透明代理">在网关服务器进行透明代理</h3>
+
+<p>目标: 使局域网用户,访问外网web服务时，自动使用squid作web透明代理服务器。</p>
+
+<pre><code>[root@localhost]# echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+[root@localhost]# iptables -t nat -A PREROUTING -s 192.168.138.0/24 -p tcp --dport 80 -i eth0 -j DNAT --to 192.168.138.1
+[root@localhost]# iptables -t nat -A PREROUTING -s 192.168.138.0/24 -p tcp --dport 80 -i eth0 -j REDIRECT --to 3128 
+[root@localhost]# iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE 
+</code></pre>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/tech/opnsense/other/inotify/" title="Inotify监控文件系统事件"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/tech/opnsense/other/tcp_wrapper/" title="Tcp Wrapper 应用安全指南" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/tech/js/clipboard.min.js?1542628007"></script>
+    <script src="/tech/js/perfect-scrollbar.min.js?1542628007"></script>
+    <script src="/tech/js/perfect-scrollbar.jquery.min.js?1542628007"></script>
+    <script src="/tech/js/jquery.sticky.js?1542628007"></script>
+    <script src="/tech/js/featherlight.min.js?1542628007"></script>
+    <script src="/tech/js/html5shiv-printshiv.min.js?1542628007"></script>
+    <script src="/tech/js/highlight.pack.js?1542628007"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/tech/js/modernizr.custom.71422.js?1542628007"></script>
+    <script src="/tech/js/learn.js?1542628007"></script>
+    <script src="/tech/js/hugo-learn.js?1542628007"></script>
+
+    <link href="/tech/mermaid/mermaid.css?1542628007" type="text/css" rel="stylesheet" />
+    <script src="/tech/mermaid/mermaid.js?1542628007"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>

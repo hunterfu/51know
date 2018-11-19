@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.37.1" />
+    <meta name="description" content="运维技术文档 Ops Solution">
+<meta name="author" content="HunterFu 北方人">
+<meta name="keywords" content="[openvpn,ssl]">
+<meta http-equiv="content-language" content="zh-CN" />
+
+    <link rel="shortcut icon" href="/tech/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/tech/images/favicon.png" type="image/x-icon" />
+    <title>设置openvpn服务 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/tech/css/nucleus.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/font-awesome.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/hybrid.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/featherlight.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/perfect-scrollbar.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/auto-complete.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/theme.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/hugo-theme.css?1542628007" rel="stylesheet">
+    
+      <link href="/tech/css/theme-mine.css?1542628007" rel="stylesheet">
+    
+
+    <script src="/tech/js/jquery-2.x.min.js?1542628007"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7322741757959159",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+  </head>
+  <body class="" data-url="/opnsense/openvpn/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/tech/">
+<img src="/tech/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/tech/js/lunr.min.js?1542628007"></script>
+<script type="text/javascript" src="/tech/js/auto-complete.js?1542628007"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/tech/js/search.js?1542628007"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/mysql/" title="Mysql常用用法总结" class="dd-item ">
+        <a href="/tech/devops/mysql/">
+        Mysql常用用法总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/python_tips/" title="Python脚本知识总结" class="dd-item ">
+        <a href="/tech/devops/python_tips/">
+        Python脚本知识总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/shell/" title="Shell脚本知识总结" class="dd-item ">
+        <a href="/tech/devops/shell/">
+        Shell脚本知识总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/git_useage_qa/" title="Git使用常见问题" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/git_useage_qa/">
+          Git使用常见问题
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/cdn/" title="网站加速之CDN技术原理" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/cdn/">
+          网站加速之CDN技术原理
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/perl/" title="Perl脚本常用方法总结" class="dd-item ">
+        <a href="/tech/devops/perl/">
+        Perl脚本常用方法总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/tun_tap/" title="linux下TUN/TAP虚拟网卡的使用" class="dd-item ">
+        <a href="/tech/devops/tun_tap/">
+        linux下TUN/TAP虚拟网卡的使用
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/" title="OpnSense防火墙" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/tech/opnsense/">
+          <b>7. </b>OpnSense防火墙
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/openvpn/" title="设置openvpn服务" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/tech/opnsense/openvpn/">
+          设置openvpn服务
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/scan/" title="安全预警" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/scan/">
+          安全预警
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/" title="安全知识点滴" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/">
+          安全知识点滴
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/opnsense/other/inotify/" title="Inotify监控文件系统事件" class="dd-item ">
+        <a href="/tech/opnsense/other/inotify/">
+        Inotify监控文件系统事件
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/iptable/" title="linux iptable 使用指南" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/iptable/">
+          linux iptable 使用指南
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/tcp_wrapper/" title="Tcp Wrapper 应用安全指南" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/tcp_wrapper/">
+          Tcp Wrapper 应用安全指南
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/openssl/" title="openssl加密DSA,RSA介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/openssl/">
+          openssl加密DSA,RSA介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/tech/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/tech/'>日常积累技术文档</a> > <a href='/tech/opnsense/'>OpnSense防火墙</a> > 设置openvpn服务
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#sample-setup">Sample Setup</a>
+<ul>
+<li><a href="#简单配置拓扑信息如下">简单配置拓扑信息如下</a>
+<ul>
+<li><a href="#拓扑图如下">拓扑图如下</a></li>
+<li><a href="#网络配置信息如下">网络配置信息如下</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#step-0-preparation">Step 0 - Preparation</a>
+<ul>
+<li><a href="#设置ca和签发证书">设置CA和签发证书</a>
+<ul>
+<li><a href="#添加ca-certificate-authority-证书">添加CA(Certificate Authority)证书</a></li>
+<li><a href="#签发vpn-server-证书">签发vpn server 证书</a></li>
+</ul></li>
+<li><a href="#添加vpn用户">添加VPN用户</a>
+<ul>
+<li><a href="#增加用户">增加用户</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#step-1-add-ssl-server">Step 1 - Add SSL Server</a></li>
+<li><a href="#step-2-firewall-rules">Step 2 - Firewall Rules</a></li>
+<li><a href="#step-3-export-client-configuration">Step 3 - Export Client Configuration</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>设置openvpn服务</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2018-01-06</td>
+<td>创建</td>
+<td>开源方案</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="sample-setup">Sample Setup</h2>
+
+<h3 id="简单配置拓扑信息如下">简单配置拓扑信息如下</h3>
+
+<h4 id="拓扑图如下">拓扑图如下</h4>
+
+<p><img src="simple.png" alt="简单拓扑图" /></p>
+
+<h4 id="网络配置信息如下">网络配置信息如下</h4>
+
+<table>
+<thead>
+<tr>
+<th>IP类别</th>
+<th>IP信息</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>WAN IP</td>
+<td>PPPOE(172.18.0.129) 这里参考图中ip而已</td>
+</tr>
+
+<tr>
+<td>LAN IP</td>
+<td>192.168.1.<sup>1</sup>&frasl;<sub>24</sub></td>
+</tr>
+
+<tr>
+<td>LAN DHCP Range</td>
+<td>192.168.1.100-192.168.1.200</td>
+</tr>
+
+<tr>
+<td>SSL VPN Clients</td>
+<td>10.10.0.0/24</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="step-0-preparation">Step 0 - Preparation</h2>
+
+<h3 id="设置ca和签发证书">设置CA和签发证书</h3>
+
+<h4 id="添加ca-certificate-authority-证书">添加CA(Certificate Authority)证书</h4>
+
+<p>VPN server 需要使用ca证书签发客户端或者服务端证书</p>
+
+<p>从导航菜单 <strong>System-&gt;Trust-&gt;Authorities</strong> 进入,点击右上角的 <strong>add or import CA</strong>按钮 进行设置ca证书</p>
+
+<p>这里举例我们的设置如下:</p>
+
+<table>
+<thead>
+<tr>
+<th>配置项目</th>
+<th>配置内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Descriptive name</td>
+<td>SSL VPN CA</td>
+</tr>
+
+<tr>
+<td>Method</td>
+<td>Create an internal Certificate Authority</td>
+</tr>
+
+<tr>
+<td>Key length (bits)</td>
+<td>4096</td>
+</tr>
+
+<tr>
+<td>Digest Algorithm</td>
+<td>SHA512</td>
+</tr>
+
+<tr>
+<td>Lifetime (days)</td>
+<td>365</td>
+</tr>
+
+<tr>
+<td>Country Code :</td>
+<td>CN</td>
+</tr>
+
+<tr>
+<td>State or Province :</td>
+<td>Zhejiag</td>
+</tr>
+
+<tr>
+<td>City :</td>
+<td>Hangzhou</td>
+</tr>
+
+<tr>
+<td>Organization :</td>
+<td>51know</td>
+</tr>
+
+<tr>
+<td>Email Address :</td>
+<td>spam@ops.com</td>
+</tr>
+
+<tr>
+<td>Common Name :</td>
+<td>internal-sslvpn-ca</td>
+</tr>
+</tbody>
+</table>
+
+<p>点击保存按钮，保存新的CA证书</p>
+
+<h4 id="签发vpn-server-证书">签发vpn server 证书</h4>
+
+<p>从导航菜单 <strong>System-&gt;Trust-&gt;Certificates</strong> 进入，点击右上角的 <strong>add or import certificate</strong> 按钮进行签发新证书.</p>
+
+<p>举例配置如下(其他的默认配置即可):</p>
+
+<table>
+<thead>
+<tr>
+<th>配置项目</th>
+<th>配置内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Method</td>
+<td>Create an internal Certificate</td>
+</tr>
+
+<tr>
+<td>Descriptive name</td>
+<td>SSLVPN Server Certificate</td>
+</tr>
+
+<tr>
+<td>Certificate authority</td>
+<td>SSL VPN CA</td>
+</tr>
+
+<tr>
+<td>Type</td>
+<td>Server Certificate</td>
+</tr>
+
+<tr>
+<td>Key length (bits)</td>
+<td>4096</td>
+</tr>
+
+<tr>
+<td>Digest Algorithm</td>
+<td>SHA512</td>
+</tr>
+
+<tr>
+<td>Lifetime (days)</td>
+<td>365</td>
+</tr>
+
+<tr>
+<td>Country Code :</td>
+<td>CN</td>
+</tr>
+
+<tr>
+<td>State or Province :</td>
+<td>Zhejiag</td>
+</tr>
+
+<tr>
+<td>City :</td>
+<td>Hangzhou</td>
+</tr>
+
+<tr>
+<td>Organization :</td>
+<td>51know</td>
+</tr>
+
+<tr>
+<td>Email Address :</td>
+<td>spam@ops.com</td>
+</tr>
+
+<tr>
+<td>Common Name :</td>
+<td>SSLVPN Server Certificate</td>
+</tr>
+</tbody>
+</table>
+
+<p>点击保存按钮，保存新签发的服务端证书</p>
+
+<h3 id="添加vpn用户">添加VPN用户</h3>
+
+<h4 id="增加用户">增加用户</h4>
+
+<p>从导航菜单 <strong>System-&gt;Access-&gt;Users</strong> 进入，点击右下角的 <strong>加号</strong> 按钮，进行新用户的添加</p>
+
+<p>创建用户分为2部，首先添加一个基础信息用户,第二部(保存后) 会定向到申城用户证书的界面</p>
+
+<ul>
+<li>第一步 增加用户</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>配置项目</th>
+<th>配置内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Username</td>
+<td>Donald</td>
+</tr>
+
+<tr>
+<td>Password (2x)</td>
+<td>S3cr3tP@ssw0rd</td>
+</tr>
+
+<tr>
+<td>Full name</td>
+<td>Donald Duck</td>
+</tr>
+
+<tr>
+<td>Certificate</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>第二步 保存后，创建用户证书,配置内容如下:</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+<th>配置项目</th>
+<th>配置内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Method</td>
+<td>Create an internal Certificate</td>
+</tr>
+
+<tr>
+<td>Descriptive Name</td>
+<td>Leave default (Donald)</td>
+</tr>
+
+<tr>
+<td>Certificate authority</td>
+<td>SSL VPN CA</td>
+</tr>
+
+<tr>
+<td>Type</td>
+<td>Client Certificate</td>
+</tr>
+
+<tr>
+<td>Key length</td>
+<td>4096</td>
+</tr>
+
+<tr>
+<td>Digest Algorithm</td>
+<td>SHA512</td>
+</tr>
+</tbody>
+</table>
+
+<p>点击保存即可</p>
+
+<h2 id="step-1-add-ssl-server">Step 1 - Add SSL Server</h2>
+
+<p>Adding a new SSL VPN server is relatively simple. We’ll start by adding one that uses our two factor authentication. This setup offers a good protection and it is easy to setup on the clients as each client can use the same configuration.</p>
+
+<p>Go to VPN-&gt;OpenVPN-&gt;Servers and click on add server in to top right corner of the form.</p>
+
+<p>For our example will use the following settings:</p>
+
+<p>Note</p>
+
+<p>The setting Hardware Crypto is not used for new systems equipped with AESNI, when the aesni module is loaded it will be used automatically.</p>
+
+<table>
+<thead>
+<tr>
+<th>配置项目</th>
+<th>配置内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Server Mode</td>
+<td>Remote Access (User Auth)</td>
+</tr>
+
+<tr>
+<td>Backend for authentication</td>
+<td>TOTP VPN Access Server</td>
+</tr>
+
+<tr>
+<td>Protocol</td>
+<td>UDP</td>
+</tr>
+
+<tr>
+<td>Device Mode</td>
+<td>tun</td>
+</tr>
+
+<tr>
+<td>Interface</td>
+<td>WAN</td>
+</tr>
+
+<tr>
+<td>Local port</td>
+<td>1194</td>
+</tr>
+
+<tr>
+<td>Description</td>
+<td>My SSL VPN Server</td>
+</tr>
+
+<tr>
+<td>TLS Authentication</td>
+<td>Leave both on enabled (checked)</td>
+</tr>
+
+<tr>
+<td>Peer Certificate Revocation List</td>
+<td>N/A</td>
+</tr>
+
+<tr>
+<td>Server Certificate</td>
+<td>SSLVPN Server Certificate (CA: SSL VPN CA)</td>
+</tr>
+
+<tr>
+<td>DH Parameters Length</td>
+<td>4096</td>
+</tr>
+
+<tr>
+<td>Encryption algorithm</td>
+<td>AES-256-CBC (256-bit)</td>
+</tr>
+
+<tr>
+<td>Auth Digest Algorithm</td>
+<td>SHA512 (512-bit)</td>
+</tr>
+
+<tr>
+<td>Hardware Crypto</td>
+<td>No Hardware Crypto Acceleration</td>
+</tr>
+
+<tr>
+<td>Certificate Depth</td>
+<td>One (Client+Server)</td>
+</tr>
+
+<tr>
+<td>IPv4 Tunnel Network</td>
+<td>10.10.0.0/24</td>
+</tr>
+
+<tr>
+<td>IPv6 Tunnel Network</td>
+<td>Leave Empty</td>
+</tr>
+
+<tr>
+<td>Redirect Gateway</td>
+<td>Leave Unchecked</td>
+</tr>
+
+<tr>
+<td>IPv4 Local Network/s</td>
+<td>192.168.1.0/24</td>
+</tr>
+
+<tr>
+<td>IPv6 Local Network/s</td>
+<td>Leave Empty</td>
+</tr>
+
+<tr>
+<td>IPv4 Remote Network/s</td>
+<td>Leave Empty</td>
+</tr>
+
+<tr>
+<td>IPv6 Remote Network/s</td>
+<td>Leave Empty</td>
+</tr>
+
+<tr>
+<td>Concurrent connections</td>
+<td>Leave Empty</td>
+</tr>
+
+<tr>
+<td>Compression</td>
+<td>Enabled with Adaptive Compression</td>
+</tr>
+
+<tr>
+<td>Type-of-Service</td>
+<td>Leave Unchecked</td>
+</tr>
+
+<tr>
+<td>Duplicate Connections</td>
+<td>Leave Unchecked</td>
+</tr>
+
+<tr>
+<td>Disable IPv6</td>
+<td>Checked</td>
+</tr>
+
+<tr>
+<td>Dynamic IP</td>
+<td>Leave Unchecked</td>
+</tr>
+
+<tr>
+<td>Address Pool</td>
+<td>Leave Checked</td>
+</tr>
+
+<tr>
+<td>Topology</td>
+<td>Leave Unchecked</td>
+</tr>
+
+<tr>
+<td>DNS Default Domain</td>
+<td>Leave Unchecked</td>
+</tr>
+
+<tr>
+<td>DNS Servers</td>
+<td>Leave Unchecked</td>
+</tr>
+
+<tr>
+<td>Force DNS cache update</td>
+<td>Leave Unchecked</td>
+</tr>
+
+<tr>
+<td>NTP Servers</td>
+<td>Leave Unchecked</td>
+</tr>
+
+<tr>
+<td>NetBIOS Options</td>
+<td>Leave Unchecked</td>
+</tr>
+
+<tr>
+<td>Client Management Port</td>
+<td>Leave Unchecked</td>
+</tr>
+
+<tr>
+<td>Renegotiate time</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+<p>Note</p>
+
+<p>Renegotiate time is used to renegotiate data channel key after n seconds (default=3600).When using a one time password, be advised that your connection will automatically drop because your password is not valid anymore.Set to 0 to disable, remember to change your client when changed later.</p>
+
+<h2 id="step-2-firewall-rules">Step 2 - Firewall Rules</h2>
+
+<p>To allow SSL VPN client connections, we should allow access to the OpenVPN server port on the WAN interface. When using multiple servers we need to open up each port.</p>
+
+<p>For our configuration we only use one server accessible on udp port 1194.</p>
+
+<p><img src="sslvpn_wan_rule.png" alt="互联接口" />
+Next we also need to allow traffic from the VPN clients to our LAN interface. For our example we will allow client to access anything on our local area network, however you may decide just to allow traffic to one or more servers.</p>
+
+<p><img src="sslvpn_openvpn_rule.png" alt="vpn" /></p>
+
+<h2 id="step-3-export-client-configuration">Step 3 - Export Client Configuration</h2>
+
+<p>Go to <strong>VPN-&gt;OpenVPN-&gt;Client</strong> Export and select the newly created VPN server from the list. Leave everything default and Download the openvpn 配置文件 如下图</p>
+
+<p>![client_export]()</p>
+
+<p>Now on your Mac or Windows PC unpack the bundle and import the Viscosity.visc file. Double clicking it should be enough to get it imported. When asked for an application to open the file with search and select Viscosity.</p>
+
+<p>Some sample screenshots (Mac OSX):</p>
+
+<p>../../_images/viscosity_files.png
+Import Configuration</p>
+
+<p>../../_images/viscosity_imported.png
+Connect &amp; login</p>
+
+<p>In the password field enter your TOTP token first followed by your password.</p>
+
+<p>../../_images/viscosity_login.png
+Connected</p>
+
+<p>../../_images/viscosity_connected.png
+Android
+For Android users we recommend using OpenVPN for Android (<a href="https://play.google.com/store/apps/details?id=de.blinkt.openvpn">https://play.google.com/store/apps/details?id=de.blinkt.openvpn</a>) from Arne Schwabe.</p>
+
+<p>Go to VPN-&gt;OpenVPN-&gt;Client Export and select the newly created VPN server from the list. Leave everything default and Download the inline Android configuration from the list of export options under Client Install Packages.</p>
+
+<p>Import the hostname-udp-1194-ios-config.ovpn file into OpenVPN for Android. Clicking on the file should be enough to get it imported. When asked for an application to open the file with, select OpenVPN for Android.</p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/tech/opnsense/" title="OpnSense防火墙"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/tech/opnsense/scan/" title="安全预警" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/tech/js/clipboard.min.js?1542628007"></script>
+    <script src="/tech/js/perfect-scrollbar.min.js?1542628007"></script>
+    <script src="/tech/js/perfect-scrollbar.jquery.min.js?1542628007"></script>
+    <script src="/tech/js/jquery.sticky.js?1542628007"></script>
+    <script src="/tech/js/featherlight.min.js?1542628007"></script>
+    <script src="/tech/js/html5shiv-printshiv.min.js?1542628007"></script>
+    <script src="/tech/js/highlight.pack.js?1542628007"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/tech/js/modernizr.custom.71422.js?1542628007"></script>
+    <script src="/tech/js/learn.js?1542628007"></script>
+    <script src="/tech/js/hugo-learn.js?1542628007"></script>
+
+    <link href="/tech/mermaid/mermaid.css?1542628007" type="text/css" rel="stylesheet" />
+    <script src="/tech/mermaid/mermaid.js?1542628007"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>

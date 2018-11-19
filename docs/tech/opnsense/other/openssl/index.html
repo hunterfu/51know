@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.37.1" />
+    <meta name="description" content="在日常系统管理工作中，需要作一些加解密的工作，通过openssl工具包就能完成我们很多需求">
+<meta name="author" content="HunterFu 北方人">
+<meta name="keywords" content="[openssl,dsa,rsa,公钥,私钥,签名,加密]">
+<meta http-equiv="content-language" content="zh-CN" />
+
+    <link rel="shortcut icon" href="/tech/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/tech/images/favicon.png" type="image/x-icon" />
+    <title>openssl加密DSA,RSA介绍 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/tech/css/nucleus.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/font-awesome.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/hybrid.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/featherlight.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/perfect-scrollbar.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/auto-complete.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/theme.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/hugo-theme.css?1542628007" rel="stylesheet">
+    
+      <link href="/tech/css/theme-mine.css?1542628007" rel="stylesheet">
+    
+
+    <script src="/tech/js/jquery-2.x.min.js?1542628007"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7322741757959159",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+  </head>
+  <body class="" data-url="/opnsense/other/openssl/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/tech/">
+<img src="/tech/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/tech/js/lunr.min.js?1542628007"></script>
+<script type="text/javascript" src="/tech/js/auto-complete.js?1542628007"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/tech/js/search.js?1542628007"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/mysql/" title="Mysql常用用法总结" class="dd-item ">
+        <a href="/tech/devops/mysql/">
+        Mysql常用用法总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/python_tips/" title="Python脚本知识总结" class="dd-item ">
+        <a href="/tech/devops/python_tips/">
+        Python脚本知识总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/shell/" title="Shell脚本知识总结" class="dd-item ">
+        <a href="/tech/devops/shell/">
+        Shell脚本知识总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/git_useage_qa/" title="Git使用常见问题" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/git_useage_qa/">
+          Git使用常见问题
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/cdn/" title="网站加速之CDN技术原理" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/cdn/">
+          网站加速之CDN技术原理
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/perl/" title="Perl脚本常用方法总结" class="dd-item ">
+        <a href="/tech/devops/perl/">
+        Perl脚本常用方法总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/tun_tap/" title="linux下TUN/TAP虚拟网卡的使用" class="dd-item ">
+        <a href="/tech/devops/tun_tap/">
+        linux下TUN/TAP虚拟网卡的使用
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/" title="OpnSense防火墙" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/tech/opnsense/">
+          <b>7. </b>OpnSense防火墙
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/openvpn/" title="设置openvpn服务" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/openvpn/">
+          设置openvpn服务
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/scan/" title="安全预警" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/scan/">
+          安全预警
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/" title="安全知识点滴" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/tech/opnsense/other/">
+          安全知识点滴
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/opnsense/other/inotify/" title="Inotify监控文件系统事件" class="dd-item ">
+        <a href="/tech/opnsense/other/inotify/">
+        Inotify监控文件系统事件
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/iptable/" title="linux iptable 使用指南" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/iptable/">
+          linux iptable 使用指南
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/tcp_wrapper/" title="Tcp Wrapper 应用安全指南" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/tcp_wrapper/">
+          Tcp Wrapper 应用安全指南
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/openssl/" title="openssl加密DSA,RSA介绍" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/tech/opnsense/other/openssl/">
+          openssl加密DSA,RSA介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/tech/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/tech/'>日常积累技术文档</a> > <a href='/tech/opnsense/'>OpnSense防火墙</a> > <a href='/tech/opnsense/other/'>安全知识点滴</a> > openssl加密DSA,RSA介绍
+          
+         
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#openssl-rsa-加解密">openssl RSA 加解密</a></li>
+<li><a href="#openssl-dsa签名与验证">openssl DSA签名与验证</a></li>
+<li><a href="#数字证书ca">数字证书CA</a></li>
+<li><a href="#证书签发过程">证书签发过程</a>
+<ul>
+<li><a href="#pki架构使用证书保护web访问的安全实现ssl的基本原理">PKI架构使用证书保护Web访问的安全实现SSL的基本原理</a></li>
+<li><a href="#生成自己的ca-certificate-authority">生成自己的CA (Certificate Authority)</a></li>
+<li><a href="#查看证书">查看证书</a></li>
+</ul></li>
+<li><a href="#openssl使用注意事项">openssl使用注意事项</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>openssl加密DSA,RSA介绍</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2016-03-28</td>
+<td>创建</td>
+<td>开源方案</td>
+<td>初始版本</td>
+</tr>
+
+<tr>
+<td>V1.1</td>
+<td>2017-04-28</td>
+<td>修订</td>
+<td>开源方案</td>
+<td>增加数字证书签发过程说明</td>
+</tr>
+
+<tr>
+<td>V1.2</td>
+<td>2018-03-08</td>
+<td>修订</td>
+<td>开源方案</td>
+<td>增加ssl证书访问过程说明</td>
+</tr>
+</tbody>
+</table>
+
+<p>在日常系统管理工作中，需要作一些加解密的工作，通过openssl工具包就能完成我们很多需求！</p>
+
+<h2 id="openssl-rsa-加解密">openssl RSA 加解密</h2>
+
+<p>RSA是基于数论中大素数的乘积难分解理论上的非对称加密法,使用公私钥的方法进行加解密<br>
+公钥 用于加密，它是向所有人公开的 ; 私钥用于解密，只有密文的接收者持有</p>
+
+<p><img src="rsa.jpg" alt="rsa.jpg" />
+如图所示，甲乙之间使用非对称加密的方式完成了重要信息的安全传输。</p>
+
+<ol>
+<li>乙方生成一对密钥（公钥和私钥）并将公钥向其它方公开。</li>
+<li>得到公钥的甲方使用该密钥对机密信息进行加密后再发送给乙方。</li>
+<li>乙方再用自己保存的另一把专用密钥（私钥）对加密后的信息进行解密。乙方只能用其专用密钥（私钥）解密由对应的公钥加密后的信息。</li>
+<li>在传输过程中，即使攻击者截获了传输的密文，并得到了乙的公钥，也无法破解密文，因为只有乙的私钥才能解密密文</li>
+<li>同样，如果乙要回复加密信息给甲，那么需要甲先公布甲的公钥给乙用于加密，甲自己保存甲的私钥用于解密。</li>
+</ol>
+
+<ul>
+<li><p>生成一个私钥</p>
+
+<pre><code>[root@hunterfu ~]# openssl genrsa -out private.key 1024
+</code></pre>
+
+<p>注意: 需要注意的是这个文件包含了公钥和密钥两部分，也就是说这个文件即可用来加密也可以用来解密,后面的1024是生成密钥的长度.</p></li>
+
+<li><p>通过密钥文件private.key 提取公钥</p>
+
+<pre><code>[root@hunterfu ~]# openssl rsa -in private.key -pubout -out pub.key
+</code></pre></li>
+
+<li><p>使用公钥加密信息</p>
+
+<pre><code>[root@hunterfu ~]# echo -n &quot;123456&quot; | openssl rsautl -encrypt -inkey pub.key -pubin &gt;encode.result
+</code></pre></li>
+
+<li><p>使用私钥解密信息</p>
+
+<pre><code>[root@hunterfu ~]#cat encode.result | openssl rsautl -decrypt  -inkey private.key
+123456
+</code></pre></li>
+</ul>
+
+<p>至此，一次RSA加密解密的过程已经完成！</p>
+
+<h2 id="openssl-dsa签名与验证">openssl DSA签名与验证</h2>
+
+<p>和RSA加密解密过程相反，在DSA数字签名和认证中，发送者使用自己的私钥对文件或消息进行签名，接受者收到消息后使用发送者的公钥来验证签名的真实性<br>
+DSA只是一种算法，和RSA不同之处在于它不能用作加密和解密，也不能进行密钥交换，只用于签名,它比RSA要快很多.</p>
+
+<ul>
+<li><p>生成一个密钥(私钥)</p>
+
+<pre><code>[root@hunterfu ~]# openssl dsaparam -out dsaparam.pem 1024
+[root@hunterfu ~]# openssl gendsa -out privkey.pem dsaparam.pem
+</code></pre></li>
+
+<li><p>生成公钥</p>
+
+<pre><code>[root@hunterfu ~]# openssl dsa -in privkey.pem -out pubkey.pem -pubout
+[root@hunterfu ~]# rm -fr dsaparam.pem
+</code></pre></li>
+
+<li><p>使用私钥签名</p>
+
+<pre><code>[root@hunterfu ~]# echo -n &quot;123456&quot; | openssl dgst -dss1 -sign privkey.pem &gt; sign.result
+</code></pre></li>
+
+<li><p>使用公钥验证</p>
+
+<pre><code>[root@hunterfu ~]# echo -n &quot;123456&quot;  | openssl dgst -dss1 -verify pubkey.pem -signature sign.result
+Verified OK
+</code></pre></li>
+</ul>
+
+<p>至此，一次DSA签名与验证过程完成！</p>
+
+<h2 id="数字证书ca">数字证书CA</h2>
+
+<p>公钥在网络传输过程中，无法保证可信度，容易被窃取或者伪装，所以我们就需要一个受信任的第三方机构CA来保证公钥信息的安全分发。
+<img src="ca.jpg" alt="ca.jpg" />
+有了根CA之后，证书颁发机构信任根CA，不同证书颁发机构只要信任根CA那么颁发的证书都是受信任的。</p>
+
+<p><img src="ca_client.jpg" alt="ca_client.jpg" />
+浏览器默认已经内置第三方的受信任的根证书的颁发机构</p>
+
+<h2 id="证书签发过程">证书签发过程</h2>
+
+<p><img src="ca-sign.png" alt="ca-sign.png" /></p>
+
+<ol>
+<li><p>服务方S向第三方机构CA提交公钥、组织信息、个人信息(域名)等信息并申请认证;</p></li>
+
+<li><p>CA通过线上、线下等多种手段验证申请者提供信息的真实性，如组织是否存在、企业是否合法，是否拥有域名的所有权等;</p></li>
+
+<li><p>如信息审核通过，CA会向申请者签发认证文件-证书。
+证书包含以下信息：申请者公钥、申请者的组织信息和个人信息、签发机构 CA的信息、有效时间、证书序列号等信息的明文，同时包含一个签名;
+签名的产生算法：首先，使用散列函数计算公开的明文信息的信息摘要，然后，采用 CA的私钥对信息摘要进行加密，密文即签名;</p></li>
+
+<li><p>客户端 C 向服务器 S 发出请求时，S 返回证书文件;</p></li>
+
+<li><p>客户端 C读取证书中的相关的明文信息，采用相同的散列函数计算得到信息摘要，然后，利用对应 CA的公钥解密签名数据，对比证书的信息摘要，如果一致，则可以确认证书的合法性，即公钥合法;</p></li>
+
+<li><p>客户端然后验证证书相关的域名信息、有效时间等信息;</p></li>
+
+<li><p>客户端会内置信任CA的证书信息(包含公钥)，如果CA不被信任，则找不到对应 CA的证书，证书也会被判定非法。</p></li>
+</ol>
+
+<h3 id="pki架构使用证书保护web访问的安全实现ssl的基本原理">PKI架构使用证书保护Web访问的安全实现SSL的基本原理</h3>
+
+<p><img src="ca-ssl.png" alt="ca-ssl.png" /></p>
+
+<ol>
+<li><p>web服务器生成一个证书申请文件，该申请文件中存放有Web站点相关身份的一些唯一性标识，如果Web服务器上已经存在了公钥，那么Web服务器会将自己的公钥存放到证书申请文件中，以备证书服务器认证Web公钥的合法性。</p></li>
+
+<li><p>Web服务器将生成的证书申请文件提交给证书服务器，待证书服务器审查。</p></li>
+
+<li><p>当证书服务器验证Web服务器申请文件后，证书服务器会为Web服务器颁发证书，证书中包括了Web服务器将要使用的公钥副本，并将公钥副本与Web服务器的身份相绑定。如果在第一步的申请文件中已经存在Web服务器的公钥，那么证书服务器就对Web的公钥进行合法性签字，注意Web服务器自己本地产生公钥，只由证书服务器来授权它公钥的合法性，这是完全有可能的。</p></li>
+
+<li><p>Web将自己的公钥传送给客户端，以便客户端可以使用Web的公钥来加密相关消息，公钥潜在是可以公开的，所以Web服务器这样做，并没有造成任何安全隐患。</p></li>
+
+<li><p>客户端将使用会话密钥（就是对称式密钥）来加密页面的内容，然后使用Web的公钥来加密会话密钥，因为会话密钥加密数据的速度快，并非对称式加密更安全。</p></li>
+
+<li><p>客户端把使用Web服务公钥加密的消息通过网络传送给Web服务器，如果传送的数据被网络中的恶棍截取，也无法读取数据，因为他没有Web服务器的私钥。私钥存储在Web服务器上，它是不可公开的，其它人无法获取。</p></li>
+
+<li><p>当Web服务器收到客户端使用自己公钥加密的消息后，它使用这把公钥对应的私钥解密消息，然后再解密会话密钥加密的内容，得到原始明文消息。</p></li>
+</ol>
+
+<h3 id="生成自己的ca-certificate-authority">生成自己的CA (Certificate Authority)</h3>
+
+<ol>
+<li><p>生成CA的key</p>
+
+<pre><code>openssl genrsa -des3 -out ca.key 4096
+</code></pre></li>
+
+<li><p>生成CA的证书</p>
+
+<pre><code>openssl req -new -x509 -days 365 -key ca.key -out ca.crt
+</code></pre></li>
+
+<li><p>生成我们的key和CSR</p>
+
+<pre><code>openssl genrsa -des3 -out myserver.key 4096
+openssl req -new -key myserver.key -out myserver.csr
+</code></pre></li>
+
+<li><p>使用ca的证书和key，生成我们的证书</p>
+
+<pre><code>openssl x509 -req -days 365 -in myserver.csr -CA ca.crt -CAkey ca.key -set_serial 01 -out myserver.crt
+</code></pre>
+
+<p>注意: 这里的set_serial指明了证书的序号，如果证书过期了(365天后)， 或者证书key泄漏了，需要重新发证的时候，就要加1</p></li>
+</ol>
+
+<h3 id="查看证书">查看证书</h3>
+
+<ol>
+<li><p>查看KEY信息</p>
+
+<pre><code>openssl rsa -noout -text -in myserver.key
+</code></pre></li>
+
+<li><p>查看CSR信息</p>
+
+<pre><code>openssl req -noout -text -in myserver.csr
+</code></pre></li>
+
+<li><p>查看证书信息</p>
+
+<pre><code>openssl x509 -noout -text -in ca.crt
+</code></pre></li>
+
+<li><p>验证签发的证书</p>
+
+<pre><code>openssl verify -CAfile ca.crt myserver.crt
+</code></pre></li>
+</ol>
+
+<h2 id="openssl使用注意事项">openssl使用注意事项</h2>
+
+<ul>
+<li><p><strong>注意</strong>: 由于信息经过加密或者签名后，都变成不可读模式,为了方便终端查看和传输使用(url提交数据,需要作urlencode操作)，可以使用base64进&gt;行编码<br></p>
+
+<ul>
+<li><strong>openssl enc -base64 -A</strong> ：将加密后的信息使用base64编码 <br></li>
+<li><strong>openssl enc -d -base64 -A</strong> ： 将信息使用base64反编码</li>
+</ul></li>
+
+<li><p><strong>java中此私钥需要转换下格式才能使用</strong>:</p>
+
+<pre><code>[root@hunterfu ~]# openssl pkcs8 -topk8 -nocrypt -in private.key -outform PEM -out java_private.key
+</code></pre></li>
+</ul>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/tech/opnsense/other/tcp_wrapper/" title="Tcp Wrapper 应用安全指南"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/tech/opnsense/other/inotify/" title="Inotify监控文件系统事件" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/tech/js/clipboard.min.js?1542628007"></script>
+    <script src="/tech/js/perfect-scrollbar.min.js?1542628007"></script>
+    <script src="/tech/js/perfect-scrollbar.jquery.min.js?1542628007"></script>
+    <script src="/tech/js/jquery.sticky.js?1542628007"></script>
+    <script src="/tech/js/featherlight.min.js?1542628007"></script>
+    <script src="/tech/js/html5shiv-printshiv.min.js?1542628007"></script>
+    <script src="/tech/js/highlight.pack.js?1542628007"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/tech/js/modernizr.custom.71422.js?1542628007"></script>
+    <script src="/tech/js/learn.js?1542628007"></script>
+    <script src="/tech/js/hugo-learn.js?1542628007"></script>
+
+    <link href="/tech/mermaid/mermaid.css?1542628007" type="text/css" rel="stylesheet" />
+    <script src="/tech/mermaid/mermaid.js?1542628007"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>

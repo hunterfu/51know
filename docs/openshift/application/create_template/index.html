@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.37.1" />
+    <meta name="description" content="openshift中根据项目中部署的应用生成应用模板,做到后续部署一键化">
+<meta name="author" content="HunterFu 北方人">
+<meta name="keywords" content="[openshift,Template]">
+<meta http-equiv="content-language" content="zh-CN" />
+
+    <link rel="shortcut icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+    <title>创建应用模板 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/openshift/css/nucleus.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/font-awesome.min.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/hybrid.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/featherlight.min.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/perfect-scrollbar.min.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/auto-complete.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/theme.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/hugo-theme.css?1542628006" rel="stylesheet">
+    
+      <link href="/openshift/css/theme-mine.css?1542628006" rel="stylesheet">
+    
+
+    <script src="/openshift/js/jquery-2.x.min.js?1542628006"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7322741757959159",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+  </head>
+  <body class="" data-url="/application/create_template/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/openshift/">
+<img src="/openshift/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/openshift/js/lunr.min.js?1542628006"></script>
+<script type="text/javascript" src="/openshift/js/auto-complete.js?1542628006"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/openshift/js/search.js?1542628006"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/install/" title="集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/">
+          <b>1. </b>集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/arch_intro/" title="架构介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/arch_intro/">
+          架构介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/env_intro/" title="部署环境介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/env_intro/">
+          部署环境介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/etcd_install/" title="Etcd集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/etcd_install/">
+          Etcd集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/master_install/" title="主服务安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/master_install/">
+          主服务安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/haproxy_install/" title="Haproxy安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/haproxy_install/">
+          Haproxy安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/node_install/" title="计算节点安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/node_install/">
+          计算节点安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/router_registry_install/" title="Router And Registry安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/router_registry_install/">
+          Router And Registry安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/metric_install/" title="度量系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/metric_install/">
+          度量系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/efk_install/" title="EFK日志系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/efk_install/">
+          EFK日志系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/harbor_install/" title="Harbor Docker仓库安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/harbor_install/">
+          Harbor Docker仓库安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/ceph_install/" title="单容器版CEPH集群" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/ceph_install/">
+          单容器版CEPH集群
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/application/" title="应用部署" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/openshift/application/">
+          <b>2. </b>应用部署
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/application/import_template/" title="导入示例模板" class="dd-item ">
+        <a href="/openshift/application/import_template/">
+        导入示例模板
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/ceph_persistent/" title="应用数据持久化(CEPH)" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/ceph_persistent/">
+          应用数据持久化(CEPH)
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/s2i_custom/" title="S2I Build 镜像制作" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/s2i_custom/">
+          S2I Build 镜像制作
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/deploy_app_cboard/" title="手工部署应用实战" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/deploy_app_cboard/">
+          手工部署应用实战
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/create_template/" title="创建应用模板" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/openshift/application/create_template/">
+          创建应用模板
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/monitor/" title="平台监控" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/monitor/">
+          <b>3. </b>平台监控
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/" title="组件中心" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/">
+          <b>4. </b>组件中心
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/nexus3/" title="Nexus 3.x私服使用" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/nexus3/">
+          Nexus 3.x私服使用
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/custom_category/" title="定制 Catalog 分类" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/custom_category/">
+          定制 Catalog 分类
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/security/" title="平台安全" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/security/">
+          <b>5. </b>平台安全
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/faq/" title="常见问题" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/faq/">
+          <b>7. </b>常见问题
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/openshift/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/openshift/'>红帽 OpenShift</a> > <a href='/openshift/application/'>应用部署</a> > 创建应用模板
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#what-is-a-template">What is a template</a></li>
+<li><a href="#benefits-of-using-templates">Benefits of using templates</a></li>
+<li><a href="#predefined-templates-or-deploy-your-application-on-openshift">Predefined templates, or deploy your application on OpenShift</a></li>
+<li><a href="#custom-templates-or-openshiftify-your-application">Custom templates, or OpenShiftify your application</a></li>
+<li><a href="#从项目中创建模板">从项目中创建模板</a></li>
+<li><a href="#重要的事情">重要的事情</a></li>
+<li><a href="#我们参考-cakephp-mysql-persistent-进行创建">我们参考 cakephp-mysql-persistent 进行创建</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>创建应用模板</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2018-05-09</td>
+<td>创建</td>
+<td>开源方案</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="what-is-a-template">What is a template</h2>
+
+<p>The official OpenShift 3 documentation states:</p>
+
+<blockquote>
+<p>A template describes a set of objects that can be parameterized and processed to produce a list of objects for creation by OpenShift. The objects to create can include anything that users have permission to create within a project, for example services, build configurations, and deployment configurations. A template may also define a set of labels to apply to every object defined in the template.</p>
+</blockquote>
+
+<p>This means that typically in a template we will have:</p>
+
+<ul>
+<li>A set of resources that will be created as part of “creating/deploying” the template</li>
+<li>A set of values for the parameters defined in the template</li>
+<li>A set of labels to describe the generated resources
+A template will be defined in JSON or YAML format, and will be loaded into OpenShift for user instantiation, also known as application creation.</li>
+</ul>
+
+<p>The templates can have global visibility scope (visible for every OpenShift project) or project visibility scope (visible only for a specific project).</p>
+
+<h2 id="benefits-of-using-templates">Benefits of using templates</h2>
+
+<p>A template provides developers with an easy way to create all the necessary OpenShift resources for their application to work. This allows a developer to quickly deploy an application without having to understand all of the internals of the OpenShift 3 platform.</p>
+
+<ul>
+<li>As a PaaS provider you have better control on what is being created and can make better usage of your resources.</li>
+<li>As a PaaS provider you can define different Service Level Agreements in templates, defining the amount of host resources (cpu, memory) each and every container can consume.</li>
+</ul>
+
+<h2 id="predefined-templates-or-deploy-your-application-on-openshift">Predefined templates, or deploy your application on OpenShift</h2>
+
+<p>Typically, the PaaS provider will provide users with a set of predefined templates that will cover all of the usages or typologies/topologies of applications that can be deployed on OpenShift.</p>
+
+<p>The set of predefined templates will be accessible through the CLI or through the Web console.</p>
+
+<p>When creating your application using one of these templates, the user will typically provide the template with the source for the code of the application and some other configuration items such as the application name, database credentials, etc.</p>
+
+<h2 id="custom-templates-or-openshiftify-your-application">Custom templates, or OpenShiftify your application</h2>
+
+<p>Another use case is when you have a typology/topology of an application that does not fit into the provided templates and you want to create a template to model it. This will be the topic for the next article, a walkthrough on how to create a template for your application.</p>
+
+<h2 id="从项目中创建模板">从项目中创建模板</h2>
+
+<pre><code>// 导出所有 services到模板
+$ oc export service --all --as-template=my_template
+// 导出 标签是 name=test 的 services 和 deployment configurations 到模板
+oc export svc,dc -l name=test --as-template=my_template
+</code></pre>
+
+<p>记住 上述命令会把模板内容输出到标准输出(stdout), 如果我们需要导出到文件,可以使用重定向到文件，也可以格式化输出 JSON 或者 YAML</p>
+
+<pre><code>$ oc export -o json --as-template=my_template &gt; my_template.json
+$ oc export -o yaml --as-template=my_template &gt; my_template.yaml
+$ oc export dc,svc,routes -o json --as-template=cboard_template &gt; cboard_template.json
+</code></pre>
+
+<p>请记住,导出只是制作模板的第一步,后续还需要修改编辑参数配置,以使应用可配置化</p>
+
+<h2 id="重要的事情">重要的事情</h2>
+
+<p>最后,创建应用模板的时候,一些重要的事情您需要记住</p>
+
+<ul>
+<li>Design your template visually, as it helps understand the required components.</li>
+<li>Provide meaningful names to resources and use labels to describe your resources (labels are used as selectors for some resources).</li>
+<li>Templates can be shared or per-project, and common templates are in the openshift namespace/project.</li>
+<li>Currently there is no ability to set a Readme on templates, so be as verbose and complete in the template’s description.</li>
+<li>Once the resources in a template are processed and deployed, they can be modified with the CLI.</li>
+<li>You should constrain the CPU and memory a container in a pod can use.</li>
+<li>When the resources in a template are created, if there is a BuildConfiguration defined, it will only start</li>
+<li>an automated build if there is an ImageChange trigger defined. This will change in the next release and</li>
+<li>we will be able to launch a build on resource creation.</li>
+<li>Parameterize everything a user of your template might want to customize so they can control the behavior of the template when they instantiate it.</li>
+</ul>
+
+<h2 id="我们参考-cakephp-mysql-persistent-进行创建">我们参考 cakephp-mysql-persistent 进行创建</h2>
+
+<p><a href="https://raw.githubusercontent.com/openshift/openshift-ansible/release-3.6/roles/openshift_examples/files/examples/v3.6/quickstart-templates/cakephp-mysql-persistent.json">参考官方示例模板 cakephp-mysql-persistent</a></p>
+
+<p>cboard模板请参考 <a href="https://gitee.com/hunterfu/CBoard/blob/ops-tagV0.4.1/cboard-mysql-redis-persistent.json">https://gitee.com/hunterfu/CBoard/blob/ops-tagV0.4.1/cboard-mysql-redis-persistent.json</a></p>
+
+<p>参考资料</p>
+
+<p><a href="https://blog.openshift.com/part-1-from-app-to-openshift-runtimes-and-templates/">https://blog.openshift.com/part-1-from-app-to-openshift-runtimes-and-templates/</a>
+<a href="https://blog.openshift.com/part-2-creating-a-template-a-technical-walkthrough/">https://blog.openshift.com/part-2-creating-a-template-a-technical-walkthrough/</a></p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/openshift/application/deploy_app_cboard/" title="手工部署应用实战"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/openshift/monitor/" title="平台监控" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/openshift/js/clipboard.min.js?1542628006"></script>
+    <script src="/openshift/js/perfect-scrollbar.min.js?1542628006"></script>
+    <script src="/openshift/js/perfect-scrollbar.jquery.min.js?1542628006"></script>
+    <script src="/openshift/js/jquery.sticky.js?1542628006"></script>
+    <script src="/openshift/js/featherlight.min.js?1542628006"></script>
+    <script src="/openshift/js/html5shiv-printshiv.min.js?1542628006"></script>
+    <script src="/openshift/js/highlight.pack.js?1542628006"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/openshift/js/modernizr.custom.71422.js?1542628006"></script>
+    <script src="/openshift/js/learn.js?1542628006"></script>
+    <script src="/openshift/js/hugo-learn.js?1542628006"></script>
+
+    <link href="/openshift/mermaid/mermaid.css?1542628006" type="text/css" rel="stylesheet" />
+    <script src="/openshift/mermaid/mermaid.js?1542628006"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.37.1" />
+    <meta name="description" content="TCP Wrappers扩展了inetd为受其控制的服务程序实施控制的能力,通过使用这种方法，它能够提供日志支持、返回消息给联入的连接、使得服务程序只接受内部连接，等等">
+<meta name="author" content="HunterFu 北方人">
+<meta name="keywords" content="[tcp wrapper,xinetd,netfilter,hosts.allow,hosts.deny]">
+<meta http-equiv="content-language" content="zh-CN" />
+
+    <link rel="shortcut icon" href="/tech/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/tech/images/favicon.png" type="image/x-icon" />
+    <title>Tcp Wrapper 应用安全指南 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/tech/css/nucleus.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/font-awesome.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/hybrid.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/featherlight.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/perfect-scrollbar.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/auto-complete.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/theme.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/hugo-theme.css?1542628007" rel="stylesheet">
+    
+      <link href="/tech/css/theme-mine.css?1542628007" rel="stylesheet">
+    
+
+    <script src="/tech/js/jquery-2.x.min.js?1542628007"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7322741757959159",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+  </head>
+  <body class="" data-url="/opnsense/other/tcp_wrapper/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/tech/">
+<img src="/tech/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/tech/js/lunr.min.js?1542628007"></script>
+<script type="text/javascript" src="/tech/js/auto-complete.js?1542628007"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/tech/js/search.js?1542628007"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/mysql/" title="Mysql常用用法总结" class="dd-item ">
+        <a href="/tech/devops/mysql/">
+        Mysql常用用法总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/python_tips/" title="Python脚本知识总结" class="dd-item ">
+        <a href="/tech/devops/python_tips/">
+        Python脚本知识总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/shell/" title="Shell脚本知识总结" class="dd-item ">
+        <a href="/tech/devops/shell/">
+        Shell脚本知识总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/git_useage_qa/" title="Git使用常见问题" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/git_useage_qa/">
+          Git使用常见问题
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/cdn/" title="网站加速之CDN技术原理" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/cdn/">
+          网站加速之CDN技术原理
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/perl/" title="Perl脚本常用方法总结" class="dd-item ">
+        <a href="/tech/devops/perl/">
+        Perl脚本常用方法总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/tun_tap/" title="linux下TUN/TAP虚拟网卡的使用" class="dd-item ">
+        <a href="/tech/devops/tun_tap/">
+        linux下TUN/TAP虚拟网卡的使用
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/" title="OpnSense防火墙" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/tech/opnsense/">
+          <b>7. </b>OpnSense防火墙
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/openvpn/" title="设置openvpn服务" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/openvpn/">
+          设置openvpn服务
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/scan/" title="安全预警" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/scan/">
+          安全预警
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/" title="安全知识点滴" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/tech/opnsense/other/">
+          安全知识点滴
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/opnsense/other/inotify/" title="Inotify监控文件系统事件" class="dd-item ">
+        <a href="/tech/opnsense/other/inotify/">
+        Inotify监控文件系统事件
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/iptable/" title="linux iptable 使用指南" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/iptable/">
+          linux iptable 使用指南
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/tcp_wrapper/" title="Tcp Wrapper 应用安全指南" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/tech/opnsense/other/tcp_wrapper/">
+          Tcp Wrapper 应用安全指南
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/openssl/" title="openssl加密DSA,RSA介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/openssl/">
+          openssl加密DSA,RSA介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/tech/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/tech/'>日常积累技术文档</a> > <a href='/tech/opnsense/'>OpnSense防火墙</a> > <a href='/tech/opnsense/other/'>安全知识点滴</a> > Tcp Wrapper 应用安全指南
+          
+         
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#tcp-wrapper-简介">TCP Wrapper 简介</a></li>
+<li><a href="#tcp-wrapper-系统概述">TCP Wrapper 系统概述</a></li>
+<li><a href="#tcp-wrapper-规则使用">TCP Wrapper 规则使用</a>
+<ul>
+<li><a href="#规则语法说明">规则语法说明</a></li>
+<li><a href="#规则使用举例">规则使用举例</a></li>
+</ul></li>
+<li><a href="#进阶参考">进阶参考</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>Tcp Wrapper 应用安全指南</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2016-03-28</td>
+<td>创建</td>
+<td>HunterFu</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="tcp-wrapper-简介">TCP Wrapper 简介</h2>
+
+<p>一般在操作系统层面上安装防火墙来处理网络连接,然而虽然防火墙有非常广泛的用途，但他却不是万能的,例如它无法处理类似的向连接发起者发送一些文本这样的任务。<br>
+TCP Wrappers扩展了inetd为受其控制的服务程序实施控制的能力,通过使用这种方法，它能够提供日志支持、返回消息给联入的连接、使得服务程序只接受内部连接，等等。<br>
+然而，由TCP Wrappers提供的一些额外的安全功能，不应被视为好的防火墙的替代品,TCP Wrappers 应结合防火墙或其他安全加强设施一并使用，为系统多提供一层安全防护。</p>
+
+<h2 id="tcp-wrapper-系统概述">TCP Wrapper 系统概述</h2>
+
+<p><img src="flow.jpg" alt="flow.jpg" /></p>
+
+<p>从上图可以看出tcp wrapper 在系统中的层级结构和应用程序的关系.<br>
+<strong>注意 : Netfilter(iptable) 是工作在网络层的 而 tcp wrapper 是工作在应用层</strong></p>
+
+<p><img src="host_allow.jpg" alt="host_allow.jpg" /></p>
+
+<p>从上图可以清楚的看出 <strong>/etc/hosts.allow</strong> 和 <strong>/etc/hosts.deny</strong> 配置文件规则关系</p>
+
+<h2 id="tcp-wrapper-规则使用">TCP Wrapper 规则使用</h2>
+
+<h3 id="规则语法说明">规则语法说明</h3>
+
+<p>hosts.allow 和 hosts.deny 语法格式如下:</p>
+
+<p><strong>daemon : client [:option1:option2:&hellip;]</strong></p>
+
+<p><strong>daemon</strong> 可以是各种服务程序，比如 sshd. 服务程序在编译的时候将<strong>libwrap.so.0</strong>动态库进来就可以使用TCP Wrappers.<br>
+可以使用ldd命令查看程序是否支持libwrap,例如:</p>
+
+<pre><code>[root@localhost]# ldd /usr/sbin/sshd | grep libwrap
+    libwrap.so.0 =&gt; /lib/libwrap.so.0 (0x0034f000)
+</code></pre>
+
+<p><strong>client</strong> 是来源用户列表以<strong>逗号分隔</strong>，可以是主机名，或者ip地址等.</p>
+
+<p><strong>options</strong> 附加选项 是在规则匹配后，可以选择发邮件给管理员或者记录日志等，每个动作之间使用<strong>冒号分隔</strong></p>
+
+<h3 id="规则使用举例">规则使用举例</h3>
+
+<p>本地网络是 192.168.54.0/24, 可以访问本机服务的列表如下:</p>
+
+<pre><code>[root@localhost]# cat /etc/hosts.allow:
+popd : 192.168.54.137
+imapd : 192.168.54.0/255.255.255.0
+sendmail : 192.168.54.0/255.255.255.0
+sshd : 192.168.54.2 172.16.234.4
+
+[root@localhost]# cat /etc/hosts.deny:
+ALL : ALL
+</code></pre>
+
+<h2 id="进阶参考">进阶参考</h2>
+
+<p>总体来说,以下是使用TCP Wrapper的小技巧:</p>
+
+<ul>
+<li>默认策略是拒绝访问(ALL : ALL in the hosts.deny file).</li>
+<li>尽可能是用ip地址 而不是主机名</li>
+<li>可以参考 <strong>man 5 hosts_access</strong> 了解更多</li>
+</ul>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/tech/opnsense/other/iptable/" title="linux iptable 使用指南"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/tech/opnsense/other/openssl/" title="openssl加密DSA,RSA介绍" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/tech/js/clipboard.min.js?1542628007"></script>
+    <script src="/tech/js/perfect-scrollbar.min.js?1542628007"></script>
+    <script src="/tech/js/perfect-scrollbar.jquery.min.js?1542628007"></script>
+    <script src="/tech/js/jquery.sticky.js?1542628007"></script>
+    <script src="/tech/js/featherlight.min.js?1542628007"></script>
+    <script src="/tech/js/html5shiv-printshiv.min.js?1542628007"></script>
+    <script src="/tech/js/highlight.pack.js?1542628007"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/tech/js/modernizr.custom.71422.js?1542628007"></script>
+    <script src="/tech/js/learn.js?1542628007"></script>
+    <script src="/tech/js/hugo-learn.js?1542628007"></script>
+
+    <link href="/tech/mermaid/mermaid.css?1542628007" type="text/css" rel="stylesheet" />
+    <script src="/tech/mermaid/mermaid.js?1542628007"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>

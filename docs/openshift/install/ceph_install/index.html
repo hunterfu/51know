@@ -1,0 +1,1514 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.37.1" />
+    <meta name="description" content="介绍单容器版本的ceph集群搭建，用于系统演示">
+<meta name="author" content="HunterFu 北方人">
+<meta name="keywords" content="[Ceph,Single,Container,demo]">
+<meta http-equiv="content-language" content="zh-CN" />
+
+    <link rel="shortcut icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+    <title>单容器版CEPH集群 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/openshift/css/nucleus.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/font-awesome.min.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/hybrid.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/featherlight.min.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/perfect-scrollbar.min.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/auto-complete.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/theme.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/hugo-theme.css?1542628006" rel="stylesheet">
+    
+      <link href="/openshift/css/theme-mine.css?1542628006" rel="stylesheet">
+    
+
+    <script src="/openshift/js/jquery-2.x.min.js?1542628006"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7322741757959159",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+  </head>
+  <body class="" data-url="/install/ceph_install/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/openshift/">
+<img src="/openshift/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/openshift/js/lunr.min.js?1542628006"></script>
+<script type="text/javascript" src="/openshift/js/auto-complete.js?1542628006"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/openshift/js/search.js?1542628006"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/install/" title="集群安装" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/openshift/install/">
+          <b>1. </b>集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/arch_intro/" title="架构介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/arch_intro/">
+          架构介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/env_intro/" title="部署环境介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/env_intro/">
+          部署环境介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/etcd_install/" title="Etcd集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/etcd_install/">
+          Etcd集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/master_install/" title="主服务安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/master_install/">
+          主服务安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/haproxy_install/" title="Haproxy安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/haproxy_install/">
+          Haproxy安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/node_install/" title="计算节点安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/node_install/">
+          计算节点安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/router_registry_install/" title="Router And Registry安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/router_registry_install/">
+          Router And Registry安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/metric_install/" title="度量系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/metric_install/">
+          度量系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/efk_install/" title="EFK日志系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/efk_install/">
+          EFK日志系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/harbor_install/" title="Harbor Docker仓库安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/harbor_install/">
+          Harbor Docker仓库安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/ceph_install/" title="单容器版CEPH集群" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/openshift/install/ceph_install/">
+          单容器版CEPH集群
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/application/" title="应用部署" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/">
+          <b>2. </b>应用部署
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/application/import_template/" title="导入示例模板" class="dd-item ">
+        <a href="/openshift/application/import_template/">
+        导入示例模板
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/ceph_persistent/" title="应用数据持久化(CEPH)" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/ceph_persistent/">
+          应用数据持久化(CEPH)
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/s2i_custom/" title="S2I Build 镜像制作" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/s2i_custom/">
+          S2I Build 镜像制作
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/deploy_app_cboard/" title="手工部署应用实战" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/deploy_app_cboard/">
+          手工部署应用实战
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/create_template/" title="创建应用模板" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/create_template/">
+          创建应用模板
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/monitor/" title="平台监控" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/monitor/">
+          <b>3. </b>平台监控
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/" title="组件中心" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/">
+          <b>4. </b>组件中心
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/nexus3/" title="Nexus 3.x私服使用" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/nexus3/">
+          Nexus 3.x私服使用
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/custom_category/" title="定制 Catalog 分类" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/custom_category/">
+          定制 Catalog 分类
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/security/" title="平台安全" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/security/">
+          <b>5. </b>平台安全
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/faq/" title="常见问题" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/faq/">
+          <b>7. </b>常见问题
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/openshift/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/openshift/'>红帽 OpenShift</a> > <a href='/openshift/install/'>集群安装</a> > 单容器版CEPH集群
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#ceph-架构">ceph 架构</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#docker">Docker:</a></li>
+<li><a href="#ceph">Ceph:</a></li>
+<li><a href="#selinux-and-security">SELinux and Security:</a></li>
+<li><a href="#ceph-secret">Ceph Secret:</a></li>
+<li><a href="#要挂在ceph-rbd的节点测试">要挂在ceph rbd的节点测试</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>单容器版CEPH集群</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2018-04-04</td>
+<td>创建</td>
+<td>开源方案</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<p>这里我们搭建一个单容器版本的CEPH集群 注意: 这里搭建的ceph环境不能用于任何生产环境，但是可以快速运行ceph 系统</p>
+
+<h3 id="ceph-架构">ceph 架构</h3>
+
+<p><img src="ceph_arch.png" alt="ceph_arch.png" /></p>
+
+<p><img src="ceph_arch_2.png" alt="ceph_arch_2.png" /></p>
+
+<h3 id="environment">Environment</h3>
+
+<p>我们使用的环境是 centos 7 x86-64 架构</p>
+
+<h3 id="docker">Docker:</h3>
+
+<pre><code>[root@open-ceph ~]# docker --version
+Docker version 1.13.1, build 774336d/1.13.1
+</code></pre>
+
+<h3 id="ceph">Ceph:</h3>
+
+<p>开始安装 ceph-common:</p>
+
+<pre><code># yum install centos-release-ceph-jewel.noarch -y
+# yum install -y ceph-common ceph
+</code></pre>
+
+<h3 id="selinux-and-security">SELinux and Security:</h3>
+
+<p>为了简化配置，这里环境是关闭 selinux 和 firewalld</p>
+
+<pre><code>[root@open-ceph ~]# getenforce
+Disabled
+[root@open-ceph ~]# systemctl status firewalld (已经卸载)
+Unit firewalld.service could not be found.
+</code></pre>
+
+<p>运行docker版本镜像</p>
+
+<pre><code>docker pull ceph/demo:tag-build-stable-2.2.11-jewel-centos-7
+
+docker run -d --net=host -v /etc/ceph:/etc/ceph -v /var/lib/ceph:/var/lib/ceph \
+  -e MON_IP=192.168.124.31 -e CEPH_PUBLIC_NETWORK=192.168.124.0/24 -e MON_NAME=mon01 ceph/demo:tag-build-stable-2.2.11-jewel-centos-7
+ 
+[root@open-ceph ceph]#  ps -e | grep ceph
+19622 ?        00:00:00 ceph-mon
+19661 ?        00:00:01 ceph-osd
+19665 ?        00:00:00 ceph-mds
+</code></pre>
+
+<p>192.168.124.31 是docker所在运行计算节点IP地址,如果出现问题(docker logs 查看),可以 rm -rf /etc/ceph/* 和 rm -rf /var/lib/ceph/*  删除配置后,重新再试.</p>
+
+<p>在运行节点上，创建RBD IMAGE 并且映射到 /dev/rbdX 设备文件:</p>
+
+<pre><code># 确认模块加载
+[root@open-ceph ceph]# modprobe rbd  
+[root@open-ceph ceph]# lsmod | grep rbd
+rbd                    83938  0
+libceph               287066  1 rbd
+
+# 创建镜像文件,名字为 &quot;demo&quot; 大小1GB 
+$ rbd create demo -s 1024 
+$ rbd map demo
+
+# 出现类似错误
+rbd: sysfs write failed
+RBD image feature set mismatch. You can disable features unsupported by the kernel with &quot;rbd feature disable&quot;.
+In some cases useful info is found in syslog - try &quot;dmesg | tail&quot; or so.
+rbd: map failed: (6) No such device or address
+
+# ceph新版中在map image时，给image默认加上了许多feature，通过rbd info可以查看到：
+[root@open-ceph ceph]# rbd info demo
+rbd image 'demo':
+        size 1024 MB in 256 objects
+        order 22 (4096 kB objects)
+        block_name_prefix: rbd_data.5e2874b0dc51
+        format: 2
+        features: layering, exclusive-lock, object-map, fast-diff, deep-flatten
+        flags:
+
+# 可以看到foo image拥有： layering, exclusive-lock, object-map, fast-diff, deep-flatten。
+# 不过遗憾的是CentOS的3.10内核仅支持其中的layering feature，其他feature概不支持。我们需要手动disable这些features：
+[root@open-ceph ceph]# uname -r
+3.10.0-514.el7.x86_64
+
+[root@open-ceph ceph]# rbd feature disable demo exclusive-lock, object-map, fast-diff, deep-flatten
+[root@open-ceph ceph]# rbd map demo
+/dev/rbd0
+ 
+
+[root@open-ceph ceph]# rbd showmapped
+id pool image snap device
+0  rbd  demo  -    /dev/rbd0
+
+# 格式化文件系统
+$ mkfs.ext4 /dev/rbd0 
+ 
+[root@open-ceph ceph]# rbd --image demo -p rbd info
+rbd image 'demo':
+        size 1024 MB in 256 objects
+        order 22 (4096 kB objects)
+        block_name_prefix: rbd_data.5e2874b0dc51
+        format: 2
+        features: layering
+        flags:
+
+# 后面就可以挂在此设备了
+</code></pre>
+
+<h3 id="ceph-secret">Ceph Secret:</h3>
+
+<p>ceph-rbd 存储插件使用ceph secret 来做验证. 编码密钥是在ceph monitor机器上生成:</p>
+
+<pre><code># 在 ceph monitor host (这里是运行ceph 容器的节点主机上):
+$ ceph auth get-key client.admin
+AQDva7JVEuVJBBAAc8e1ZBWhqUB9K/zNZdOHoQ==
+
+#copy the above value and paste it in the echo command below:
+$ echo &quot;AQDva7JVEuVJBBAAc8e1ZBWhqUB9K/zNZdOHoQ==&quot;| base64
+QVFEdmE3SlZFdVZKQkJBQWM4ZTFaQldocVVCOUsvek5aZE9Ib1E9PQo=
+# copy the above base64 output
+</code></pre>
+
+<h3 id="要挂在ceph-rbd的节点测试">要挂在ceph rbd的节点测试</h3>
+
+<p>端口6789必须能被访问</p>
+
+<pre><code># nc 测试
+$ nc 192.168.124.31 6789 &lt;/dev/null
+$ echo $?  #返回值必须是 0
+ 
+#or
+$ telnet 192.168.124.31 6789
+# error if refused, else CTRL-C to exit telnet
+</code></pre>
+
+<p>更多信息 请参考<a href="http://ceph.com/docs/master/start/quick-rbd/">ceph 文档</a></p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/openshift/install/harbor_install/" title="Harbor Docker仓库安装"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/openshift/application/" title="应用部署" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/openshift/js/clipboard.min.js?1542628006"></script>
+    <script src="/openshift/js/perfect-scrollbar.min.js?1542628006"></script>
+    <script src="/openshift/js/perfect-scrollbar.jquery.min.js?1542628006"></script>
+    <script src="/openshift/js/jquery.sticky.js?1542628006"></script>
+    <script src="/openshift/js/featherlight.min.js?1542628006"></script>
+    <script src="/openshift/js/html5shiv-printshiv.min.js?1542628006"></script>
+    <script src="/openshift/js/highlight.pack.js?1542628006"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/openshift/js/modernizr.custom.71422.js?1542628006"></script>
+    <script src="/openshift/js/learn.js?1542628006"></script>
+    <script src="/openshift/js/hugo-learn.js?1542628006"></script>
+
+    <link href="/openshift/mermaid/mermaid.css?1542628006" type="text/css" rel="stylesheet" />
+    <script src="/openshift/mermaid/mermaid.js?1542628006"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>

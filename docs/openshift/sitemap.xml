@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/openshift/appcenter/nexus3/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/openshift/appcenter/custom_category/</loc>
     <lastmod>2018-03-30T01:46:28-04:00</lastmod>
   </url>
@@ -34,6 +39,11 @@
   
   <url>
     <loc>/openshift/install/haproxy_install/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/application/ceph_persistent/</loc>
     <lastmod>2018-03-30T01:46:28-04:00</lastmod>
   </url>
   
@@ -70,6 +80,21 @@
   <url>
     <loc>/openshift/install/</loc>
     <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/application/deploy_app_cboard/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/application/create_template/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/openshift/install/ceph_install/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
   </url>
   
   <url>

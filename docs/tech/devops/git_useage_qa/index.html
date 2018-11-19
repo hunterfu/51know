@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.37.1" />
+    <meta name="description" content="运维技术文档 Ops Solution">
+<meta name="author" content="HunterFu 北方人">
+
+<meta http-equiv="content-language" content="zh-CN" />
+
+    <link rel="shortcut icon" href="/tech/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/tech/images/favicon.png" type="image/x-icon" />
+    <title>Git使用常见问题 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/tech/css/nucleus.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/font-awesome.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/hybrid.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/featherlight.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/perfect-scrollbar.min.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/auto-complete.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/theme.css?1542628007" rel="stylesheet">
+    <link href="/tech/css/hugo-theme.css?1542628007" rel="stylesheet">
+    
+      <link href="/tech/css/theme-mine.css?1542628007" rel="stylesheet">
+    
+
+    <script src="/tech/js/jquery-2.x.min.js?1542628007"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7322741757959159",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+  </head>
+  <body class="" data-url="/devops/git_useage_qa/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/tech/">
+<img src="/tech/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/tech/js/lunr.min.js?1542628007"></script>
+<script type="text/javascript" src="/tech/js/auto-complete.js?1542628007"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/tech/js/search.js?1542628007"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/" title="开发运维" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/tech/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/mysql/" title="Mysql常用用法总结" class="dd-item ">
+        <a href="/tech/devops/mysql/">
+        Mysql常用用法总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/python_tips/" title="Python脚本知识总结" class="dd-item ">
+        <a href="/tech/devops/python_tips/">
+        Python脚本知识总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/shell/" title="Shell脚本知识总结" class="dd-item ">
+        <a href="/tech/devops/shell/">
+        Shell脚本知识总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/git_useage_qa/" title="Git使用常见问题" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/tech/devops/git_useage_qa/">
+          Git使用常见问题
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/cdn/" title="网站加速之CDN技术原理" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/devops/cdn/">
+          网站加速之CDN技术原理
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/perl/" title="Perl脚本常用方法总结" class="dd-item ">
+        <a href="/tech/devops/perl/">
+        Perl脚本常用方法总结
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/devops/tun_tap/" title="linux下TUN/TAP虚拟网卡的使用" class="dd-item ">
+        <a href="/tech/devops/tun_tap/">
+        linux下TUN/TAP虚拟网卡的使用
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/" title="OpnSense防火墙" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/">
+          <b>7. </b>OpnSense防火墙
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/openvpn/" title="设置openvpn服务" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/openvpn/">
+          设置openvpn服务
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/scan/" title="安全预警" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/scan/">
+          安全预警
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/" title="安全知识点滴" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/">
+          安全知识点滴
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/opnsense/other/inotify/" title="Inotify监控文件系统事件" class="dd-item ">
+        <a href="/tech/opnsense/other/inotify/">
+        Inotify监控文件系统事件
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/iptable/" title="linux iptable 使用指南" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/iptable/">
+          linux iptable 使用指南
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/tcp_wrapper/" title="Tcp Wrapper 应用安全指南" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/tcp_wrapper/">
+          Tcp Wrapper 应用安全指南
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/opnsense/other/openssl/" title="openssl加密DSA,RSA介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/tech/opnsense/other/openssl/">
+          openssl加密DSA,RSA介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/tech/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/tech/'>日常积累技术文档</a> > <a href='/tech/devops/'>开发运维</a> > Git使用常见问题
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#使用git-pull文件时和本地文件冲突怎么办">使用git pull文件时和本地文件冲突怎么办？</a></li>
+<li><a href="#已经在git仓库中的文件-清除跟踪状态">已经在git仓库中的文件，清除跟踪状态</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>Git使用常见问题</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.1</td>
+<td>2018-01-02</td>
+<td>创建</td>
+<td>HunterFu</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="使用git-pull文件时和本地文件冲突怎么办">使用git pull文件时和本地文件冲突怎么办？</h2>
+
+<p>同事在使用git pull代码时，经常会碰到有冲突的情况，提示如下信息：</p>
+
+<pre><code>error: Your local changes to 'c/environ.c' would be overwritten by merge.  Aborting.
+Please, commit your changes or stash them before you can merge.
+</code></pre>
+
+<p>这个意思是说更新下来的内容和本地修改的内容有冲突，先提交你的改变或者先将本地修改暂时存储起来。</p>
+
+<p>处理的方式非常简单，主要是使用git stash命令进行处理，分成以下几个步骤进行处理。</p>
+
+<ol>
+<li><p>先将本地修改存储起来
+<code>$ git stash</code>
+这样本地的所有修改就都被暂时存储起来</p></li>
+
+<li><p>用git stash list可以看到保存的信息：
+<code>git stash list</code>
+结果如下
+<img src="stash.png" alt="stash" />
+其中 <strong>stash@{0}</strong> 就是刚才保存的标记。</p></li>
+
+<li><p>同步仓库内容(pull)
+暂存了本地修改之后，就可以pull了。
+<code>$ git pull</code></p></li>
+
+<li><p>还原暂存的内容
+<code>$ git stash pop stash@{0}</code>
+系统提示如下类似的信息：</p>
+
+<pre><code>Auto-merging c/environ.c
+CONFLICT (content): Merge conflict in c/environ.c
+</code></pre>
+
+<p>意思就是系统自动合并修改的内容，但是其中有冲突，需要解决其中的冲突。</p></li>
+
+<li><p>解决文件中冲突的的部分
+打开冲突的文件，会看到类似如下的内容：
+<img src="diff.png" alt="diff" />
+其中:<br>
+<strong>Updated upstream 和 =====</strong>之间的内容就是pull下来的内容<br>
+<strong>==== 和 stashed changes</strong> 之间的内容就是本地修改的内容<br>
+碰到这种情况，git也不知道哪行内容是需要的，所以要自行确定需要的内容。
+解决完成之后，就可以正常的提交了。</p></li>
+</ol>
+
+<h2 id="已经在git仓库中的文件-清除跟踪状态">已经在git仓库中的文件，清除跟踪状态</h2>
+
+<p>执行<code>git rm --cached logs/xx.log</code>命令即可</p>
+
+<p>需要注意的，<strong>git rm &ndash;cached</strong> 删除的是追踪状态，而不是物理文件；如果你真的是彻底不想要了，你也可以直接 rm＋忽略＋提交</p>
+
+<p>修正 .gitignore 文件 忽略不需要跟踪的文件或者目录</p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/tech/devops/shell/" title="Shell脚本知识总结"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/tech/devops/cdn/" title="网站加速之CDN技术原理" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/tech/js/clipboard.min.js?1542628007"></script>
+    <script src="/tech/js/perfect-scrollbar.min.js?1542628007"></script>
+    <script src="/tech/js/perfect-scrollbar.jquery.min.js?1542628007"></script>
+    <script src="/tech/js/jquery.sticky.js?1542628007"></script>
+    <script src="/tech/js/featherlight.min.js?1542628007"></script>
+    <script src="/tech/js/html5shiv-printshiv.min.js?1542628007"></script>
+    <script src="/tech/js/highlight.pack.js?1542628007"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/tech/js/modernizr.custom.71422.js?1542628007"></script>
+    <script src="/tech/js/learn.js?1542628007"></script>
+    <script src="/tech/js/hugo-learn.js?1542628007"></script>
+
+    <link href="/tech/mermaid/mermaid.css?1542628007" type="text/css" rel="stylesheet" />
+    <script src="/tech/mermaid/mermaid.js?1542628007"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>

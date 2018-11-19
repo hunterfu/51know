@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="generator" content="Hugo 0.37.1" />
+    <meta name="description" content="openshift origin 部署应用(涉及到应用改造),并形成应用模板,后续可以一键部署应用">
+<meta name="author" content="HunterFu 北方人">
+<meta name="keywords" content="[openshift,template,Persistent Storage,Kubernetes,console]">
+<meta http-equiv="content-language" content="zh-CN" />
+
+    <link rel="shortcut icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+<link rel="icon" href="/openshift/images/favicon.png" type="image/x-icon" />
+    <title>手工部署应用实战 :: OpsSoluiton 开源方案</title>
+    
+    
+    <link href="/openshift/css/nucleus.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/font-awesome.min.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/hybrid.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/featherlight.min.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/perfect-scrollbar.min.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/auto-complete.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/theme.css?1542628006" rel="stylesheet">
+    <link href="/openshift/css/hugo-theme.css?1542628006" rel="stylesheet">
+    
+      <link href="/openshift/css/theme-mine.css?1542628006" rel="stylesheet">
+    
+
+    <script src="/openshift/js/jquery-2.x.min.js?1542628006"></script>
+    
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{ 
+          display:none !important;
+      }
+      
+    </style>
+    
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7322741757959159",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+  </head>
+  <body class="" data-url="/application/deploy_app_cboard/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/openshift/">
+<img src="/openshift/images/logo.png" alt="开源解决方案">
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fa fa-search"></i></label>
+    <input data-search-input id="search-by" type="text" placeholder="Search...">
+    <span data-search-clear=""><i class="fa fa-close"></i></span>
+</div>
+
+<script type="text/javascript" src="/openshift/js/lunr.min.js?1542628006"></script>
+<script type="text/javascript" src="/openshift/js/auto-complete.js?1542628006"></script>
+<script type="text/javascript">
+    
+        var baseurl = '\/';
+    
+</script>
+<script type="text/javascript" src="/openshift/js/search.js?1542628006"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/install/" title="集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/">
+          <b>1. </b>集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/arch_intro/" title="架构介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/arch_intro/">
+          架构介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/env_intro/" title="部署环境介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/env_intro/">
+          部署环境介绍
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/etcd_install/" title="Etcd集群安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/etcd_install/">
+          Etcd集群安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/master_install/" title="主服务安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/master_install/">
+          主服务安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/haproxy_install/" title="Haproxy安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/haproxy_install/">
+          Haproxy安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/node_install/" title="计算节点安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/node_install/">
+          计算节点安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/router_registry_install/" title="Router And Registry安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/router_registry_install/">
+          Router And Registry安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/metric_install/" title="度量系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/metric_install/">
+          度量系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/efk_install/" title="EFK日志系统安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/efk_install/">
+          EFK日志系统安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/harbor_install/" title="Harbor Docker仓库安装" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/harbor_install/">
+          Harbor Docker仓库安装
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/install/ceph_install/" title="单容器版CEPH集群" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/install/ceph_install/">
+          单容器版CEPH集群
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/application/" title="应用部署" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/openshift/application/">
+          <b>2. </b>应用部署
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/application/import_template/" title="导入示例模板" class="dd-item ">
+        <a href="/openshift/application/import_template/">
+        导入示例模板
+        <i class="fa fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/ceph_persistent/" title="应用数据持久化(CEPH)" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/ceph_persistent/">
+          应用数据持久化(CEPH)
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/s2i_custom/" title="S2I Build 镜像制作" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/s2i_custom/">
+          S2I Build 镜像制作
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/deploy_app_cboard/" title="手工部署应用实战" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="/openshift/application/deploy_app_cboard/">
+          手工部署应用实战
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/application/create_template/" title="创建应用模板" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/application/create_template/">
+          创建应用模板
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/monitor/" title="平台监控" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/monitor/">
+          <b>3. </b>平台监控
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/" title="组件中心" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/">
+          <b>4. </b>组件中心
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/nexus3/" title="Nexus 3.x私服使用" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/nexus3/">
+          Nexus 3.x私服使用
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/appcenter/custom_category/" title="定制 Catalog 分类" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/appcenter/custom_category/">
+          定制 Catalog 分类
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/security/" title="平台安全" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/security/">
+          <b>5. </b>平台安全
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/devops/" title="开发运维" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/devops/">
+          <b>6. </b>开发运维
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/faq/" title="常见问题" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/openshift/faq/">
+          <b>7. </b>常见问题
+          
+            <i class="fa fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+       
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fa fa-fw fa-history"></i> Clear History</a></li>         
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+      <p><a href="https://github.com/hunterfu/51know/issues/1/#new_comment_field">有意见和建议,欢迎留言反馈</a></p>
+      <p>Built with <a href="http://gohugo.io/">Hugo</a> and <a href="https://github.com/matcornic/hugo-theme-learn">learn theme</a></i></p>
+      <p><a href="https://www.51know.info">
+      <img src="/openshift/images/showcase/icon_opensource.png">
+      </a></p>
+</center>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fa fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/openshift/'>红帽 OpenShift</a> > <a href='/openshift/application/'>应用部署</a> > 手工部署应用实战
+          
+         
+          
+         
+          
+           
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#cboard应用拓扑图">Cboard应用拓扑图</a></li>
+<li><a href="#首先部署mariadb数据库">首先部署mariadb数据库</a></li>
+<li><a href="#其次部署redis服务">其次部署redis服务</a></li>
+<li><a href="#部署cboard应用之学习了解">部署cboard应用之学习了解</a>
+<ul>
+<li><a href="#部署cboard">部署cboard</a></li>
+<li><a href="#进入cboard-容器学习">进入cboard 容器学习</a></li>
+</ul></li>
+<li><a href="#改造cboard应用-完成数据库自动初始化-重点">改造Cboard应用(完成数据库自动初始化)重点</a>
+<ul>
+<li><a href="#首先我们要让cboard-pod中能看到maraiadb的数据库和用户名密码信息-通过注入secrets方式">首先我们要让cboard pod中能看到maraiadb的数据库和用户名密码信息(通过注入secrets方式)</a></li>
+<li><a href="#再次登入cboard容器">再次登入cboard容器</a></li>
+<li><a href="#接下来-实现-自动导入数据库">接下来 实现 自动导入数据库</a>
+<ul>
+<li><a href="#通过部署配置hook实现自动导入数据库-类似其他初始化工作也是可以的">通过部署配置HOOK实现自动导入数据库(类似其他初始化工作也是可以的)</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+
+        
+        <div id="body-inner">
+          
+            <h1>手工部署应用实战</h1>
+          
+
+        
+
+
+
+
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>状态</th>
+<th>修订人</th>
+<th>摘要</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>V1.0</td>
+<td>2018-04-27</td>
+<td>创建</td>
+<td>开源方案</td>
+<td>初始版本</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="cboard应用拓扑图">Cboard应用拓扑图</h2>
+
+<p><img src="web_arch.png" alt="web_arch.png" /></p>
+
+<p>标准的三层应用 前端 + 后端(Redis Cache) + 数据库</p>
+
+<p>cboard 是易用的,自服务的开源BI dashboard 应用 详细信息请参考 <a href="https://github.com/TuiQiao/CBoard">https://github.com/TuiQiao/CBoard</a></p>
+
+<p>后面操作基本都是 使用Openshift web console 进行应用部署</p>
+
+<h2 id="首先部署mariadb数据库">首先部署mariadb数据库</h2>
+
+<p><img src="create_app_catalog.png" alt="create_app_catalog.png" /></p>
+
+<p><img src="create_app_mariadb.png" alt="create_app_mariadb.png" /></p>
+
+<p>这里使用持久化的数据库,防止数据丢失
+<img src="mariadb_config.png" alt="mariadb_config.png" /></p>
+
+<p>注意红色箭头 一个是设定默认创建的的数据库(cboard) 一个是设定持久卷大小(10Gi)
+<img src="mariadb_run.png" alt="mariadb_run.png" /></p>
+
+<p>部署完成后,服务正常 红色箭头指向的service name mariadb,在集群内部可以使用此名称 访问数据库</p>
+
+<h2 id="其次部署redis服务">其次部署redis服务</h2>
+
+<p><img src="redis_catalog.png" alt="redis_catalog.png" /></p>
+
+<p><img src="redis_config.png" alt="redis_config.png" /></p>
+
+<p><img src="redis_run.png" alt="redis_run.png" /></p>
+
+<p>参照部署mariadb方式，通过catalog中 redis持久化模板创建应用即可</p>
+
+<h2 id="部署cboard应用之学习了解">部署cboard应用之学习了解</h2>
+
+<h3 id="部署cboard">部署cboard</h3>
+
+<p>前面将cboard应用依赖的服务已经部署完成,下面将通过Source-to-Image builder来部署cboard应用</p>
+
+<p>这里我们使用 <a href="/openshift/application/s2i_custom/">S2I Build 镜像制作</a> tomcat版本的S2I BUILDER来构建部署cboard应用</p>
+
+<p><img src="cboard_tomcat.png" alt="cboard_tomcat.png" /></p>
+
+<p><img src="cboard_git.png" alt="cboard_git.png" /></p>
+
+<p><img src="cboard_run.png" alt="cboard_run.png" /></p>
+
+<p>这里分支我们指向的是<strong>v0.4.1</strong>,根据网速快慢,过一定时间就会build完成</p>
+
+<div class="notices note" ><p>虽然cboard的pod已经正常运行了，但是数据库的初始化,数据库连接配置 都没有修改 都是默认的,还需要后面的工作才能让应用程序可用</p>
+</div>
+
+
+<h3 id="进入cboard-容器学习">进入cboard 容器学习</h3>
+
+<ul>
+<li><p>登陆容器(openshift master节点)</p>
+
+<pre><code># oc project
+Using project &quot;my-project&quot; on server &quot;https://192.168.124.22:8443&quot;.
+# oc get pod
+NAME              READY     STATUS      RESTARTS   AGE
+cboard-1-m4j6b    1/1       Running     0          2h
+cboard-2-build    0/1       Completed   0          2h
+mariadb-1-kz485   1/1       Running     1          1d
+redis-1-kcks5     1/1       Running     0          5h
+[root@openshift-master ~]# oc rsh cboard-1-m4j6b
+sh-4.2$
+</code></pre></li>
+
+<li><p>观察容器中的环境变量</p>
+
+<pre><code>sh-4.2$ set |grep &quot;REDIS&quot;
+REDIS_PORT=tcp://172.30.71.182:6379
+REDIS_PORT_6379_TCP=tcp://172.30.71.182:6379
+REDIS_PORT_6379_TCP_ADDR=172.30.71.182
+REDIS_PORT_6379_TCP_PORT=6379
+REDIS_PORT_6379_TCP_PROTO=tcp
+REDIS_SERVICE_HOST=172.30.71.182
+REDIS_SERVICE_PORT=6379
+REDIS_SERVICE_PORT_REDIS=6379
+sh-4.2$ set |grep &quot;MARIADB&quot;
+MARIADB_PORT=tcp://172.30.194.134:3306
+MARIADB_PORT_3306_TCP=tcp://172.30.194.134:3306
+MARIADB_PORT_3306_TCP_ADDR=172.30.194.134
+MARIADB_PORT_3306_TCP_PORT=3306
+MARIADB_PORT_3306_TCP_PROTO=tcp
+MARIADB_SERVICE_HOST=172.30.194.134
+MARIADB_SERVICE_PORT=3306
+MARIADB_SERVICE_PORT_MARIADB=3306
+sh-4.2$
+</code></pre></li>
+</ul>
+
+<div class="notices note" ><p>注意: cboard 依赖的服务 mariadb 和 redis 服务信息都以环境变量的方式注入到容器中了(同一个项目下的容器服务信息是通过这种方式共享的)</p>
+</div>
+
+
+<ul>
+<li>了解数据库相关信息</li>
+</ul>
+
+<p>首先我们要找到数据库随机生成的用户和密码信息</p>
+
+<p><img src="mariadb_env.png" alt="mariadb_env.png" /></p>
+
+<p><img src="mariadb_secret.png" alt="mariadb_secret.png" /></p>
+
+<p>从上图知道,数据库用户密码相关信息通过Deployments(部署配置)加入环境变量的方式,注入到docker中,但是密码信息比较敏感,所以是以secrets方式保存这些信息</p>
+
+<h2 id="改造cboard应用-完成数据库自动初始化-重点">改造Cboard应用(完成数据库自动初始化)重点</h2>
+
+<h3 id="首先我们要让cboard-pod中能看到maraiadb的数据库和用户名密码信息-通过注入secrets方式">首先我们要让cboard pod中能看到maraiadb的数据库和用户名密码信息(通过注入secrets方式)</h3>
+
+<p>参考 maraiadb的部署配置,来设置cboard的部署配置,保存后,会重新部署cboard</p>
+
+<p><img src="cboard_add_secret.png" alt="cboard_add_secret.png" /></p>
+
+<div class="notices note" ><p>注意: 同一项目中(namespace相同),configmap 或者 secret 是可以通过环境变量共享注入的</p>
+</div>
+
+
+<h3 id="再次登入cboard容器">再次登入cboard容器</h3>
+
+<pre><code># oc rsh cboard-2-3jgt2
+sh-4.2$ set | grep mysql -i
+MYSQL_DATABASE=sampledb
+MYSQL_PASSWORD=cBpiDI4xs5yeM0Mt
+MYSQL_USER=userG54
+sh-4.2$
+</code></pre>
+
+<p>可以看到环境变量中已经能够看到数据库相关信息了</p>
+
+<h3 id="接下来-实现-自动导入数据库">接下来 实现 自动导入数据库</h3>
+
+<ol>
+<li>需要在码云(git.oschina.net)建立个项目,从github(<a href="https://github.com/TuiQiao/CBoard.git)同步">https://github.com/TuiQiao/CBoard.git)同步</a></li>
+<li>基于码云项目,以v0.4.1 tag 创建一个新分支 <strong>ops-tagV0.4.1</strong></li>
+<li>基于新分支,添加flyway进行数据库版本管理,请参考 <a href="https://gitee.com/hunterfu/CBoard.git">https://gitee.com/hunterfu/CBoard.git</a></li>
+</ol>
+
+<p>增加完成后的内容目录如下</p>
+
+<pre><code># git branch
+  master
+* ops-tagV0.4.1
+# ll
+total 64
+-rw-r--r-- 1 root root     0 Apr 18 04:06 changelog
+-rw-r--r-- 1 root root  1503 Apr 18 04:06 Dockerfile
+drwxr-xr-x 7 root root   168 Apr 18 04:06 flyway-5.0.7   # 新增加的目录
+drwxr-xr-x 2 root root   217 Apr 18 04:06 lib
+-rw-r--r-- 1 root root 21013 Apr 18 04:06 LICENSE.txt
+-rwxr-xr-x 1 root root   189 May  8 05:01 migrate-database.sh # 增加的脚本
+-rwxr-xr-x 1 root root 16748 Apr 18 04:06 pom.xml
+-rw-r--r-- 1 root root 12190 Apr 18 04:06 README.md
+drwxr-xr-x 5 root root    50 Apr 18 04:06 sql
+drwxr-xr-x 4 root root    30 Apr 18 04:06 src
+</code></pre>
+
+<ul>
+<li>将Cboard初始化数据库文件拷贝到flyway中(项目根目录)</li>
+</ul>
+
+<pre><code># cp sql/mysql/mysql.sql flyway-5.0.7/sql/V1__init.sql
+</code></pre>
+
+<ul>
+<li>编写 migrate-database.sh 脚本,主要是利用环境变量来初始化数据库</li>
+</ul>
+
+<pre><code># cat migrate-database.sh
+#!/bin/bash
+set -e
+
+/bin/sh flyway-5.0.7/flyway -user=${MYSQL_USER} -password=${MYSQL_PASSWORD} -url=jdbc:mysql://${MARIADB_SERVICE_HOST}:${MARIADB_SERVICE_PORT}/${MYSQL_DATABASE} migrate
+</code></pre>
+
+<ul>
+<li>修改 应用的的数据库连接配置文件,同理利用环境变量</li>
+</ul>
+
+<pre><code># cat src/main/resources/config.properties
+validationQuery=SELECT 1
+jdbc_url=jdbc:mysql://${MARIADB_SERVICE_HOST}:${MARIADB_SERVICE_PORT}/${MYSQL_DATABASE}
+jdbc_username=${MYSQL_USER}
+jdbc_password=${MYSQL_PASSWORD}
+
+#jdbc_url=jdbc:sqlserver://192.168.86.156:1433;databaseName=CBoard_Test
+#jdbc_username=uapp_cboard
+#jdbc_password=uapp_cboard
+
+# Service configuration
+dataprovider.resultLimit=1000000
+admin_user_id=1
+phantomjs_path=D:/phantomjs-2.1.1-windows/bin/phantomjs.exe
+
+mail.smtp.host=127.0.0.1
+mail.smtp.port=8825
+mail.smtp.from=test@test.com
+#mail.smtp.username=test@test.com
+#mail.smtp.password=111111
+#mail.smtp.ssl.checkserveridentity=false
+
+# Cache Properties
+cache.redis.hostName=redis
+cache.redis.port=6379
+
+org.quartz.threadPool.threadCount=10
+
+# Storage File Syatem
+# 1 Stores data in file system
+aggregator.h2.url=jdbc:h2:~/H2Data/cboard;AUTO_SERVER=TRUE;LOG=0;UNDO_LOG=0
+# 2 Stores data outside of the VM's heap - useful for large memory DBs without incurring GC costs.
+#aggregator.h2.url=jdbc:h2:nioMemFS:cboard;LOG=0;UNDO_LOG=0
+aggregator.h2.database.name=cboard
+aggregator.h2.cleanjob.quarz=0 1 0 * * ?
+
+log.negativeFilter=List\\.do
+log.positveFilter=
+</code></pre>
+
+<p>修改完成后,提交代码,修改cboard build配置文件 如下图,分支指向新的分支</p>
+
+<p><img src="cboard_build_git.png" alt="cboard_build_git.png" /></p>
+
+<p>然后手工触发重新build</p>
+
+<p><img src="cboard_rebuild.png" alt="cboard_rebuild.png" /></p>
+
+<ul>
+<li>重新部署完成后,再次进入容器,初始化数据库</li>
+</ul>
+
+<pre><code># 默认当前目录就是源码目录
+$ oc rsh cboard-3-7jhfn
+sh-4.2$ pwd
+/opt/app-root/src
+
+sh-4.2$ ls
+Dockerfile   README.md  flyway-5.0.7  migrate-database.sh  sql
+LICENSE.txt  changelog  lib           pom.xml              src
+
+sh-4.2$ sh migrate-database.sh
+Flyway Community Edition 5.0.7 by Boxfuse
+
+Database: jdbc:mysql://172.30.194.134:3306/sampledb (MySQL 10.1)
+Successfully validated 1 migration (execution time 00:00.024s)
+Creating Schema History table: `sampledb`.`flyway_schema_history`
+Current version of schema `sampledb`: &lt;&lt; Empty Schema &gt;&gt;
+Migrating schema `sampledb` to version 1 - init
+Successfully applied 1 migration to schema `sampledb` (execution time 00:08.660s)
+</code></pre>
+
+<p>然后重新部署cboard就可以链接数据库了</p>
+
+<ul>
+<li>为了能访问到web界面，需要建一个route暴露到集群外(默认route只能集群内部访问)</li>
+</ul>
+
+<p><img src="cboard_route.png" alt="cboard_route.png" /></p>
+
+<p><img src="cboard_route_show.png" alt="cboard_route_show.png" /></p>
+
+<p>通过浏览器访问  <a href="http://app.ops.ops(此域名指向route计算节点IP">http://app.ops.ops(此域名指向route计算节点IP</a>)  用户名/密码:  admin/root123</p>
+
+<h4 id="通过部署配置hook实现自动导入数据库-类似其他初始化工作也是可以的">通过部署配置HOOK实现自动导入数据库(类似其他初始化工作也是可以的)</h4>
+
+<p>上述工作中，我们还是手工进入容器,执行了数据库初始化脚本,我们需要用到一个机制,在部署时自动执行脚本</p>
+
+<p>在部署时自动执行脚本,需要设置 cboard DeploymentConfig 加入hook(钩子)</p>
+
+<p><img src="cboard_deploy_config.png" alt="cboard_deploy_config.png" /></p>
+
+<p><img src="cboard_deploy_config_pre.png" alt="cboard_deploy_config_pre.png" /></p>
+
+<p><img src="cboard_deploy_hook_pre.png" alt="cboard_deploy_hook_pre.png" /></p>
+
+<p><img src="cboard_deploy_hook_pre_retry.png" alt="cboard_deploy_hook_pre_retry.png" /></p>
+
+<p>上图操作后,保存配置,在部署cboard应用时会首先执行 <strong>migrate-database.sh</strong> 脚本命令,策略是retry 来达到自动导入数据任务</p>
+
+<p><strong>migrate-database.sh</strong> 这个脚本其实可以写的很高端,比如你可以根据环境变量来决定初始化那些数据,比如导入演示数据等,完全看想象力</p>
+
+<h2 id="总结">总结</h2>
+
+<p>通过本实例学习,了解了pod之间数据共享机制,对后续构建微服务,网格化服务等非常有帮</p>
+
+<p>下一篇文档,我们会将此套应用方案,做成模板,实现一键部署</p>
+
+<p>参考资料 <a href="https://docs.openshift.org/3.6/dev_guide/deployments/deployment_strategies.html#lifecycle-hooks">https://docs.openshift.org/3.6/dev_guide/deployments/deployment_strategies.html#lifecycle-hooks</a></p>
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+        
+            <a class="nav nav-prev" href="/openshift/application/s2i_custom/" title="S2I Build 镜像制作"> <i class="fa fa-chevron-left"></i></a>
+        
+        
+            <a class="nav nav-next" href="/openshift/application/create_template/" title="创建应用模板" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+        
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/openshift/js/clipboard.min.js?1542628006"></script>
+    <script src="/openshift/js/perfect-scrollbar.min.js?1542628006"></script>
+    <script src="/openshift/js/perfect-scrollbar.jquery.min.js?1542628006"></script>
+    <script src="/openshift/js/jquery.sticky.js?1542628006"></script>
+    <script src="/openshift/js/featherlight.min.js?1542628006"></script>
+    <script src="/openshift/js/html5shiv-printshiv.min.js?1542628006"></script>
+    <script src="/openshift/js/highlight.pack.js?1542628006"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/openshift/js/modernizr.custom.71422.js?1542628006"></script>
+    <script src="/openshift/js/learn.js?1542628006"></script>
+    <script src="/openshift/js/hugo-learn.js?1542628006"></script>
+
+    <link href="/openshift/mermaid/mermaid.css?1542628006" type="text/css" rel="stylesheet" />
+    <script src="/openshift/mermaid/mermaid.js?1542628006"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0b8fb0a47cefc8f0c9cc5ebfa8e9b54a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>

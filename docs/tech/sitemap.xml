@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/tech/opnsense/openvpn/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/devops/mysql/</loc>
+    <lastmod>2018-03-29T06:08:26-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/opnsense/scan/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/devops/python_tips/</loc>
+    <lastmod>2018-03-29T22:36:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/devops/shell/</loc>
+    <lastmod>2018-03-30T00:38:26-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/devops/git_useage_qa/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/opnsense/other/inotify/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/opnsense/other/iptable/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/devops/cdn/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/opnsense/other/tcp_wrapper/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/opnsense/other/openssl/</loc>
+    <lastmod>2018-03-30T01:46:28-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/devops/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/devops/perl/</loc>
+    <lastmod>2018-03-29T06:08:26-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/devops/tun_tap/</loc>
+    <lastmod>2018-03-29T06:08:26-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/opnsense/</loc>
+    <lastmod>2018-03-27T01:19:23-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/opnsense/other/</loc>
+    <lastmod>2016-04-09T16:50:16+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tech/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tech/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tech/</loc>
+    <lastmod>2018-03-29T06:08:26-04:00</lastmod>
+  </url>
+  
+</urlset>
